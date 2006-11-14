@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<meta name="generator" content=
+"HTML Tidy for Linux/x86 (vers 1 September 2005), see www.w3.org">
+<title>File_MARC package for PHP</title>
+</head>
+<body>
+<h1>File_MARC package for PHP</h1>
+<p>Hey, welcome to the File_MARC package for PHP. If you don't know
+what MARC is, then you probably don't need this package -- but you
+can find out more about MARC at <a href=
+"http://loc.gov/marc/">Library of Congress: MARC standards</a>.</p>
+<h2>Requirements</h2>
+<ul>
+<li>PHP 5: this package was primarily developed with PHP 5.1.4. I
+have successfully tested 5.2.0RC1 through RC4.</li>
+<li><a href="/link/">Structures_LinkedList</a> package, also under
+development</li>
+</ul>
+<h2><a name="download">Download</a></h2>
+<p>Current release: <a href="current.tgz">current.tgz</a>.</p>
+<p>See <a href="#previous">Previous releases</a> for older versions
+of this code.</p>
+<h2>Documentation</h2>
+<p>Read the <a href="docs/">File_MARC API documentation</a>.</p>
+<h3>Highlighted source files</h3>
+<ul>
+<li><a href="highlight_MARC.php">MARC.php (package
+source)</a></li>
+<li><a href="highlight_read.php">read.php
+(example)</a></li>
+<li><a href="highlight_subfields.php">subfields.php
+(example)</a></li>
+<li><a href="highlight_marc_yaz.php">marc_yaz.php
+(example)</a></li>
+</ul>
+<h2>Installation</h2>
+<ol>
+<li>Download the <a href=
+"#download">File_MARC</a> package.</li>
+<li>Install the Structures_LinkedList prerequisite package (currently in alpha)
+with the PEAR installer:
+<pre>
+# pear install Structures_LinkedList-alpha
+</pre>
+</li>
+<li>Forcefully install the File_MARC package with the PEAR installer:
+<pre>
+# pear install --force File_MARC-0.0.#.tgz
+</pre></li>
+</ol>
+<h2>Comments</h2>
+<p>Comments are welcome by email at <a href=
+"mailto:dan@coffeecode.net">dan@coffeecode.net</a>.</p>
+<h2>Future</h2>
+<p>More documentation, more MARC-oriented functionality.
+I plan to make MARC_Record-&gt;appendField() append the field to
+the end of the corresponding [0-9]xx range to keep records
+conformant with LOC guidelines. There's no way of sorting the MARC
+fields... that probably needs to happen. If I'm really aggressive,
+I might try adding levels of MARC standards compliance for error
+modes (e.g. only one 1XX field per bibliographic record). Or adding
+semantic shortcuts for a given record based on the fixed fields
+values (e.g. $record-&gt;getLanguage() or the like).</p>
+<h2><a name="previous">Previous releases</a></h2>
+<ul>
+<li><a href= "File_MARC-0.0.8.tar.gz">File_MARC-0.0.8.tar.gz</a></li>
+<li><a href= "File_MARC-0.0.7.tar.gz">File_MARC-0.0.7.tar.gz</a></li>
+<li><a href= "File_MARC-0.0.6.tar.gz">File_MARC-0.0.6.tar.gz</a></li>
+<li><a href= "File_MARC-0.0.5.tar.gz">File_MARC-0.0.5.tar.gz</a></li>
+<li><a href= "File_MARC-0.0.4.tar.gz">File_MARC-0.0.4.tar.gz</a></li>
+<li><a href=
+"File_MARC-0.0.3a.tar.gz">File_MARC-0.0.3a.tar.gz</a></li>
+<li><a href=
+"MARC-0.0.2-alpha.tar.gz">MARC-0.0.2-alpha.tar.gz</a></li>
+<li><a href=
+"MARC-0.0.1-alpha.tar.gz">MARC-0.0.1-alpha.tar.gz</a></li>
+</ul>
+</body>
+</html>
