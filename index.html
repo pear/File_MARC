@@ -12,16 +12,15 @@ what MARC is, then you probably don't need this package -- but you
 can find out more about MARC at <a href=
 "http://loc.gov/marc/">Library of Congress: MARC standards</a>.</p>
 <h2>Requirements</h2>
-<ul>
-<li>PHP 5: this package was primarily developed with PHP 5.1.4. I
-have successfully tested 5.2.0RC1 through RC4.</li>
-<li><a href="/link/">Structures_LinkedList</a> package, also under
-development</li>
-</ul>
-<h2><a name="download">Download</a></h2>
-<p>Current release: <a href="current.tgz">current.tgz</a>.</p>
-<p>See <a href="#previous">Previous releases</a> for older versions
-of this code.</p>
+<p>The basic requirement for File_MARC is PHP 5 with a working PEAR installer. The PEAR installer will install any dependencies for you.</p>
+</p>
+
+<h2>Installation</h2>
+<p>Install the File_MARC package using the PEAR installer. You have to append <tt>-alpha</tt> to the package name as I have not yet created a stable release.</p>
+<pre>
+# pear install File_MARC-alpha
+</pre>
+
 <h2>Documentation</h2>
 <p>Read the <a href="docs/">File_MARC API documentation</a>.</p>
 <h3>Highlighted source files</h3>
@@ -35,47 +34,38 @@ source)</a></li>
 <li><a href="highlight_marc_yaz.php">marc_yaz.php
 (example)</a></li>
 </ul>
-<h2>Installation</h2>
-<ol>
-<li>Download the <a href=
-"#download">File_MARC</a> package.</li>
-<li>Install the Structures_LinkedList prerequisite package (currently in alpha)
-with the PEAR installer:
-<pre>
-# pear install Structures_LinkedList-alpha
-</pre>
-</li>
-<li>Forcefully install the File_MARC package with the PEAR installer:
-<pre>
-# pear install --force File_MARC-0.0.#.tgz
-</pre></li>
-</ol>
+
+<h2><a name="download">Download</a></h2>
+<p>Current release: <a href="http://download.pear.php.net/package/File_MARC-0.1.0.tgz">0.1.0-alpha</a> is hosted at PEAR.</p>
+<p>For historical purposes, <a href="#previous">Previous releases</a> points to older versions of this code.</p>
+
 <h2>Comments</h2>
 <p>Comments are welcome by email at <a href=
 "mailto:dan@coffeecode.net">dan@coffeecode.net</a>.</p>
-<h2>Future</h2>
-<p>More documentation, more MARC-oriented functionality.
-I plan to make MARC_Record-&gt;appendField() append the field to
+
+<h2>Future directions</h2>
+<ul>
+<li>More user-oriented documentation</li>
+<li>Make MARC_Record-&gt;appendField() append the field to
 the end of the corresponding [0-9]xx range to keep records
-conformant with LOC guidelines. There's no way of sorting the MARC
-fields... that probably needs to happen. If I'm really aggressive,
-I might try adding levels of MARC standards compliance for error
-modes (e.g. only one 1XX field per bibliographic record). Or adding
-semantic shortcuts for a given record based on the fixed fields
-values (e.g. $record-&gt;getLanguage() or the like).</p>
+conformant with LOC guidelines</li>
+<li>Enable sorting the MARC fields</li>
+<li>Add levels of MARC standards compliance for error
+modes (e.g. only one 1XX field per bibliographic record)</li>
+<li>Add semantic shortcuts for a given record based on the fixed fields
+values (e.g. <tt>$record-&gt;getLanguage()</tt> or the like).</li>
+<li>Enable reading from and writing to MARCXML format.</li>
+</ul>
 <h2><a name="previous">Previous releases</a></h2>
 <ul>
-<li><a href= "File_MARC-0.0.8.tar.gz">File_MARC-0.0.8.tar.gz</a></li>
-<li><a href= "File_MARC-0.0.7.tar.gz">File_MARC-0.0.7.tar.gz</a></li>
-<li><a href= "File_MARC-0.0.6.tar.gz">File_MARC-0.0.6.tar.gz</a></li>
-<li><a href= "File_MARC-0.0.5.tar.gz">File_MARC-0.0.5.tar.gz</a></li>
-<li><a href= "File_MARC-0.0.4.tar.gz">File_MARC-0.0.4.tar.gz</a></li>
-<li><a href=
-"File_MARC-0.0.3a.tar.gz">File_MARC-0.0.3a.tar.gz</a></li>
-<li><a href=
-"MARC-0.0.2-alpha.tar.gz">MARC-0.0.2-alpha.tar.gz</a></li>
-<li><a href=
-"MARC-0.0.1-alpha.tar.gz">MARC-0.0.1-alpha.tar.gz</a></li>
+<li><a href= "File_MARC-0.0.8.tgz">File_MARC-0.0.8.tgz</a></li>
+<li><a href= "File_MARC-0.0.7.tgz">File_MARC-0.0.7.tgz</a></li>
+<li><a href= "File_MARC-0.0.6.tgz">File_MARC-0.0.6.tgz</a></li>
+<li><a href= "File_MARC-0.0.5.tgz">File_MARC-0.0.5.tgz</a></li>
+<li><a href= "File_MARC-0.0.4.tgz">File_MARC-0.0.4.tgz</a></li>
+<li><a href= "File_MARC-0.0.3a.tgz">File_MARC-0.0.3a.tgz</a></li>
+<li><a href= "MARC-0.0.2-alpha.tar.gz">MARC-0.0.2-alpha.tar.gz</a></li>
+<li><a href= "MARC-0.0.1-alpha.tar.gz">MARC-0.0.1-alpha.tar.gz</a></li>
 </ul>
 </body>
 </html>
