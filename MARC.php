@@ -148,12 +148,12 @@ class File_MARC {
         switch ($type) {
 
         case self::SOURCE_FILE:
-            if (!file_exists($source)) {
+            $this->type = self::SOURCE_FILE;
+            $this->source = fopen($source, 'rb');
+            if (!$this->source) {
                  $errorMessage = File_MARC_Exception::formatError(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_INVALID_FILE], array('filename' => $source));
                  throw new File_MARC_Exception($errorMessage, File_MARC_Exception::ERROR_INVALID_FILE);
             }
-            $this->type = self::SOURCE_FILE;
-            $this->source = fopen($source, 'rb');
             break;
 
         case self::SOURCE_STRING:
