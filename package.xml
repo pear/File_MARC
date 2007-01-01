@@ -25,9 +25,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>dbs@php.net</email>
   <active>yes</active>
  </lead>
- <date>2006-11-03</date>
+ <date>2007-01-01</date>
  <version>
-  <release>0.1.0</release>
+  <release>0.1.1</release>
   <api>0.1.0</api>
  </version>
  <stability>
@@ -36,9 +36,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">GNU Lesser General Public License</license>
  <notes>
-0.1.0-alpha
-* Split each class out into its own file
-* Do not return anything from constructors
+0.1.1-alpha
+* Add rudimentary toXML() method for records
  </notes>
  <contents>
   <dir name="/" baseinstalldir="File">

@@ -469,6 +469,65 @@ class File_MARC_Record {
     }
     // }}}
 
+    // {{{ toXML()
+    /**
+     * Return the MARC record in MARCXML format
+     *
+     * This method produces an XML representation of a MARC record that
+     * attempts to adhere to the MARCXML standard documented at
+     * http://www.loc.gov/standards/marcxml/
+     *
+     * @todo Fix encoding input / output issues (PHP 6.0 required?)
+     *
+     * @param string $encoding output encoding for the MARCXML record
+     * @param bool $indent pretty-print the MARCXML record
+     * @return string representation of MARC record in MARCXML format
+     */
+    function toXML($encoding = "UTF-8", $indent = TRUE)
+    {
+        $marcxml = xmlwriter_open_memory();
+        xmlwriter_set_indent($marcxml, $indent);
+        xmlwriter_start_document($marcxml, "1.0", $encoding);
+        xmlwriter_start_element($marcxml, "collection");
+        xmlwriter_write_attribute($marcxml, "xmlns", "http://www.loc.gov/MARC21/slim");
+        xmlwriter_start_element($marcxml, "record");
+        xmlwriter_write_element($marcxml, "leader", $this->getLeader());
+
+        foreach ($this->fields as $field) {
+            if (!$field->isEmpty()) {
+                switch(get_class($field)) {
+                    case "File_MARC_Control_Field":
+                        xmlwriter_start_element($marcxml, "controlfield");
+                        xmlwriter_write_attribute($marcxml, "tag", $field->getTag());
+                        xmlwriter_text($marcxml, $field->getData());
+                        xmlwriter_end_element($marcxml); // end control field
+                    break;
+
+                    case "File_MARC_Data_Field":
+                        xmlwriter_start_element($marcxml, "datafield");
+                        xmlwriter_write_attribute($marcxml, "tag", $field->getTag());
+                        xmlwriter_write_attribute($marcxml, "ind1", $field->getIndicator(1));
+                        xmlwriter_write_attribute($marcxml, "ind2", $field->getIndicator(2));
+                        foreach ($field->getSubfields() as $subfield) {
+                            xmlwriter_start_element($marcxml, "subfield");
+                            xmlwriter_write_attribute($marcxml, "code", $subfield->getCode());
+                            xmlwriter_text($marcxml, $subfield->getData());
+                            xmlwriter_end_element($marcxml); // end subfield
+                        }
+                        xmlwriter_end_element($marcxml); // end data field
+                    break;
+                }
+            }
+        }
+
+
+        xmlwriter_end_element($marcxml); // end record
+        xmlwriter_end_element($marcxml); // end collection
+
+        return xmlwriter_output_memory($marcxml);
+
+    }
+
     // }}}
 
 }
