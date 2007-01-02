@@ -483,7 +483,7 @@ class File_MARC_Record {
      * @param bool $indent pretty-print the MARCXML record
      * @return string representation of MARC record in MARCXML format
      */
-    function toXML($encoding = "UTF-8", $indent = TRUE)
+    function toXML($encoding = "UTF-8", $indent = true)
     {
         $marcxml = new XMLWriter();
         $marcxml->openMemory();
@@ -514,30 +514,29 @@ class File_MARC_Record {
         foreach ($this->fields as $field) {
             if (!$field->isEmpty()) {
                 switch(get_class($field)) {
-                    case "File_MARC_Control_Field":
-                        $marcxml->startElement("controlfield");
-                        $marcxml->writeAttribute("tag", $field->getTag());
-                        $marcxml->text($field->getData());
-                        $marcxml->endElement(); // end control field
+                case "File_MARC_Control_Field":
+                    $marcxml->startElement("controlfield");
+                    $marcxml->writeAttribute("tag", $field->getTag());
+                    $marcxml->text($field->getData());
+                    $marcxml->endElement(); // end control field
                     break;
 
-                    case "File_MARC_Data_Field":
-                        $marcxml->startElement("datafield");
-                        $marcxml->writeAttribute("tag", $field->getTag());
-                        $marcxml->writeAttribute("ind1", $field->getIndicator(1));
-                        $marcxml->writeAttribute("ind2", $field->getIndicator(2));
-                        foreach ($field->getSubfields() as $subfield) {
-                            $marcxml->startElement("subfield");
-                            $marcxml->writeAttribute("code", $subfield->getCode());
-                            $marcxml->text($subfield->getData());
-                            $marcxml->endElement(); // end subfield
-                        }
-                        $marcxml->endElement(); // end data field
+                case "File_MARC_Data_Field":
+                    $marcxml->startElement("datafield");
+                    $marcxml->writeAttribute("tag", $field->getTag());
+                    $marcxml->writeAttribute("ind1", $field->getIndicator(1));
+                    $marcxml->writeAttribute("ind2", $field->getIndicator(2));
+                    foreach ($field->getSubfields() as $subfield) {
+                        $marcxml->startElement("subfield");
+                        $marcxml->writeAttribute("code", $subfield->getCode());
+                        $marcxml->text($subfield->getData());
+                        $marcxml->endElement(); // end subfield
+                    }
+                    $marcxml->endElement(); // end data field
                     break;
                 }
             }
         }
-
 
         $marcxml->endElement(); // end record
         $marcxml->endElement(); // end collection
