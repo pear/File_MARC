@@ -1,3 +1,12 @@
+0.1.1-alpha
+* Add File_MARC_Record::toXML() method for generating MARCXML output
+* Add File_MARCXML class for reading MARCXML source
+* Add tests for MARCXML methods
+
+0.1.0-alpha
+* Split each class out into its own file
+* Do not return anything from constructors
+
 0.0.9-alpha
 * Separate getFields() from getField(), getSubfields() from getSubfield()
   to avoid forcing users to test is_array() after every call

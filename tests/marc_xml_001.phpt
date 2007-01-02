@@ -1,5 +1,5 @@
 --TEST--
-marc_001: iterate and pretty print a MARC record
+marc_xml_001: iterate and pretty print a MARC record
 --FILE--
 <?php
 $dir = dirname(__FILE__);

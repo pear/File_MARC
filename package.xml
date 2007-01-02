@@ -37,12 +37,15 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <license uri="http://www.gnu.org/copyleft/lesser.html">GNU Lesser General Public License</license>
  <notes>
 0.1.1-alpha
-* Add rudimentary toXML() method for records
+* Add rudimentary File_MARC_Record->toXML() method for converting MARC21
+  records to MARCXML format
+* Add File_MARCXML class for reading MARCXML records
  </notes>
  <contents>
   <dir name="/" baseinstalldir="File">
    <file name="CHANGELOG" role="doc" />
    <file name="MARC.php" role="php" />
+   <file name="MARCXML.php" role="php" />
    <file name="LICENSE" role="doc" />
    <dir name="MARC">
     <file name="Control_Field.php" role="php" />
@@ -68,13 +71,20 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <file name="marc_005.phpt" role="test" />
     <file name="marc_006.phpt" role="test" />
     <file name="marc_007.phpt" role="test" />
+    <file name="marc_008.phpt" role="test" />
+    <file name="marc_010.phpt" role="test" />
     <file name="marc_field_001.phpt" role="test" />
     <file name="marc_field_002.phpt" role="test" />
     <file name="marc_field_003.phpt" role="test" />
     <file name="marc_field_004.phpt" role="test" />
     <file name="marc_subfield_001.phpt" role="test" />
     <file name="marc_subfield_002.phpt" role="test" />
+    <file name="marc_xml_001.phpt" role="test" />
+    <file name="marc_xml_002.phpt" role="test" />
+    <file name="marc_xml_003.phpt" role="test" />
     <file name="music.mrc" role="test" />
+    <file name="sandburg.mrc" role="test" />
+    <file name="sandburg.xml" role="test" />
    </dir>
   </dir>
  </contents>
