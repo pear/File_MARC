@@ -485,46 +485,65 @@ class File_MARC_Record {
      */
     function toXML($encoding = "UTF-8", $indent = TRUE)
     {
-        $marcxml = xmlwriter_open_memory();
-        xmlwriter_set_indent($marcxml, $indent);
-        xmlwriter_start_document($marcxml, "1.0", $encoding);
-        xmlwriter_start_element($marcxml, "collection");
-        xmlwriter_write_attribute($marcxml, "xmlns", "http://www.loc.gov/MARC21/slim");
-        xmlwriter_start_element($marcxml, "record");
-        xmlwriter_write_element($marcxml, "leader", $this->getLeader());
+        $marcxml = new XMLWriter();
+        $marcxml->openMemory();
+        $marcxml->setIndent($indent);
+        $marcxml->startDocument("1.0", $encoding);
+        $marcxml->startElement("collection");
+        $marcxml->writeAttribute("xmlns", "http://www.loc.gov/MARC21/slim");
+        $marcxml->startElement("record");
+
+        // MARCXML schema has some strict requirements
+        // We'll set reasonable defaults to avoid invalid MARCXML
+        $xmlLeader = $this->getLeader();
+
+        // Record status
+        if ($xmlLeader[5] == " ") {
+            // Default to "n" (new record)
+            $xmlLeader[5] = "n";
+        }
+
+        // Type of record
+        if ($xmlLeader[6] == " ") {
+            // Default to "a" (language material)
+            $xmlLeader[6] = "a";
+        }
+
+        $marcxml->writeElement("leader", $xmlLeader);
 
         foreach ($this->fields as $field) {
             if (!$field->isEmpty()) {
                 switch(get_class($field)) {
                     case "File_MARC_Control_Field":
-                        xmlwriter_start_element($marcxml, "controlfield");
-                        xmlwriter_write_attribute($marcxml, "tag", $field->getTag());
-                        xmlwriter_text($marcxml, $field->getData());
-                        xmlwriter_end_element($marcxml); // end control field
+                        $marcxml->startElement("controlfield");
+                        $marcxml->writeAttribute("tag", $field->getTag());
+                        $marcxml->text($field->getData());
+                        $marcxml->endElement(); // end control field
                     break;
 
                     case "File_MARC_Data_Field":
-                        xmlwriter_start_element($marcxml, "datafield");
-                        xmlwriter_write_attribute($marcxml, "tag", $field->getTag());
-                        xmlwriter_write_attribute($marcxml, "ind1", $field->getIndicator(1));
-                        xmlwriter_write_attribute($marcxml, "ind2", $field->getIndicator(2));
+                        $marcxml->startElement("datafield");
+                        $marcxml->writeAttribute("tag", $field->getTag());
+                        $marcxml->writeAttribute("ind1", $field->getIndicator(1));
+                        $marcxml->writeAttribute("ind2", $field->getIndicator(2));
                         foreach ($field->getSubfields() as $subfield) {
-                            xmlwriter_start_element($marcxml, "subfield");
-                            xmlwriter_write_attribute($marcxml, "code", $subfield->getCode());
-                            xmlwriter_text($marcxml, $subfield->getData());
-                            xmlwriter_end_element($marcxml); // end subfield
+                            $marcxml->startElement("subfield");
+                            $marcxml->writeAttribute("code", $subfield->getCode());
+                            $marcxml->text($subfield->getData());
+                            $marcxml->endElement(); // end subfield
                         }
-                        xmlwriter_end_element($marcxml); // end data field
+                        $marcxml->endElement(); // end data field
                     break;
                 }
             }
         }
 
 
-        xmlwriter_end_element($marcxml); // end record
-        xmlwriter_end_element($marcxml); // end collection
+        $marcxml->endElement(); // end record
+        $marcxml->endElement(); // end collection
+        $marcxml->endDocument();
 
-        return xmlwriter_output_memory($marcxml);
+        return $marcxml->outputMemory();
 
     }
 
