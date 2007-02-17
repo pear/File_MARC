@@ -3,7 +3,7 @@ marc_007: Use key=>value iteration for tags and codes
 --FILE--
 <?php
 $dir = dirname(__FILE__);
-require $dir . '/../' . 'MARC.php';
+require 'File/MARC.php';
 $marc_file = new File_MARC($dir . '/' . 'example.mrc');
 
 if ($marc_record = $marc_file->next()) {

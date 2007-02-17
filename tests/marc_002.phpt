@@ -3,7 +3,7 @@ marc_002: iterate and pretty print MARC records from a file with multiple record
 --FILE--
 <?php
 $dir = dirname(__FILE__);
-require $dir . '/../' . 'MARC.php';
+require 'File/MARC.php';
 $marc_file = new File_MARC($dir . '/' . 'music.mrc');
 
 while ($marc_record = $marc_file->next()) {

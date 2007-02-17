@@ -3,7 +3,7 @@ marc_subfield_002: Exercise setter and isEmpty() methods for File_MARC_Subfield 
 --FILE--
 <?php
 $dir = dirname(__FILE__);
-require $dir . '/../' . 'MARC.php';
+require 'File/MARC.php';
 
 function testEmpty($testSubfield) {
   print "Subfield is ";

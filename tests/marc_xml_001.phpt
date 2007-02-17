@@ -3,7 +3,7 @@ marc_xml_001: iterate and pretty print a MARC record
 --FILE--
 <?php
 $dir = dirname(__FILE__);
-require $dir . '/../' . 'MARC.php';
+require 'File/MARC.php';
 $marc_file = new File_MARC($dir . '/' . 'example.mrc');
 
 while ($marc_record = $marc_file->next()) {
@@ -19,6 +19,7 @@ while ($marc_record = $marc_file->next()) {
   <controlfield tag="001">0000000044</controlfield>
   <controlfield tag="003">EMILDA</controlfield>
   <controlfield tag="008">980120s1998    fi     j      000 0 swe</controlfield>
+  <controlfield tag="005">20050204111518.0</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
    <subfield code="a">9515008808</subfield>
    <subfield code="c">FIM 72:00</subfield>
@@ -204,6 +205,5 @@ while ($marc_record = $marc_file->next()) {
    <subfield code="a">Hcd,u</subfield>
    <subfield code="b">Skönlitteratur</subfield>
   </datafield>
-  <controlfield tag="005">20050204111518.0</controlfield>
  </record>
 </collection>

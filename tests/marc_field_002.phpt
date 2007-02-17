@@ -3,7 +3,7 @@ marc_field_002: Create fields with invalid indicators
 --FILE--
 <?php
 $dir = dirname(__FILE__);
-require $dir . '/../' . 'MARC.php';
+require 'File/MARC.php';
 
 // create some subfields
 $subfields[] = new File_MARC_Subfield('a', 'nothing');

@@ -3,7 +3,7 @@ marc_004: Delete fields and subfields
 --FILE--
 <?php
 $dir = dirname(__FILE__);
-require $dir . '/../' . 'MARC.php';
+require 'File/MARC.php';
 $marc_file = new File_MARC($dir . '/' . 'music.mrc');
 
 print "\nDelete all fields with tag 650\n";

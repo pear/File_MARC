@@ -3,7 +3,7 @@ marc_field_003: Add subfields to an existing field
 --FILE--
 <?php
 $dir = dirname(__FILE__);
-require $dir . '/../' . 'MARC.php';
+require 'File/MARC.php';
 
 // create some subfields
 $subfields[] = new File_MARC_Subfield('a', 'nothing');

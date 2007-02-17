@@ -3,7 +3,7 @@ marc_field_001: Exercise basic methods for File_MARC_Field class
 --FILE--
 <?php
 $dir = dirname(__FILE__);
-require $dir . '/../' . 'MARC.php';
+require 'File/MARC.php';
 
 // create some subfields
 $subfields[] = new File_MARC_Subfield('a', 'nothing');

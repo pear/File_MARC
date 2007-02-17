@@ -3,7 +3,7 @@ marc_003: getFields() with various regular expressions
 --FILE--
 <?php
 $dir = dirname(__FILE__);
-require $dir . '/../' . 'MARC.php';
+require 'File/MARC.php';
 $marc_file = new File_MARC($dir . '/' . 'music.mrc');
 
 print "Test with a simple string\n";

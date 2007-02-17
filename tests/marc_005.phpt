@@ -3,7 +3,7 @@ marc_005: Ensure a duplicated record is a deep copy; test deleteFields()
 --FILE--
 <?php
 $dir = dirname(__FILE__);
-require $dir . '/../' . 'MARC.php';
+require 'File/MARC.php';
 $marc_file = new File_MARC($dir . '/' . 'example.mrc');
 
 $marc_record = $marc_file->next();

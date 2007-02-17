@@ -3,7 +3,7 @@ marc_008: Attempt to open a file that does not exist
 --FILE--
 <?php
 $dir = dirname(__FILE__);
-require $dir . '/../' . 'MARC.php';
+require 'File/MARC.php';
 
 try {
     $marc_file = new File_MARC('super_bogus_file');

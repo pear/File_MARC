@@ -4,7 +4,7 @@ marc_006: test read.php
 <?php
 
 $dir = dirname(__FILE__);
-require $dir . '/../' . 'MARC.php';
+require 'File/MARC.php';
 
 // Read MARC records from a stream (a file, in this case)
 $marc_source = new File_MARC($dir . '/' . 'example.mrc');
