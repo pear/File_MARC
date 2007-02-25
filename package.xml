@@ -25,9 +25,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>dbs@php.net</email>
   <active>yes</active>
  </lead>
- <date>2007-01-01</date>
+ <date>2007-02-24</date>
  <version>
-  <release>0.1.1</release>
+  <release>0.1.2</release>
   <api>0.1.0</api>
  </version>
  <stability>
@@ -36,10 +36,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">GNU Lesser General Public License</license>
  <notes>
-0.1.1-alpha
-* Add rudimentary File_MARC_Record->toXML() method for converting MARC21
-  records to MARCXML format
-* Add File_MARCXML class for reading MARCXML records
+0.1.2-alpha
+* Correct warnings raised by Zend Code Analyzer (thanks to Christophe Gesche's codecheck script)
  </notes>
  <contents>
   <dir name="/" baseinstalldir="File">

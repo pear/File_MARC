@@ -239,7 +239,8 @@ class File_MARC {
      */
     function next()
     {
-        if ($raw = $this->nextRaw()) {
+        $raw = $this->nextRaw();
+        if ($raw) {
             return $this->_decode($raw);
         } else {
             return false;
@@ -258,6 +259,7 @@ class File_MARC {
      */
     private function _decode($text)
     {
+        $matches = array();
         if (!preg_match("/^(\d{5})/", $text, $matches)) {
              $errorMessage = File_MARC_Exception::formatError(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_NONNUMERIC_LENGTH], array("record_length" => substr($text, 0, 5)));
              throw new File_MARC_Exception($errorMessage, File_MARC_Exception::ERROR_NONNUMERIC_LENGTH);
