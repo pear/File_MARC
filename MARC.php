@@ -356,7 +356,7 @@ class File_MARC {
                         $subfield_data[] = new File_MARC_Subfield(substr($subfield, 0, 1), substr($subfield, 1));
                     } else {
                          $errorMessage = File_MARC_Exception::formatError(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_EMPTY_SUBFIELD], array("tag" => $tag));
-                         throw new File_MARC_Exception($errorMessage, File_MARC_Exception::ERROR_EMPTY_SUBFIELD);
+                         $marc->addWarning($errorMessage);
                     }
                 }
 

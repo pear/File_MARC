@@ -380,14 +380,14 @@ class File_MARC_Record {
     }
     // }}}
 
-    // {{{ addWarnings()
+    // {{{ addWarning()
     /**
      * Add a warning to the MARC record that something non-fatal occurred during
      * parsing.
      *
      * @param string $warning warning message
      */
-    public function addWarnings($warning)
+    public function addWarning($warning)
     {
         $this->warnings[] = $warning;
     }
