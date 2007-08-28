@@ -327,7 +327,7 @@ class File_MARC_Data_Field extends File_MARC_Field {
             return false;
         }
 
-        return getIndicator($ind);
+        return $this->getIndicator($ind);
     }
     // }}}
 
