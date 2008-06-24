@@ -161,8 +161,8 @@ class File_MARCFlat {
                                       File_MARC::MAX_RECORD_LENGTH,
                                       File_MARC::END_OF_RECORD);
 
-            // Remove illegal stuff that sometimes occurs between records
-            $record = preg_replace('/^[\\x0a\\x0d\\x00]+/', "", $record);
+            // Removes new line, carriage return, null from records
+            $record = preg_replace('/^[\\x0a\\x0d\\x00]+/', '', $record);
         } elseif ($this->type == self::SOURCE_STRING) {
             $record = array_shift($this->source);
         }
@@ -171,9 +171,6 @@ class File_MARCFlat {
         if (!$record) {
             return false;
         }
-
-        // Append the end of record we lost during stream_get_line() or explode()
-        $record .= File_MARC::END_OF_RECORD;
 
         return $record;
     }
@@ -222,9 +219,6 @@ class File_MARCFlat {
      */
     private function _decode($text)
     {
-        if (substr($text, -1, 1) != File_MARC::END_OF_RECORD)
-             throw new File_MARC_Exception(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_INVALID_TERMINATOR], File_MARC_Exception::ERROR_INVALID_TERMINATOR);
-
         $marc = new File_MARC_Record();
 
         // Store leader
