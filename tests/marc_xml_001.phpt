@@ -7,6 +7,7 @@ require 'File/MARC.php';
 $marc_file = new File_MARC($dir . '/' . 'example.mrc');
 
 while ($marc_record = $marc_file->next()) {
+  /* Note that this adds characters to the leader to satisfy MARCXML schema */
   print $marc_record->toXML();
   print "\n";
 }
@@ -15,11 +16,10 @@ while ($marc_record = $marc_file->next()) {
 <?xml version="1.0" encoding="UTF-8"?>
 <collection xmlns="http://www.loc.gov/MARC21/slim">
  <record>
-  <leader>01850     2200517   4500</leader>
+  <leader>01850na   2200517   4500</leader>
   <controlfield tag="001">0000000044</controlfield>
   <controlfield tag="003">EMILDA</controlfield>
   <controlfield tag="008">980120s1998    fi     j      000 0 swe</controlfield>
-  <controlfield tag="005">20050204111518.0</controlfield>
   <datafield tag="020" ind1=" " ind2=" ">
    <subfield code="a">9515008808</subfield>
    <subfield code="c">FIM 72:00</subfield>
@@ -58,7 +58,7 @@ while ($marc_record = $marc_file->next()) {
    <subfield code="d">1914-2001</subfield>
   </datafield>
   <datafield tag="245" ind1="0" ind2="4">
-   <subfield code="a">Det osynliga barnet och andra ber√§ttelser /</subfield>
+   <subfield code="a">Det osynliga barnet och andra ber‰ttelser /</subfield>
    <subfield code="c">Tove Jansson</subfield>
   </datafield>
   <datafield tag="250" ind1=" " ind2=" ">
@@ -172,7 +172,7 @@ while ($marc_record = $marc_file->next()) {
    <subfield code="d">1914-2001</subfield>
   </datafield>
   <datafield tag="900" ind1="1" ind2="s">
-   <subfield code="a">Janssonov√°, Tove,</subfield>
+   <subfield code="a">Janssonov·, Tove,</subfield>
    <subfield code="d">1914-2001</subfield>
    <subfield code="u">Jansson, Tove,</subfield>
    <subfield code="d">1914-2001</subfield>
@@ -203,7 +203,8 @@ while ($marc_record = $marc_file->next()) {
   </datafield>
   <datafield tag="976" ind1=" " ind2="2">
    <subfield code="a">Hcd,u</subfield>
-   <subfield code="b">Sk√∂nlitteratur</subfield>
+   <subfield code="b">Skˆnlitteratur</subfield>
   </datafield>
+  <controlfield tag="005">20050204111518.0</controlfield>
  </record>
 </collection>
