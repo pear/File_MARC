@@ -14,8 +14,11 @@ $field = new File_MARC_Data_Field('100', $subfields, '0');
 
 // test basic getter methods
 print "Tag: " . $field->getTag() . "\n";
-print "Ind1: " . $field->getIndicator(1) . "\n";
-print "Ind2: " . $field->getIndicator(2) . "\n";
+print "Get Ind1: " . $field->getIndicator(1) . "\n";
+print "Get Ind2: " . $field->getIndicator(2) . "\n";
+
+// test basic setter methods
+print "Set Ind1: " . $field->setIndicator(1, '3') . "\n";
 
 // test pretty print
 print $field;
@@ -26,8 +29,9 @@ print $field->toRaw();
 ?>
 --EXPECT--
 Tag: 100
-Ind1: 0
-Ind2:  
-100 0  _anothing
+Get Ind1: 0
+Get Ind2:  
+Set Ind1: 3
+100 3  _anothing
        _zeverything
-0 anothingzeverything
+3 anothingzeverything
