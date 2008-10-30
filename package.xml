@@ -38,6 +38,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <notes>
 0.2.0-beta
 * Don't throw exceptions while parsing MARC data, because MARC data quality is uniformly bad; just add parsing errors to a warnings array on the MARC record
+* Fix some documentation errors (thanks to Mark Jordan @ SFU for pointing these out)
+* Add a test for setIndicator() and for escaping data in toXML()
  </notes>
  <contents>
   <dir name="/" baseinstalldir="File">
