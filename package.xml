@@ -80,9 +80,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <file name="marc_xml_001.phpt" role="test" />
     <file name="marc_xml_002.phpt" role="test" />
     <file name="marc_xml_003.phpt" role="test" />
+    <file name="marc_xml_004.phpt" role="test" />
     <file name="music.mrc" role="test" />
     <file name="sandburg.mrc" role="test" />
     <file name="sandburg.xml" role="test" />
+    <file name="xmlescape.mrc" role="test" />
    </dir>
   </dir>
  </contents>
