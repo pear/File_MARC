@@ -26,13 +26,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   File Formats
- * @package    File_MARC
- * @author     Christoffer Landtman <landtman@realnode.com>
- * @author     Dan Scott <dscott@laurentian.ca>
- * @copyright  2003-2006 Oy Realnode Ab, Dan Scott
- * @license    http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
- * @version    CVS: $Id$
+ * @category  File_Formats
+ * @package   File_MARC
+ * @author    Christoffer Landtman <landtman@realnode.com>
+ * @author    Dan Scott <dscott@laurentian.ca>
+ * @copyright 2003-2008 Oy Realnode Ab, Dan Scott
+ * @license   http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/File_MARC
  */
 
 // {{{ class File_MARC_Subfield extends Structures_LinkedList_DoubleNode
@@ -45,14 +46,15 @@
  * the possibility of duplicate subfields within a single field, for example
  * 650 _z Test1 _z Test2.
  *
- * @category   File Formats
- * @package    File_MARC
- * @author     Christoffer Landtman <landtman@realnode.com>
- * @author     Dan Scott <dscott@laurentian.ca>
- * @license    http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
- * @link       http://pear.php.net/package/File_MARC
+ * @category File_Formats
+ * @package  File_MARC
+ * @author   Christoffer Landtman <landtman@realnode.com>
+ * @author   Dan Scott <dscott@laurentian.ca>
+ * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
+ * @link     http://pear.php.net/package/File_MARC
  */
-class File_MARC_Subfield extends Structures_LinkedList_DoubleNode {
+class File_MARC_Subfield extends Structures_LinkedList_DoubleNode
+{
     // {{{ properties
     /**
      * Subfield code, e.g. _a, _b
@@ -98,6 +100,8 @@ class File_MARC_Subfield extends Structures_LinkedList_DoubleNode {
     // {{{ Explicit destructor: function delete()
     /**
      * Destroys the subfield
+     *
+     * @return true
      */
     function delete()
     {
@@ -160,6 +164,7 @@ class File_MARC_Subfield extends Structures_LinkedList_DoubleNode {
      * Sets code of the subfield
      *
      * @param string $code new code for the subfield
+     *
      * @return string code 
      */
     function setCode($code)
@@ -180,6 +185,7 @@ class File_MARC_Subfield extends Structures_LinkedList_DoubleNode {
      * Sets data of the subfield
      *
      * @param string $data new data for the subfield
+     *
      * @return string data
      */
     function setData($data)

@@ -26,14 +26,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   File Formats
- * @package    File_MARC
- * @author     Christoffer Landtman <landtman@realnode.com>
- * @author     Andrew Nagy <andrew.nagy@villanova.edu>
- * @copyright  2003-2006 Oy Realnode Ab, Andrew Nagy
- * @license    http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/File_MARC
+ * @category  File_Formats
+ * @package   File_MARC
+ * @author    Christoffer Landtman <landtman@realnode.com>
+ * @author    Andrew Nagy <andrew.nagy@villanova.edu>
+ * @copyright 2007-2008 Oy Realnode Ab, Andrew Nagy
+ * @license   http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/File_MARC
  */
 
 require_once 'PEAR/Exception.php';
@@ -51,13 +51,14 @@ require_once 'File/MARC/List.php';
  * The main File_MARCFlat class enables you to return File_MARC_Record
  * objects from a stream or string of flat text MARC data.
  *
- * @category   File Formats
- * @package    File_MARC
- * @author     Andrew Nagy <andrew.nagy@villanova.edu>
- * @license    http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
- * @link       http://pear.php.net/package/File_MARC
+ * @category File_Formats
+ * @package  File_MARC
+ * @author   Andrew Nagy <andrew.nagy@villanova.edu>
+ * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
+ * @link     http://pear.php.net/package/File_MARC
  */
-class File_MARCFlat {
+class File_MARCFlat
+{
 
     // {{{ constants
 
@@ -110,32 +111,31 @@ class File_MARCFlat {
      * $monographs = new File_MARCFLAT($raw_marc, SOURCE_STRING);
      * </code>
      *
-     * @param   string $source  Name of the file, or a MARC string
-     * @param   int $type       Source of the input, either SOURCE_FILE
-     *                           or SOURCE_STRING
+     * @param string $source Name of the file, or a MARC string
+     * @param int    $type   Source of the input, either SOURCE_FILE or SOURCE_STRING
      */
     function __construct($source, $type = self::SOURCE_FILE)
     {
         $this->counter = 0;
 
         switch ($type) {
-            case self::SOURCE_FILE:
-                $this->type = self::SOURCE_FILE;
-                if (is_readable($source)) {
-                    $this->source = fopen($source, 'rb');
-                } else {
-                     $errorMessage = File_MARC_Exception::formatError(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_INVALID_FILE], array('filename' => $source));
-                     throw new File_MARC_Exception($errorMessage, File_MARC_Exception::ERROR_INVALID_FILE);
-                }
-                break;
+        case self::SOURCE_FILE:
+            $this->type = self::SOURCE_FILE;
+            if (is_readable($source)) {
+                $this->source = fopen($source, 'rb');
+            } else {
+                 $errorMessage = File_MARC_Exception::formatError(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_INVALID_FILE], array('filename' => $source));
+                 throw new File_MARC_Exception($errorMessage, File_MARC_Exception::ERROR_INVALID_FILE);
+            }
+            break;
 
-            case self::SOURCE_STRING:
-                $this->type = self::SOURCE_STRING;
-                $this->source = explode(File_MARC::END_OF_RECORD, $source);
-                break;
+        case self::SOURCE_STRING:
+            $this->type = self::SOURCE_STRING;
+            $this->source = explode(File_MARC::END_OF_RECORD, $source);
+            break;
 
-            default:
-                 throw new File_MARC_Exception(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_INVALID_SOURCE], File_MARC_Exception::ERROR_INVALID_SOURCE);
+        default:
+             throw new File_MARC_Exception(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_INVALID_SOURCE], File_MARC_Exception::ERROR_INVALID_SOURCE);
         }
 
         if (!$this->source) {
@@ -215,6 +215,7 @@ class File_MARCFlat {
      * Decode a given raw MARC record
      *
      * @param string $text Raw MARC record
+     *
      * @return File_MARC_Record Decoded File_MARC_Record object
      */
     private function _decode($text)

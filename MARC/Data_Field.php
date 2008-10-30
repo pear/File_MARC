@@ -26,13 +26,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   File Formats
- * @package    File_MARC
- * @author     Christoffer Landtman <landtman@realnode.com>
- * @author     Dan Scott <dscott@laurentian.ca>
- * @copyright  2003-2006 Oy Realnode Ab, Dan Scott
- * @license    http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
- * @version    CVS: $Id$
+ * @category  File_Formats
+ * @package   File_MARC
+ * @author    Christoffer Landtman <landtman@realnode.com>
+ * @author    Dan Scott <dscott@laurentian.ca>
+ * @copyright 2003-2008 Oy Realnode Ab, Dan Scott
+ * @license   http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/File_MARC
  */
 
 // {{{ class File_MARC_Data_Field extends File_MARC_Field
@@ -43,14 +44,15 @@
  * and zero or more subfields represented by {@link File_MARC_Subfield} objects.
  * Subfields are held within a linked list structure.
  *
- * @category   File Formats
- * @package    File_MARC
- * @author     Christoffer Landtman <landtman@realnode.com>
- * @author     Dan Scott <dscott@laurentian.ca>
- * @license    http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
- * @link       http://pear.php.net/package/File_MARC
+ * @category File_Formats
+ * @package  File_MARC
+ * @author   Christoffer Landtman <landtman@realnode.com>
+ * @author   Dan Scott <dscott@laurentian.ca>
+ * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
+ * @link     http://pear.php.net/package/File_MARC
  */
-class File_MARC_Data_Field extends File_MARC_Field {
+class File_MARC_Data_Field extends File_MARC_Field
+{
 
     // {{{ properties
     /**
@@ -90,11 +92,11 @@ class File_MARC_Data_Field extends File_MARC_Field {
      * // Create the new 100 field complete with a _a subfield and an indicator
      * $new_field = new File_MARC_Data_Field('100', $subfields, 0, null);
      * </code>
-
-     * @param string $tag tag
-     * @param array $subfields array of {@link File_MARC_Subfield} objects
-     * @param string $ind1 first indicator
-     * @param string $ind2 second indicator
+     *
+     * @param string $tag       tag
+     * @param array  $subfields array of {@link File_MARC_Subfield} objects
+     * @param string $ind1      first indicator
+     * @param string $ind2      second indicator
      */
     function __construct($tag, array $subfields = null, $ind1 = null, $ind2 = null) 
     {
@@ -128,6 +130,8 @@ class File_MARC_Data_Field extends File_MARC_Field {
     // {{{ Explicit destructor: function delete()
     /**
      * Destroys the data field
+     *
+     * @return true
      */
     function delete()
     {
@@ -147,6 +151,7 @@ class File_MARC_Data_Field extends File_MARC_Field {
      * throws an exception.
      *
      * @param string $indicator Value of the indicator to be validated
+     *
      * @return string Returns the indicator, or space if the indicator was null
      */
     private function _validateIndicator($indicator)
@@ -169,6 +174,7 @@ class File_MARC_Data_Field extends File_MARC_Field {
      * of subfields.
      *
      * @param File_MARC_Subfield $new_subfield The subfield to add
+     *
      * @return File_MARC_Subfield the new File_MARC_Subfield object
      */
     function appendSubfield(File_MARC_Subfield $new_subfield)
@@ -187,6 +193,7 @@ class File_MARC_Data_Field extends File_MARC_Field {
      * of subfields.
      *
      * @param File_MARC_Subfield $new_subfield The subfield to add
+     *
      * @return File_MARC_Subfield the new File_MARC_Subfield object
      */
     function prependSubfield(File_MARC_Subfield $new_subfield)
@@ -203,11 +210,11 @@ class File_MARC_Data_Field extends File_MARC_Field {
      * Inserts a {@link File_MARC_Subfield} object before or after an existing
      * subfield.
      *
-     * @param File_MARC_Subfield $new_field The subfield to add
+     * @param File_MARC_Subfield $new_field      The subfield to add
      * @param File_MARC_Subfield $existing_field The target subfield
-     * @param bool $before Insert the subfield before the existing subfield
-     * if true, after the existing subfield if false
-     * @return File_MARC_Subfield The new subfield
+     * @param bool               $before         Insert the subfield before the existing subfield if true; after the existing subfield if false
+     *
+     * @return File_MARC_Subfield                The new subfield
      */
     function insertSubfield(File_MARC_Subfield $new_field, File_MARC_Subfield $existing_field, $before = false)
     {
@@ -241,6 +248,7 @@ class File_MARC_Data_Field extends File_MARC_Field {
      * or {@link insertSubfield()} to add each subfield individually.
      *
      * @param array $subfields array of {@link File_MARC_Subfield} objects
+     *
      * @return int returns the number of subfields that were added
      */
     function addSubfields(array $subfields)
@@ -269,7 +277,9 @@ class File_MARC_Data_Field extends File_MARC_Field {
     /**
      * Delete a subfield from the field.
      *
-     * @return bool Success or failure
+     * @param File_MARC_Subfield $subfield The subfield to delete
+     *
+     * @return bool                         Success or failure
      */
     function deleteSubfield(File_MARC_Subfield $subfield)
     {
@@ -285,6 +295,7 @@ class File_MARC_Data_Field extends File_MARC_Field {
      * Get the value of an indicator
      *
      * @param int $ind number of the indicator (1 or 2)
+     *
      * @return string returns indicator value if it exists, otherwise false
      */
     function getIndicator($ind)
@@ -305,9 +316,10 @@ class File_MARC_Data_Field extends File_MARC_Field {
     /**
      * Set the value of an indicator
      *
-     * @param int $ind number of the indicator (1 or 2)
+     * @param int    $ind   number of the indicator (1 or 2)
      * @param string $value value of the indicator
-     * @return string returns indicator value if it exists, otherwise false
+     *
+     * @return string       returns indicator value if it exists, otherwise false
      */
     function setIndicator($ind, $value)
     {
@@ -337,6 +349,7 @@ class File_MARC_Data_Field extends File_MARC_Field {
      *
      * @param string $code subfield code for which the
      * {@link File_MARC_Subfield} is retrieved
+     *
      * @return File_MARC_Subfield returns the first subfield that matches
      * $code, or false if no codes match $code
      */
@@ -362,6 +375,7 @@ class File_MARC_Data_Field extends File_MARC_Field {
      *
      * @param string $code subfield code for which the
      * {@link File_MARC_Subfield} is retrieved
+     *
      * @return File_MARC_List|array returns a linked list of all subfields
      * if $code is null, an array of {@link File_MARC_Subfield} objects if
      * one or more subfields match, or false if no codes match $code

@@ -26,17 +26,17 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   File Formats
- * @package    File_MARC
- * @author     Christoffer Landtman <landtman@realnode.com>
- * @author     Dan Scott <dscott@laurentian.ca>
- * @copyright  2003-2006 Oy Realnode Ab, Dan Scott
- * @license    http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/File_MARC
- * @example    read.php Retrieve specific fields and subfields from a record
- * @example    subfields.php Create new subfields and add them in specific order
- * @example    marc_yaz.php Pretty print a MARC record retrieved through the PECL yaz extension
+ * @category  File_Formats
+ * @package   File_MARC
+ * @author    Christoffer Landtman <landtman@realnode.com>
+ * @author    Dan Scott <dscott@laurentian.ca>
+ * @copyright 2003-2008 Oy Realnode Ab, Dan Scott
+ * @license   http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/File_MARC
+ * @example   read.php Retrieve specific fields and subfields from a record
+ * @example   subfields.php Create new subfields and add them in specific order
+ * @example   marc_yaz.php Pretty print a MARC record retrieved through the PECL yaz extension
  */
 
 require_once 'PEAR/Exception.php';
@@ -54,14 +54,15 @@ require_once 'File/MARC/List.php';
  * The main File_MARC class enables you to return File_MARC_Record
  * objects from a stream or string.
  *
- * @category   File Formats
- * @package    File_MARC
- * @author     Christoffer Landtman <landtman@realnode.com>
- * @author     Dan Scott <dscott@laurentian.ca>
- * @license    http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
- * @link       http://pear.php.net/package/File_MARC
+ * @category File_Formats
+ * @package  File_MARC
+ * @author   Christoffer Landtman <landtman@realnode.com>
+ * @author   Dan Scott <dscott@laurentian.ca>
+ * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
+ * @link     http://pear.php.net/package/File_MARC
  */
-class File_MARC {
+class File_MARC
+{
 
     // {{{ constants
 
@@ -139,9 +140,8 @@ class File_MARC {
      * ?>
      * </code>
      *
-     * @param string $in Name of the file, or a raw MARC string
-     * @param int $source Source of the input, either SOURCE_FILE
-     * or SOURCE_STRING
+     * @param string $source Name of the file, or a raw MARC string
+     * @param int    $type   Source of the input, either SOURCE_FILE or SOURCE_STRING
      */
     function __construct($source, $type = self::SOURCE_FILE)
     {
@@ -240,6 +240,7 @@ class File_MARC {
      * Port of Andy Lesters MARC::File::USMARC->decode() Perl function into PHP.
      *
      * @param string $text Raw MARC record
+     *
      * @return File_MARC_Record Decoded File_MARC_Record object
      */
     private function _decode($text)

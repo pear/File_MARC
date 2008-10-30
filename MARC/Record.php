@@ -26,13 +26,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   File Formats
- * @package    File_MARC
- * @author     Christoffer Landtman <landtman@realnode.com>
- * @author     Dan Scott <dscott@laurentian.ca>
- * @copyright  2003-2006 Oy Realnode Ab, Dan Scott
- * @license    http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
- * @version    CVS: $Id$
+ * @category  File_Formats
+ * @package   File_MARC
+ * @author    Christoffer Landtman <landtman@realnode.com>
+ * @author    Dan Scott <dscott@laurentian.ca>
+ * @copyright 2003-2008 Oy Realnode Ab, Dan Scott
+ * @license   http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/File_MARC
  */
 
 // {{{ class File_MARC_Record
@@ -43,14 +44,15 @@
  * linked list structure. Fields are represented by {@link File_MARC_Data_Field}
  * objects.
  *
- * @category   File Formats
- * @package    File_MARC
- * @author     Christoffer Landtman <landtman@realnode.com>
- * @author     Dan Scott <dscott@laurentian.ca>
- * @license    http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
- * @link       http://pear.php.net/package/File_MARC
+ * @category File_Formats
+ * @package  File_MARC
+ * @author   Christoffer Landtman <landtman@realnode.com>
+ * @author   Dan Scott <dscott@laurentian.ca>
+ * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
+ * @link     http://pear.php.net/package/File_MARC
  */
-class File_MARC_Record {
+class File_MARC_Record
+{
 
     // {{{ properties
     /**
@@ -78,6 +80,7 @@ class File_MARC_Record {
      * Start function
      *
      * Set all variables to defaults to create new File_MARC_Record object
+     *
      * @return true 
      */
     function __construct()
@@ -121,6 +124,7 @@ class File_MARC_Record {
      * on the specified leader is performed.
      *
      * @param string $leader Leader
+     *
      * @return string returns the leader
      */
     function setLeader($leader)
@@ -138,6 +142,7 @@ class File_MARC_Record {
      * object to the end of the existing list of fields.
      *
      * @param File_MARC_Field $new_field The field to add
+     *
      * @return File_MARC_Field The field that was added
      */
     function appendField(File_MARC_Field $new_field)
@@ -156,6 +161,7 @@ class File_MARC_Record {
      * object to the start of to the existing list of fields.
      *
      * @param File_MARC_Field $new_field The field to add
+     *
      * @return File_MARC_Field The field that was added
      */
     function prependField(File_MARC_Field $new_field)
@@ -191,11 +197,11 @@ class File_MARC_Record {
      * }
      * </code>
      *
-     * @param File_MARC_Field $new_field The field to add
+     * @param File_MARC_Field $new_field      The field to add
      * @param File_MARC_Field $existing_field The target field
-     * @param bool $before Insert the new field before the existing field
-     *  if true, after the existing field if false
-     * @return File_MARC_Field The field that was added
+     * @param bool            $before         Insert the new field before the existing field if true, after the existing field if false
+     *
+     * @return File_MARC_Field                The field that was added
      */
     function insertField(File_MARC_Field $new_field, File_MARC_Field $existing_field, $before = false)
     {
@@ -278,8 +284,9 @@ class File_MARC_Record {
      * {@link http://www.loc.gov/marc/bibliographic/ecbdldrd.html}
      *
      * @param int $record_length Record length
-     * @param int $base_address Base address of data
-     * @return bool Success or failure
+     * @param int $base_address  Base address of data
+     *
+     * @return bool              Success or failure
      */
     function setLeaderLengths($record_length, $base_address)
     {
@@ -306,7 +313,8 @@ class File_MARC_Record {
      * name. Returns false if no match is found.
      *
      * @param string $spec tag name
-     * @param bool $pcre if true, then match as a regular expression
+     * @param bool   $pcre if true, then match as a regular expression
+     *
      * @return {@link File_MARC_Data_Field}|{@link File_MARC_Control_Field} first field that matches the requested tag name
      */
     function getField($spec = null, $pcre = null)
@@ -332,7 +340,8 @@ class File_MARC_Record {
      * fields are returned.
      *
      * @param string $spec tag name
-     * @param bool $pcre if true, then match as a regular expression
+     * @param bool   $pcre if true, then match as a regular expression
+     *
      * @return File_MARC_List|array {@link File_MARC_Data_Field} or
      * {@link File_MARC_Control_Field} objects that match the requested tag name
      */
@@ -359,9 +368,10 @@ class File_MARC_Record {
     /**
      * Delete all occurrences of a field matching a tag name from the record.
      *
-     * @param string $tag tag for the fields to be deleted
-     * @param bool $pcre if true, then match as a regular expression
-     * @return int number of fields that were deleted
+     * @param string $tag  tag for the fields to be deleted
+     * @param bool   $pcre if true, then match as a regular expression
+     *
+     * @return int         number of fields that were deleted
      */
     function deleteFields($tag, $pcre = null)
     {
@@ -386,6 +396,8 @@ class File_MARC_Record {
      * parsing.
      *
      * @param string $warning warning message
+     *
+     * @return true
      */
     public function addWarning($warning)
     {
@@ -476,11 +488,12 @@ class File_MARC_Record {
      * attempts to adhere to the MARCXML standard documented at
      * http://www.loc.gov/standards/marcxml/
      *
-     * @todo Fix encoding input / output issues (PHP 6.0 required?)
-     *
      * @param string $encoding output encoding for the MARCXML record
-     * @param bool $indent pretty-print the MARCXML record
-     * @return string representation of MARC record in MARCXML format
+     * @param bool   $indent   pretty-print the MARCXML record
+     *
+     * @return string           representation of MARC record in MARCXML format
+     *
+     * @todo Fix encoding input / output issues (PHP 6.0 required?)
      */
     function toXML($encoding = "UTF-8", $indent = true)
     {

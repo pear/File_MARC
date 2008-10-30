@@ -21,7 +21,7 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
  </lead>
  <date>2008-10-30</date>
  <version>
-  <release>0.2.1</release>
+  <release>0.2.2</release>
   <api>0.2.0</api>
  </version>
  <stability>
@@ -30,13 +30,16 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">GNU Lesser General Public License</license>
  <notes>
-0.2.1-beta
-* Fix a raw warning that could occur if record length in leader did not match actual record length
+0.2.2-beta
+* Address PEAR Coding Standard violations (mostly whitespace) - closes bug# 14923
+* Include MARCFLAT.php in distribution package
+* Update copyright dates
  </notes>
  <contents>
   <dir name="/" baseinstalldir="File">
    <file name="CHANGELOG" role="doc" />
    <file name="MARC.php" role="php" />
+   <file name="MARCFLAT.php" role="php" />
    <file name="MARCXML.php" role="php" />
    <file name="LICENSE" role="doc" />
    <dir name="MARC">

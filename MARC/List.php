@@ -26,13 +26,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   File Formats
- * @package    File_MARC
- * @author     Christoffer Landtman <landtman@realnode.com>
- * @author     Dan Scott <dscott@laurentian.ca>
- * @copyright  2003-2006 Oy Realnode Ab, Dan Scott
- * @license    http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
- * @version    CVS: $Id$
+ * @category  File_Formats
+ * @package   File_MARC
+ * @author    Christoffer Landtman <landtman@realnode.com>
+ * @author    Dan Scott <dscott@laurentian.ca>
+ * @copyright 2003-2008 Oy Realnode Ab, Dan Scott
+ * @license   http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/File_MARC
  */
 
 // {{{ class File_MARC_List extends Structures_LinkedList_Double
@@ -64,11 +65,11 @@
  * }
  * </code>
  *
- * @category   File Formats
- * @package    File_MARC
- * @author     Dan Scott <dscott@laurentian.ca>
- * @license    http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
- * @link       http://pear.php.net/package/File_MARC
+ * @category File_Formats
+ * @package  File_MARC
+ * @author   Dan Scott <dscott@laurentian.ca>
+ * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
+ * @link     http://pear.php.net/package/File_MARC
  */
 class File_MARC_List extends Structures_LinkedList_Double
 {

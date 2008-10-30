@@ -26,13 +26,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * @category   File Formats
- * @package    File_MARC
- * @author     Christoffer Landtman <landtman@realnode.com>
- * @author     Dan Scott <dscott@laurentian.ca>
- * @copyright  2003-2006 Oy Realnode Ab, Dan Scott
- * @license    http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
- * @version    CVS: $Id$
+ * @category  File_Formats
+ * @package   File_MARC
+ * @author    Christoffer Landtman <landtman@realnode.com>
+ * @author    Dan Scott <dscott@laurentian.ca>
+ * @copyright 2003-2008 Oy Realnode Ab, Dan Scott
+ * @license   http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/File_MARC
  */
 
 // {{{ class File_MARC_Control_Field extends File_MARC_Field
@@ -42,14 +43,15 @@
  *
  * A MARC control field consists of a tag name and control data.
  *
- * @category   File Formats
- * @package    File_MARC
- * @author     Christoffer Landtman <landtman@realnode.com>
- * @author     Dan Scott <dscott@laurentian.ca>
- * @license    http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
- * @link       http://pear.php.net/package/File_MARC
+ * @category File_Formats
+ * @package  File_MARC
+ * @author   Christoffer Landtman <landtman@realnode.com>
+ * @author   Dan Scott <dscott@laurentian.ca>
+ * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
+ * @link     http://pear.php.net/package/File_MARC
  */
-class File_MARC_Control_Field extends File_MARC_Field {
+class File_MARC_Control_Field extends File_MARC_Field
+{
 
     // {{{ Properties
     /**
@@ -65,7 +67,7 @@ class File_MARC_Control_Field extends File_MARC_Field {
      *
      * Create a new {@link File_MARC_Control_Field} object from passed arguments
      *
-     * @param string $tag tag
+     * @param string $tag  tag
      * @param string $data control field data
      * @param string $ind1 placeholder for class strictness
      * @param string $ind2 placeholder for class strictness
@@ -92,6 +94,8 @@ class File_MARC_Control_Field extends File_MARC_Field {
     // {{{ Explicit destructor: function delete()
     /**
      * Destroys the control field
+     *
+     * @return true
      */
     function delete()
     {
@@ -116,6 +120,7 @@ class File_MARC_Control_Field extends File_MARC_Field {
      * Is empty
      *
      * Checks if the field contains data
+     *
      * @return bool Returns true if the field is empty, otherwise false
      */
     function isEmpty()
@@ -129,7 +134,8 @@ class File_MARC_Control_Field extends File_MARC_Field {
      * Set control field data
      *
      * @param string $data data for the control field
-     * @return bool returns the new data in the control field 
+     *
+     * @return bool returns the new data in the control field
      */
     function setData($data)
     {
