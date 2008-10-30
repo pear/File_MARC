@@ -9,15 +9,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <name>File_MARC</name>
  <channel>pear.php.net</channel>
  <summary>Parse, modify, and create MARC records</summary>
- <description>The standard for machine-readable cataloging (MARC) records
- is documented at http://loc.gov/marc/. This package enables you to read
- existing MARC records from a file, string, or (using the YAZ extension), from
- a Z39.50 source. You can also use this package to create new MARC records.
+ <description>The standard for machine-readable cataloging (MARC) records is documented at http://loc.gov/marc/. This package enables you to read existing MARC records from a file, string, or (using the YAZ extension), from a Z39.50 source. You can also use this package to create new MARC records.
 
- This package is based on the PHP MARC package, originally called
- "php-marc", that is part of the Emilda Project (http://www.emilda.org). 
- Christoffer Landtman generously agreed to make the "php-marc" code available
- under the GNU LGPL so it could be used as the basis of this PEAR package.
+This package is based on the PHP MARC package, originally called "php-marc", that is part of the Emilda Project (http://www.emilda.org).  Christoffer Landtman generously agreed to make the "php-marc" code available under the GNU LGPL so it could be used as the basis of this PEAR package.
  </description>
  <lead>
   <name>Dan Scott</name>
@@ -27,7 +21,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </lead>
  <date>2008-10-30</date>
  <version>
-  <release>0.2.0</release>
+  <release>0.2.1</release>
   <api>0.2.0</api>
  </version>
  <stability>
@@ -36,10 +30,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">GNU Lesser General Public License</license>
  <notes>
-0.2.0-beta
-* Don't throw exceptions while parsing MARC data, because MARC data quality is uniformly bad; just add parsing errors to a warnings array on the MARC record
-* Fix some documentation errors (thanks to Mark Jordan @ SFU for pointing these out)
-* Add a test for setIndicator() and for escaping data in toXML()
+0.2.1-beta
+* Fix a raw warning that could occur if record length in leader did not match actual record length
  </notes>
  <contents>
   <dir name="/" baseinstalldir="File">
@@ -72,7 +64,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <file name="marc_006.phpt" role="test" />
     <file name="marc_007.phpt" role="test" />
     <file name="marc_008.phpt" role="test" />
+    <file name="marc_009.phpt" role="test" />
     <file name="marc_010.phpt" role="test" />
+    <file name="marc_011.phpt" role="test" />
     <file name="marc_field_001.phpt" role="test" />
     <file name="marc_field_002.phpt" role="test" />
     <file name="marc_field_003.phpt" role="test" />
