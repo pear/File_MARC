@@ -195,21 +195,6 @@ class File_MARC {
 
         // Append the end of record we lost during stream_get_line() or explode()
         $record .= File_MARC::END_OF_RECORD;
-
-        // Validate record structure
-        if (strlen($record) < 5) {
-             throw new File_MARC_Exception(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_MISSING_LENGTH], File_MARC_Exception::ERROR_MISSING_LENGTH);
-        }
-        $record_length = substr($record, 0, 5);
-        if (!preg_match("/^\d{5}$/", $record_length)) {
-             $errorMessage = File_MARC_Exception::formatError(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_NONNUMERIC_LENGTH], array("record_length" => $record_length));
-             throw new File_MARC_Exception($errorMessage, File_MARC_Exception::ERROR_NONNUMERIC_LENGTH);
-        }
-        if ($record_length != strlen($record)) {
-             $errorMessage = File_MARC_Exception::formatError(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_INCORRECT_LENGTH], array("record_length" => $record_length, "actual" => strlen($record)));
-             throw new File_MARC_Exception($errorMessage, File_MARC_Exception::ERROR_INCORRECT_LENGTH);
-        }
-
         return $record;
     }
     // }}}
@@ -259,20 +244,20 @@ class File_MARC {
      */
     private function _decode($text)
     {
+        $marc = new File_MARC_Record();
+
         $matches = array();
         if (!preg_match("/^(\d{5})/", $text, $matches)) {
-             $errorMessage = File_MARC_Exception::formatError(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_NONNUMERIC_LENGTH], array("record_length" => substr($text, 0, 5)));
-             throw new File_MARC_Exception($errorMessage, File_MARC_Exception::ERROR_NONNUMERIC_LENGTH);
+            $marc->addWarning(File_MARC_Exception::formatError(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_NONNUMERIC_LENGTH], array("record_length" => substr($text, 0, 5))));
         }
-
-        $marc = new File_MARC_Record();
 
         // Store record length
         $record_length = $matches[1];
 
         if ($record_length != strlen($text)) {
-             $errorMessage = File_MARC_Exception::formatError(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_INCORRECT_LENGTH], array("record_length" => substr($record_length), "actual" => strlen($text)));
-             throw new File_MARC_Exception($errorMessage, File_MARC_Exception::ERROR_INCORRECT_LENGTH);
+            $marc->addWarning(File_MARC_Exception::formatError(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_INCORRECT_LENGTH], array("record_length" => substr($record_length), "actual" => strlen($text))));
+            // give up and set the record length to the actual byte length
+            $record_length = strlen($text);
         }
 
         if (substr($text, -1, 1) != File_MARC::END_OF_RECORD)
@@ -289,12 +274,12 @@ class File_MARC {
 
         // character after the directory must be \x1e
         if (substr($text, $data_start-1, 1) != File_MARC::END_OF_FIELD) {
-             throw new File_MARC_Exception(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_NO_DIRECTORY], File_MARC_Exception::ERROR_NO_DIRECTORY);
+            $marc->addWarnings(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_NO_DIRECTORY]);
         }
 
         // All directory entries 12 bytes long, so length % 12 must be 0
         if (strlen($dir) % File_MARC::DIRECTORY_ENTRY_LEN != 0) {
-             throw new File_MARC_Exception(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_INVALID_DIRECTORY_LENGTH], File_MARC_Exception::ERROR_INVALID_DIRECTORY_LENGTH);
+            $marc->addWarning(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_INVALID_DIRECTORY_LENGTH]);
         }
 
         // go through all the fields
@@ -307,20 +292,16 @@ class File_MARC {
 
             // Check directory validity
             if (!preg_match("/^[0-9A-Za-z]{3}$/", $tag)) {
-                 $errorMessage = File_MARC_Exception::formatError(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_INVALID_DIRECTORY_TAG], array("tag" => $tag));
-                 throw new File_MARC_Exception($errorMessage, File_MARC_Exception::ERROR_INVALID_DIRECTORY_TAG);
+                $marc->addWarning(File_MARC_Exception::formatError(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_INVALID_DIRECTORY_TAG], array("tag" => $tag)));
             }
             if (!preg_match("/^\d{4}$/", $len)) {
-                 $errorMessage = File_MARC_Exception::formatError(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_INVALID_DIRECTORY_TAG_LENGTH], array("tag" => $tag, "len" => $len));
-                 throw new File_MARC_Exception($errorMessage, File_MARC_Exception::ERROR_INVALID_DIRECTORY_TAG_LENGTH);
+                $marc->addWarning(File_MARC_Exception::formatError(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_INVALID_DIRECTORY_TAG_LENGTH], array("tag" => $tag, "len" => $len)));
             }
             if (!preg_match("/^\d{5}$/", $offset)) {
-                 $errorMessage = File_MARC_Exception::formatError(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_INVALID_DIRECTORY_OFFSET], array("tag" => $tag, "offset" => $offset));
-                 throw new File_MARC_Exception($errorMessage, File_MARC_Exception::ERROR_INVALID_DIRECTORY_OFFSET);
+                $marc->addWarning(File_MARC_Exception::formatError(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_INVALID_DIRECTORY_OFFSET], array("tag" => $tag, "offset" => $offset)));
             }
             if ($offset + $len > $record_length) {
-                 $errorMessage = File_MARC_Exception::formatError(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_INVALID_DIRECTORY], array("tag" => $tag));
-                 throw new File_MARC_Exception($errorMessage, File_MARC_Exception::ERROR_INVALID_DIRECTORY);
+                $marc->addWarning(File_MARC_Exception::formatError(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_INVALID_DIRECTORY], array("tag" => $tag)));
             }
 
             $tag_data = substr($text, $data_start + $offset, $len);
@@ -330,8 +311,7 @@ class File_MARC {
                 $tag_data = substr($tag_data, 0, -1);
                 $len--;
             } else {
-                 $errorMessage = File_MARC_Exception::formatError(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_FIELD_EOF], array("tag" => $tag));
-                 throw new File_MARC_Exception($errorMessage, File_MARC_Exception::ERROR_FIELD_EOF);
+                $marc->addWarning(File_MARC_Exception::formatError(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_FIELD_EOF], array("tag" => $tag)));
             }
 
             if (preg_match("/^\d+$/", $tag) and ($tag < 10)) {
