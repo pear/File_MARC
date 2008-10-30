@@ -85,7 +85,7 @@ class File_MARC_Data_Field extends File_MARC_Field {
      * // Example: Create a new data field
      *
      * // We can optionally create an array of subfields first
-     * $subfields[] = new File_MARC_Data_Subfield('a', 'Scott, Daniel.');
+     * $subfields[] = new File_MARC_Subfield('a', 'Scott, Daniel.');
      *
      * // Create the new 100 field complete with a _a subfield and an indicator
      * $new_field = new File_MARC_Data_Field('100', $subfields, 0, null);

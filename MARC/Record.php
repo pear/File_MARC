@@ -176,7 +176,7 @@ class File_MARC_Record {
      * // Example: Insert a new field before the first 650 field
      *
      * // Create the new field
-     * $subfields[] = new File_MARC_Data_Subfield('a', 'Scott, Daniel.');
+     * $subfields[] = new File_MARC_Subfield('a', 'Scott, Daniel.');
      * $new_field = new File_MARC_Data_Field('100', $subfields, 0, null);
      *
      * // Retrieve the target field for our insertion point
