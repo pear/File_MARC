@@ -171,7 +171,12 @@ class File_MARCXML
      */
     function next()
     {
-        $record = $this->source->record[$this->counter++];
+        if (isset($this->source->record[$this->counter++])) {
+            $record = $this->source->record[$this->counter++];
+        } else {
+            $record = $this->source;
+        }
+        
         if ($record) {
             return $this->_decode($record);
         } else {
