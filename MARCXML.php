@@ -171,10 +171,13 @@ class File_MARCXML
      */
     function next()
     {
-        if (isset($this->source->record[$this->counter++])) {
+        if (isset($this->source->record[$this->counter])) {
             $record = $this->source->record[$this->counter++];
-        } else {
+        } elseif ($this->source->getName() == "record" && $this->counter == 0) {
             $record = $this->source;
+            $this->counter++;
+        } else {
+            return false;
         }
         
         if ($record) {
