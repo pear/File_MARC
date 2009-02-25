@@ -1,3 +1,6 @@
+0.2.3-beta
+* Handle single-record MARC21XML files with "record" as the root element
+
 0.1.1-alpha
 * Add File_MARC_Record::toXML() method for generating MARCXML output
 * Add File_MARCXML class for reading MARCXML source

@@ -19,10 +19,10 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
   <email>dbs@php.net</email>
   <active>yes</active>
  </lead>
- <date>2008-10-30</date>
+ <date>2009-02-25</date>
  <version>
-  <release>0.2.2</release>
-  <api>0.2.0</api>
+  <release>0.3.0</release>
+  <api>0.3.0</api>
  </version>
  <stability>
   <release>beta</release>
@@ -30,10 +30,8 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">GNU Lesser General Public License</license>
  <notes>
-0.2.2-beta
-* Address PEAR Coding Standard violations (mostly whitespace) - closes bug# 14923
-* Include MARCFLAT.php in distribution package
-* Update copyright dates
+0.3.0-beta
+* Add isControlField() and isDataField() convenience methods to File_MARC_Field
  </notes>
  <contents>
   <dir name="/" baseinstalldir="File">
@@ -70,6 +68,7 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
     <file name="marc_009.phpt" role="test" />
     <file name="marc_010.phpt" role="test" />
     <file name="marc_011.phpt" role="test" />
+    <file name="marc_012.phpt" role="test" />
     <file name="marc_field_001.phpt" role="test" />
     <file name="marc_field_002.phpt" role="test" />
     <file name="marc_field_003.phpt" role="test" />
@@ -80,7 +79,9 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
     <file name="marc_xml_002.phpt" role="test" />
     <file name="marc_xml_003.phpt" role="test" />
     <file name="marc_xml_004.phpt" role="test" />
+    <file name="marc_xml_005.phpt" role="test" />
     <file name="music.mrc" role="test" />
+    <file name="onerecord.xml" role="test" />
     <file name="sandburg.mrc" role="test" />
     <file name="sandburg.xml" role="test" />
     <file name="xmlescape.mrc" role="test" />

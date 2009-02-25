@@ -142,6 +142,41 @@ class File_MARC_Field extends Structures_LinkedList_DoubleNode
     }
     // }}}
 
+    // {{{ isControlField()
+    /**
+     * Is control field
+     *
+     * Checks if the field is a control field.
+     *
+     * @return bool Returns true if the field is a control field, otherwise false
+     */
+    function isControlField()
+    {
+        if (get_class($this) == 'File_MARC_Control_Field') {
+            return true;
+        }
+        return false;
+    }
+    // }}}
+
+    // {{{ isDataField()
+    /**
+     * Is data field
+     *
+     * Checks if the field is a data field.
+     *
+     * @return bool Returns true if the field is a data field, otherwise false
+     */
+    function isDataField()
+    {
+        if (get_class($this) == 'File_MARC_Data_Field') {
+            return true;
+        }
+        return false;
+    }
+    // }}}
+
+
     /**
      * ========== OUTPUT METHODS ==========
      */
