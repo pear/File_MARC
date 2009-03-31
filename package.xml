@@ -80,6 +80,7 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
     <file name="marc_xml_003.phpt" role="test" />
     <file name="marc_xml_004.phpt" role="test" />
     <file name="marc_xml_005.phpt" role="test" />
+    <file name="marc_xml_006.phpt" role="test" />
     <file name="music.mrc" role="test" />
     <file name="onerecord.xml" role="test" />
     <file name="sandburg.mrc" role="test" />
