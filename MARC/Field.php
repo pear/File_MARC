@@ -215,10 +215,12 @@ class File_MARC_Field extends Structures_LinkedList_DoubleNode
      * Pretty print a MARC_Field object without tags, indicators, etc.
      *
      * @param array $exclude Subfields to exclude from formatted output
+     * 
      * @return string Returns the formatted field data
      */
 
-    function formatField($exclude = array('2')) {
+    function formatField($exclude = array('2'))
+    {
         if ($this->isControlField()) {
             return $this->getData();
         } else {
