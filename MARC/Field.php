@@ -209,6 +209,31 @@ class File_MARC_Field extends Structures_LinkedList_DoubleNode
         return false;
     }
     // }}}
+
+    // {{{ formatField()
+    /**
+     * Pretty print a MARC_Field object without tags, indicators, etc.
+     *
+     * @param array $exclude Subfields to exclude from formatted output
+     * @return string Returns the formatted field data
+     */
+
+    function formatField($exclude = array('2')) {
+        if ($this->isControlField()) {
+            return $this->getData();
+        } else {
+            $out = '';
+            foreach ($this->getSubfields() as $subfield) {
+                if (substr($this->getTag(), 0, 1) == '6' and (in_array($subfield->getCode(), array('v','x','y','z')))) {
+                    $out .= ' -- ' . $subfield->getData();
+                } elseif (!in_array($subfield->getCode(), $exclude)) {
+                    $out .= ' ' . $subfield->getData();
+                }
+            }
+            return trim($out);
+        }
+    }
+    // }}}
 }
 // }}}
 
