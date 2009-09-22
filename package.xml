@@ -19,7 +19,7 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
   <email>dbs@php.net</email>
   <active>yes</active>
  </lead>
- <date>2009-04-08</date>
+ <date>2009-09-22</date>
  <version>
   <release>0.4.0</release>
   <api>0.4.0</api>
@@ -32,6 +32,7 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
  <notes>
 0.4.0-beta
 * Add formatField() convenience method to File_MARC_Field (courtesy Mark Matienzo @ matienzo.org)
+* Move from split() to explode() to avoid PHP 5.3 deprecation warning (courtesy bertrand.zuchuat @ rero.ch)
  </notes>
  <contents>
   <dir name="/" baseinstalldir="File">
