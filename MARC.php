@@ -318,7 +318,7 @@ class File_MARC
             if (preg_match("/^\d+$/", $tag) and ($tag < 10)) {
                 $marc->appendField(new File_MARC_Control_Field($tag, $tag_data));
             } else {
-                $subfields = split(File_MARC::SUBFIELD_INDICATOR, $tag_data);
+                $subfields = explode(File_MARC::SUBFIELD_INDICATOR, $tag_data);
                 $indicators = array_shift($subfields);
 
                 if (strlen($indicators) > 2 || strlen($indicators) == 0) {
