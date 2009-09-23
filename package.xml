@@ -19,9 +19,9 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
   <email>dbs@php.net</email>
   <active>yes</active>
  </lead>
- <date>2009-09-22</date>
+ <date>2009-09-23</date>
  <version>
-  <release>0.4.0</release>
+  <release>0.4.1</release>
   <api>0.4.0</api>
  </version>
  <stability>
@@ -30,9 +30,8 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">GNU Lesser General Public License</license>
  <notes>
-0.4.0-beta
-* Add formatField() convenience method to File_MARC_Field (courtesy Mark Matienzo @ matienzo.org)
-* Move from split() to explode() to avoid PHP 5.3 deprecation warning (courtesy bertrand.zuchuat @ rero.ch)
+0.4.1-beta
+* Fix suggested by Dan Field (surfrdan @ gmail.com) for addWarnings() typo
  </notes>
  <contents>
   <dir name="/" baseinstalldir="File">
