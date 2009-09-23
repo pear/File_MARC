@@ -275,7 +275,7 @@ class File_MARC
 
         // character after the directory must be \x1e
         if (substr($text, $data_start-1, 1) != File_MARC::END_OF_FIELD) {
-            $marc->addWarnings(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_NO_DIRECTORY]);
+            $marc->addWarning(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_NO_DIRECTORY]);
         }
 
         // All directory entries 12 bytes long, so length % 12 must be 0
