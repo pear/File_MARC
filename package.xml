@@ -19,9 +19,9 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
   <email>dbs@php.net</email>
   <active>yes</active>
  </lead>
- <date>2009-09-23</date>
+ <date>2009-09-27</date>
  <version>
-  <release>0.4.1</release>
+  <release>0.4.2</release>
   <api>0.4.0</api>
  </version>
  <stability>
@@ -30,8 +30,8 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">GNU Lesser General Public License</license>
  <notes>
-0.4.1-beta
-* Fix suggested by Dan Field (surfrdan @ gmail.com) for addWarnings() typo
+0.4.2-beta
+* Fix bug #16642 - MARCXML files return keys of an invalid type
  </notes>
  <contents>
   <dir name="/" baseinstalldir="File">
@@ -83,6 +83,7 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
     <file name="marc_xml_005.phpt" role="test" />
     <file name="marc_xml_006.phpt" role="test" />
     <file name="marc_xml_007.phpt" role="test" />
+    <file name="marc_xml_16642.phpt" role="test" />
     <file name="music.mrc" role="test" />
     <file name="bigarchive.xml" role="test" />
     <file name="onerecord.xml" role="test" />

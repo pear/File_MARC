@@ -205,16 +205,16 @@ class File_MARCXML
 
         // go through all the control fields
         foreach ($text->controlfield as $controlfield) {
-            $marc->appendField(new File_MARC_Control_Field($controlfield['tag'], $controlfield));
+            $marc->appendField(new File_MARC_Control_Field((string)$controlfield['tag'], $controlfield));
         }
 
         // go through all the data fields
         foreach ($text->datafield as $datafield) {
             $subfield_data = array();
             foreach ($datafield->subfield as $subfield) {
-                $subfield_data[] = new File_MARC_Subfield($subfield['code'], $subfield);
+                $subfield_data[] = new File_MARC_Subfield((string)$subfield['code'], $subfield);
             }
-            $marc->appendField(new File_MARC_Data_Field($datafield['tag'], $subfield_data, $datafield['ind1'], $datafield['ind2']));
+            $marc->appendField(new File_MARC_Data_Field((string)$datafield['tag'], $subfield_data, $datafield['ind1'], $datafield['ind2']));
         }
 
         return $marc;
