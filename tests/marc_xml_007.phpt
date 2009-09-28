@@ -1,5 +1,5 @@
 --TEST--
-marc_007: test getTag(), isControlField(), and isDataField() convenience methods on MARCXML
+marc_xml_007: test getTag(), isControlField(), and isDataField() convenience methods on MARCXML
 --FILE--
 <?php
 $dir = dirname(__FILE__);
