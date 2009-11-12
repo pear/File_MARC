@@ -19,9 +19,9 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
   <email>dbs@php.net</email>
   <active>yes</active>
  </lead>
- <date>2009-09-27</date>
+ <date>2009-11-12</date>
  <version>
-  <release>0.4.2</release>
+  <release>0.4.3</release>
   <api>0.4.0</api>
  </version>
  <stability>
@@ -30,8 +30,8 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">GNU Lesser General Public License</license>
  <notes>
-0.4.2-beta
-* Fix bug #16642 - MARCXML files return keys of an invalid type
+0.4.3-beta
+* Fix bug #16783 - handle bad MARC tags via warnings instead of bubbling an exception all the way up
  </notes>
  <contents>
   <dir name="/" baseinstalldir="File">
@@ -56,6 +56,7 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
     <file name="subfields.php" role="doc" />
    </dir>
    <dir name="tests">
+    <file name="bad_example.mrc" role="test" />
     <file name="example.mrc" role="test" />
     <file name="marc_001.phpt" role="test" />
     <file name="marc_002.phpt" role="test" />
@@ -70,6 +71,7 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
     <file name="marc_011.phpt" role="test" />
     <file name="marc_012.phpt" role="test" />
     <file name="marc_013.phpt" role="test" />
+    <file name="marc_16743.phpt" role="test" />
     <file name="marc_field_001.phpt" role="test" />
     <file name="marc_field_002.phpt" role="test" />
     <file name="marc_field_003.phpt" role="test" />

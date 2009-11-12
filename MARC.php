@@ -346,7 +346,14 @@ class File_MARC
                      $marc->addWarning($errorMessage);
                 }
 
-                $marc->appendField(new File_MARC_Data_Field($tag, $subfield_data, $ind1, $ind2));
+
+		// If the data is invalid, let's just ignore the one field
+		try {
+			$new_field = new File_MARC_Data_Field($tag, $subfield_data, $ind1, $ind2);
+			$marc->appendField($new_field);
+		} catch (Exception $e) {
+			$marc->addWarning($e->getMessage());
+		}
             }
         }
 
