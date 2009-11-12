@@ -1,5 +1,5 @@
 --TEST--
-marc_16743: iterate and pretty print a non-compliant MARC record (tag = '30-')
+marc_16783: iterate and pretty print a non-compliant MARC record (tag = '30-')
 --FILE--
 <?php
 $dir = dirname(__FILE__);
