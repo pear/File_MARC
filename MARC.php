@@ -321,10 +321,16 @@ class File_MARC
                 $subfields = explode(File_MARC::SUBFIELD_INDICATOR, $tag_data);
                 $indicators = array_shift($subfields);
 
-                if (strlen($indicators) > 2 || strlen($indicators) == 0) {
+                if (strlen($indicators) != 2) {
                      $errorMessage = File_MARC_Exception::formatError(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_INVALID_INDICATORS], array("tag" => $tag, "indicators" => $indicators));
                      $marc->addWarning($errorMessage);
-                     list($ind1,$ind2) = array(" ", " ");
+                     // Do the best with the indicators we've got
+                     if (strlen($indicators) == 1) {
+                         $ind1 = $indicators;
+                         $ind2 = " ";
+                     } else {
+                         list($ind1,$ind2) = array(" ", " ");
+                     }
                 } else {
                     $ind1 = substr($indicators, 0, 1);
                     $ind2 = substr($indicators, 1, 1);

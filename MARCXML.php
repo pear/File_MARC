@@ -214,7 +214,14 @@ class File_MARCXML
             foreach ($datafield->subfield as $subfield) {
                 $subfield_data[] = new File_MARC_Subfield((string)$subfield['code'], $subfield);
             }
-            $marc->appendField(new File_MARC_Data_Field((string)$datafield['tag'], $subfield_data, $datafield['ind1'], $datafield['ind2']));
+            
+            // If the data is invalid, let's just ignore the one field
+            try {
+                $new_field = new File_MARC_Data_Field((string)$datafield['tag'], $subfield_data, $datafield['ind1'], $datafield['ind2']);
+                $marc->appendField($new_field);
+            } catch (Exception $e) {
+                $marc->addWarning($e->getMessage());
+            }
         }
 
         return $marc;

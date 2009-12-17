@@ -19,9 +19,9 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
   <email>dbs@php.net</email>
   <active>yes</active>
  </lead>
- <date>2009-11-12</date>
+ <date>2009-12-17</date>
  <version>
-  <release>0.4.3</release>
+  <release>0.4.4</release>
   <api>0.4.0</api>
  </version>
  <stability>
@@ -30,8 +30,9 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">GNU Lesser General Public License</license>
  <notes>
-0.4.3-beta
-* Fix bug #16783 - handle bad MARC tags via warnings instead of bubbling an exception all the way up
+0.4.4-beta
+  * Enable MARCXML to handle bad tags, to match MARC
+  * Handle corner case where only one indicator might have been provided
  </notes>
  <contents>
   <dir name="/" baseinstalldir="File">
@@ -57,6 +58,7 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
    </dir>
    <dir name="tests">
     <file name="bad_example.mrc" role="test" />
+    <file name="bad_example.xml" role="test" />
     <file name="example.mrc" role="test" />
     <file name="marc_001.phpt" role="test" />
     <file name="marc_002.phpt" role="test" />
@@ -86,6 +88,7 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
     <file name="marc_xml_006.phpt" role="test" />
     <file name="marc_xml_007.phpt" role="test" />
     <file name="marc_xml_16642.phpt" role="test" />
+    <file name="marc_xml_rsinger.phpt" role="test" />
     <file name="music.mrc" role="test" />
     <file name="bigarchive.xml" role="test" />
     <file name="onerecord.xml" role="test" />
