@@ -30,9 +30,8 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">GNU Lesser General Public License</license>
  <notes>
-0.4.4-beta
-  * Enable MARCXML to handle bad tags, to match MARC
-  * Handle corner case where only one indicator might have been provided
+0.4.5-beta
+  * Add a unit test for appending and prepending control fields and data fields
  </notes>
  <contents>
   <dir name="/" baseinstalldir="File">
@@ -73,6 +72,7 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
     <file name="marc_011.phpt" role="test" />
     <file name="marc_012.phpt" role="test" />
     <file name="marc_013.phpt" role="test" />
+    <file name="marc_014.phpt" role="test" />
     <file name="marc_16783.phpt" role="test" />
     <file name="marc_field_001.phpt" role="test" />
     <file name="marc_field_002.phpt" role="test" />
