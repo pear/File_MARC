@@ -73,6 +73,7 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
     <file name="marc_012.phpt" role="test" />
     <file name="marc_013.phpt" role="test" />
     <file name="marc_014.phpt" role="test" />
+    <file name="marc_015.phpt" role="test" />
     <file name="marc_16783.phpt" role="test" />
     <file name="marc_field_001.phpt" role="test" />
     <file name="marc_field_002.phpt" role="test" />
