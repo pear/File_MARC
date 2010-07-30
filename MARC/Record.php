@@ -488,22 +488,28 @@ class File_MARC_Record
      * attempts to adhere to the MARCXML standard documented at
      * http://www.loc.gov/standards/marcxml/
      *
-     * @param string $encoding output encoding for the MARCXML record
-     * @param bool   $indent   pretty-print the MARCXML record
+     * @param string $encoding   output encoding for the MARCXML record
+     * @param bool   $indent     pretty-print the MARCXML record
+     * @param bool   $collection wrap the <record> element in a <collection> element
      *
      * @return string           representation of MARC record in MARCXML format
      *
      * @todo Fix encoding input / output issues (PHP 6.0 required?)
      */
-    function toXML($encoding = "UTF-8", $indent = true)
+    function toXML($encoding = "UTF-8", $indent = true, $collection = true)
     {
         $marcxml = new XMLWriter();
         $marcxml->openMemory();
         $marcxml->setIndent($indent);
-        $marcxml->startDocument("1.0", $encoding);
-        $marcxml->startElement("collection");
-        $marcxml->writeAttribute("xmlns", "http://www.loc.gov/MARC21/slim");
+        if ($collection) {
+            $marcxml->startDocument("1.0", $encoding);
+            $marcxml->startElement("collection");
+            $marcxml->writeAttribute("xmlns", "http://www.loc.gov/MARC21/slim");
+        }
         $marcxml->startElement("record");
+        if (!$collection) {
+            $marcxml->writeAttribute("xmlns", "http://www.loc.gov/MARC21/slim");
+        }
 
         // MARCXML schema has some strict requirements
         // We'll set reasonable defaults to avoid invalid MARCXML
@@ -551,8 +557,10 @@ class File_MARC_Record
         }
 
         $marcxml->endElement(); // end record
-        $marcxml->endElement(); // end collection
-        $marcxml->endDocument();
+        if ($collection) {
+            $marcxml->endElement(); // end collection
+            $marcxml->endDocument();
+        }
 
         return $marcxml->outputMemory();
 
