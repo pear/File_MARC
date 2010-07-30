@@ -250,7 +250,7 @@ class File_MARCXML
      */
     function toXMLHeader()
     {
-        $this->xmlwriter->startDocument();
+        $this->xmlwriter->startDocument('1.0', 'UTF-8');
         $this->xmlwriter->startElement("collection");
         $this->xmlwriter->writeAttribute("xmlns", "http://www.loc.gov/MARC21/slim");
         return true;
