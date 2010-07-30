@@ -73,6 +73,22 @@ class File_MARC_Record
      * @var array
      */
     protected $warnings;
+
+    /**
+     * XMLWriter for writing collections
+     * 
+     * @var XMLWriter
+     */
+    protected $marcxml;
+
+    /**
+     * MARC instance for access to the XML header/footer methods
+     * We need this so that we can properly wrap a collection of MARC records.
+     * 
+     * @var File_MARC
+     */
+    protected $marc;
+
     // }}}
 
     // {{{ Constructor: function __construct()
@@ -83,10 +99,12 @@ class File_MARC_Record
      *
      * @return true 
      */
-    function __construct()
+    function __construct($marc)
     {
         $this->fields = new File_MARC_List();
         $this->leader = str_repeat(' ', 24);
+        $this->marc = $marc;
+        $this->marcxml = $marc->getXMLWriter();
     }
     // }}}
 
@@ -479,7 +497,6 @@ class File_MARC_Record
         return $formatted;
     }
     // }}}
-
     // {{{ toXML()
     /**
      * Return the MARC record in MARCXML format
@@ -488,28 +505,21 @@ class File_MARC_Record
      * attempts to adhere to the MARCXML standard documented at
      * http://www.loc.gov/standards/marcxml/
      *
-     * @param string $encoding   output encoding for the MARCXML record
-     * @param bool   $indent     pretty-print the MARCXML record
-     * @param bool   $collection wrap the <record> element in a <collection> element
+     * @param string $encoding  output encoding for the MARCXML record
+     * @param bool   $indent    pretty-print the MARCXML record
+     * @param bool   $single    wrap the <record> element in a <collection> element
      *
      * @return string           representation of MARC record in MARCXML format
      *
      * @todo Fix encoding input / output issues (PHP 6.0 required?)
      */
-    function toXML($encoding = "UTF-8", $indent = true, $collection = true)
+    function toXML($encoding = "UTF-8", $indent = true, $single = true)
     {
-        $marcxml = new XMLWriter();
-        $marcxml->openMemory();
-        $marcxml->setIndent($indent);
-        if ($collection) {
-            $marcxml->startDocument("1.0", $encoding);
-            $marcxml->startElement("collection");
-            $marcxml->writeAttribute("xmlns", "http://www.loc.gov/MARC21/slim");
+        $this->marcxml->setIndent($indent);
+        if ($single) {
+            $this->marc->toXMLHeader();
         }
-        $marcxml->startElement("record");
-        if (!$collection) {
-            $marcxml->writeAttribute("xmlns", "http://www.loc.gov/MARC21/slim");
-        }
+        $this->marcxml->startElement("record");
 
         // MARCXML schema has some strict requirements
         // We'll set reasonable defaults to avoid invalid MARCXML
@@ -527,43 +537,39 @@ class File_MARC_Record
             $xmlLeader[6] = "a";
         }
 
-        $marcxml->writeElement("leader", $xmlLeader);
+        $this->marcxml->writeElement("leader", $xmlLeader);
 
         foreach ($this->fields as $field) {
             if (!$field->isEmpty()) {
                 switch(get_class($field)) {
                 case "File_MARC_Control_Field":
-                    $marcxml->startElement("controlfield");
-                    $marcxml->writeAttribute("tag", $field->getTag());
-                    $marcxml->text($field->getData());
-                    $marcxml->endElement(); // end control field
+                    $this->marcxml->startElement("controlfield");
+                    $this->marcxml->writeAttribute("tag", $field->getTag());
+                    $this->marcxml->text($field->getData());
+                    $this->marcxml->endElement(); // end control field
                     break;
 
                 case "File_MARC_Data_Field":
-                    $marcxml->startElement("datafield");
-                    $marcxml->writeAttribute("tag", $field->getTag());
-                    $marcxml->writeAttribute("ind1", $field->getIndicator(1));
-                    $marcxml->writeAttribute("ind2", $field->getIndicator(2));
+                    $this->marcxml->startElement("datafield");
+                    $this->marcxml->writeAttribute("tag", $field->getTag());
+                    $this->marcxml->writeAttribute("ind1", $field->getIndicator(1));
+                    $this->marcxml->writeAttribute("ind2", $field->getIndicator(2));
                     foreach ($field->getSubfields() as $subfield) {
-                        $marcxml->startElement("subfield");
-                        $marcxml->writeAttribute("code", $subfield->getCode());
-                        $marcxml->text($subfield->getData());
-                        $marcxml->endElement(); // end subfield
+                        $this->marcxml->startElement("subfield");
+                        $this->marcxml->writeAttribute("code", $subfield->getCode());
+                        $this->marcxml->text($subfield->getData());
+                        $this->marcxml->endElement(); // end subfield
                     }
-                    $marcxml->endElement(); // end data field
+                    $this->marcxml->endElement(); // end data field
                     break;
                 }
             }
         }
 
-        $marcxml->endElement(); // end record
-        if ($collection) {
-            $marcxml->endElement(); // end collection
-            $marcxml->endDocument();
+        $this->marcxml->endElement(); // end record
+        if ($single) {
+            return $this->marc->toXMLFooter();
         }
-
-        return $marcxml->outputMemory();
-
     }
 
     // }}}

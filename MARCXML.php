@@ -97,6 +97,13 @@ class File_MARCXML
      * @var int
      */
     protected $counter;
+
+    /**
+     * XMLWriter for writing collections
+     * 
+     * @var XMLWriter
+     */
+    protected $xmlwriter;
     // }}}
 
     // {{{ Constructor: function __construct()
@@ -122,6 +129,9 @@ class File_MARCXML
     function __construct($source, $type = self::SOURCE_FILE)
     {
         $this->counter = 0;
+
+        $this->xmlwriter = new XMLWriter();
+        $this->xmlwriter->openMemory();
 
         switch ($type) {
 
@@ -198,7 +208,7 @@ class File_MARCXML
      */
     private function _decode($text)
     {
-        $marc = new File_MARC_Record();
+        $marc = new File_MARC_Record($this);
 
         // Store leader
         $marc->setLeader($text->leader);
@@ -225,6 +235,59 @@ class File_MARCXML
         }
 
         return $marc;
+    }
+    // }}}
+
+    // {{{ toXMLHeader()
+    /**
+     * Initializes the MARCXML output of a record or collection of records 
+     *
+     * This method produces an XML representation of a MARC record that
+     * attempts to adhere to the MARCXML standard documented at
+     * http://www.loc.gov/standards/marcxml/
+     *
+     * @return bool true if successful
+     */
+    function toXMLHeader()
+    {
+        $this->xmlwriter->startDocument();
+        $this->xmlwriter->startElement("collection");
+        $this->xmlwriter->writeAttribute("xmlns", "http://www.loc.gov/MARC21/slim");
+        return true;
+    }
+    // }}}
+
+    // {{{ getXMLWriter()
+    /**
+     * Returns the XMLWriter object
+     *
+     * This method produces an XML representation of a MARC record that
+     * attempts to adhere to the MARCXML standard documented at
+     * http://www.loc.gov/standards/marcxml/
+     *
+     * @return XMLWriter XMLWriter instance
+     */
+    function getXMLWriter()
+    {
+        return $this->xmlwriter;
+    }
+    // }}}
+
+    // {{{ toXMLFooter()
+    /**
+     * Returns the MARCXML collection footer
+     *
+     * This method produces an XML representation of a MARC record that
+     * attempts to adhere to the MARCXML standard documented at
+     * http://www.loc.gov/standards/marcxml/
+     *
+     * @return string           representation of MARC record in MARCXML format
+     */
+    function toXMLFooter()
+    {
+        $this->xmlwriter->endElement(); // end collection
+        $this->xmlwriter->endDocument();
+        return $this->xmlwriter->outputMemory();
     }
     // }}}
 
