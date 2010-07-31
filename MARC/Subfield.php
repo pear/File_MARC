@@ -117,7 +117,7 @@ class File_MARC_Subfield extends Structures_LinkedList_DoubleNode
      */
     function getCode()
     {
-        return $this->code;
+        return (string)$this->code;
     }
     // }}}
 
@@ -129,7 +129,7 @@ class File_MARC_Subfield extends Structures_LinkedList_DoubleNode
      */
     function getData()
     {
-        return $this->data;
+        return (string)$this->data;
     }
     // }}}
 
@@ -155,7 +155,7 @@ class File_MARC_Subfield extends Structures_LinkedList_DoubleNode
     function toRaw()
     {
         $result = File_MARC::SUBFIELD_INDICATOR.$this->code.$this->data;
-        return $result;
+        return (string)$result;
     }
     // }}}
 

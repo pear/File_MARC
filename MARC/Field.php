@@ -105,7 +105,7 @@ class File_MARC_Field extends Structures_LinkedList_DoubleNode
      */
     function getTag()
     {
-        return $this->tag;
+        return (string)$this->tag;
     }
     // }}}
 
@@ -191,7 +191,7 @@ class File_MARC_Field extends Structures_LinkedList_DoubleNode
      */
     function __toString()
     {
-        return $this->getTag();
+        return (string)$this->getTag();
     }
     // }}}
 

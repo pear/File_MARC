@@ -19,9 +19,9 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
   <email>dbs@php.net</email>
   <active>yes</active>
  </lead>
- <date>2010-07-30</date>
+ <date>2010-07-31</date>
  <version>
-  <release>0.5.0</release>
+  <release>0.5.1</release>
   <api>0.5.0</api>
  </version>
  <stability>
@@ -30,11 +30,8 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">GNU Lesser General Public License</license>
  <notes>
-0.5.0-beta
-  * Drop MARCFLAT as it is unmaintained and, to my knowledge, unused
-  * Add the ability to generate a proper collection of MARCXML records
-  * Factor out some of the common toXML()-related methods to a new base class
-  * Add tests of the new toXML() functionality for both MARC and MARCXML sources
+0.5.1-beta
+  * Explicitly cast results to strings to avoid returning XML objects when File_MARCXML is in effect; problem doesn't show up in the PHP CLI, but does cause problems on the Web
  </notes>
  <contents>
   <dir name="/" baseinstalldir="File">

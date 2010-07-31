@@ -301,9 +301,9 @@ class File_MARC_Data_Field extends File_MARC_Field
     function getIndicator($ind)
     {
         if ($ind == 1) {
-            return $this->ind1;
+            return (string)$this->ind1;
         } elseif ($ind == 2) {
-            return $this->ind2;
+            return (string)$this->ind2;
         } else {
              $errorMessage = File_MARC_Exception::formatError(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_INVALID_INDICATOR_REQUEST], array("indicator" => $indicator));
              throw new File_MARC_Exception($errorMessage, File_MARC_Exception::ERROR_INVALID_INDICATOR_REQUEST);
@@ -473,7 +473,7 @@ class File_MARC_Data_Field extends File_MARC_Field
                 $subfields[] = $subfield->toRaw();
             }
         }
-        return $this->ind1.$this->ind2.implode("", $subfields).File_MARC::END_OF_FIELD;
+        return (string)$this->ind1.$this->ind2.implode("", $subfields).File_MARC::END_OF_FIELD;
     }
     // }}}
 }

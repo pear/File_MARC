@@ -111,7 +111,7 @@ class File_MARC_Control_Field extends File_MARC_Field
      */
     function getData()
     {
-        return $this->data;
+        return (string)$this->data;
     }
     // }}}
 
@@ -168,7 +168,7 @@ class File_MARC_Control_Field extends File_MARC_Field
      */
     function toRaw()
     {
-        return $this->data.File_MARC::END_OF_FIELD;
+        return (string)$this->data.File_MARC::END_OF_FIELD;
     }
     // }}}
 

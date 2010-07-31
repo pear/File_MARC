@@ -130,7 +130,7 @@ class File_MARC_Record
      */
     function getLeader()
     {
-        return $this->leader;
+        return (string)$this->leader;
     }
     // }}}
 
