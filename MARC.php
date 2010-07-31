@@ -30,7 +30,7 @@
  * @package   File_MARC
  * @author    Christoffer Landtman <landtman@realnode.com>
  * @author    Dan Scott <dscott@laurentian.ca>
- * @copyright 2003-2008 Oy Realnode Ab, Dan Scott
+ * @copyright 2003-2010 Oy Realnode Ab, Dan Scott
  * @license   http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
  * @version   CVS: $Id$
  * @link      http://pear.php.net/package/File_MARC
@@ -41,6 +41,7 @@
 
 require_once 'PEAR/Exception.php';
 require_once 'Structures/LinkedList/Double.php';
+require_once 'File/MARCBASE.php';
 require_once 'File/MARC/Record.php';
 require_once 'File/MARC/Field.php';
 require_once 'File/MARC/Control_Field.php';
@@ -61,7 +62,7 @@ require_once 'File/MARC/List.php';
  * @license  http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
  * @link     http://pear.php.net/package/File_MARC
  */
-class File_MARC
+class File_MARC extends File_MARCBASE
 {
 
     // {{{ constants
@@ -153,8 +154,8 @@ class File_MARC
     function __construct($source, $type = self::SOURCE_FILE)
     {
 
-        $this->xmlwriter = new XMLWriter();
-        $this->xmlwriter->openMemory();
+        parent::__construct($source, $type);
+
         switch ($type) {
 
         case self::SOURCE_FILE:
@@ -374,59 +375,6 @@ class File_MARC
         }
 
         return $marc;
-    }
-    // }}}
-
-    // {{{ toXMLHeader()
-    /**
-     * Initializes the MARCXML output of a record or collection of records 
-     *
-     * This method produces an XML representation of a MARC record that
-     * attempts to adhere to the MARCXML standard documented at
-     * http://www.loc.gov/standards/marcxml/
-     *
-     * @return bool true if successful
-     */
-    function toXMLHeader()
-    {
-        $this->xmlwriter->startDocument('1.0', 'UTF-8');
-        $this->xmlwriter->startElement("collection");
-        $this->xmlwriter->writeAttribute("xmlns", "http://www.loc.gov/MARC21/slim");
-        return true;
-    }
-    // }}}
-
-    // {{{ getXMLWriter()
-    /**
-     * Returns the XMLWriter object
-     *
-     * This method produces an XML representation of a MARC record that
-     * attempts to adhere to the MARCXML standard documented at
-     * http://www.loc.gov/standards/marcxml/
-     *
-     * @return XMLWriter XMLWriter instance
-     */
-    function getXMLWriter()
-    {
-        return $this->xmlwriter;
-    }
-    // }}}
-
-    // {{{ toXMLFooter()
-    /**
-     * Returns the MARCXML collection footer
-     *
-     * This method produces an XML representation of a MARC record that
-     * attempts to adhere to the MARCXML standard documented at
-     * http://www.loc.gov/standards/marcxml/
-     *
-     * @return string           representation of MARC record in MARCXML format
-     */
-    function toXMLFooter()
-    {
-        $this->xmlwriter->endElement(); // end collection
-        $this->xmlwriter->endDocument();
-        return $this->xmlwriter->outputMemory();
     }
     // }}}
 
