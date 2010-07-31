@@ -97,6 +97,8 @@ class File_MARC_Record
      *
      * Set all variables to defaults to create new File_MARC_Record object
      *
+     * @param File_MARC $marc MARC record from File_MARC or File_MARCXML
+     *
      * @return true 
      */
     function __construct($marc)
@@ -276,18 +278,17 @@ class File_MARC_Record
         /**
          * Rules from MARC::Record::USMARC
          */
-        $base_address =
-                File_MARC::LEADER_LEN +    // better be 24
+        $base_address
+            = File_MARC::LEADER_LEN +    // better be 24
                 (count($directory) * File_MARC::DIRECTORY_ENTRY_LEN) +
                                 // all the directory entries
                 1;              // end-of-field marker
 
 
-        $total =
-                $base_address +  // stuff before first field
+        $total
+            = $base_address +  // stuff before first field
                 $data_end +      // Length of the fields
                 1;              // End-of-record marker
-
 
 
         return array($fields, $directory, $total, $base_address);
@@ -339,9 +340,9 @@ class File_MARC_Record
     {
         foreach ($this->fields as $field) {
             if (($pcre
-                 && preg_match("/$spec/", $field->getTag()))
-               || (!$pcre
-                 && $spec == $field->getTag())
+                && preg_match("/$spec/", $field->getTag()))
+                || (!$pcre
+                && $spec == $field->getTag())
             ) {
                 return $field;
             }
@@ -373,7 +374,7 @@ class File_MARC_Record
         $matches = array();
         foreach ($this->fields as $field) {
             if (($pcre && preg_match("/$spec/", $field->getTag()))
-               || (!$pcre && $spec == $field->getTag())
+                || (!$pcre && $spec == $field->getTag())
             ) {
                 $matches[] = $field;
             }
@@ -396,9 +397,9 @@ class File_MARC_Record
         $cnt = 0;
         foreach ($this->getFields() as $field) {
             if (($pcre
-                 && preg_match("/$tag/", $field->getTag()))
-               || (!$pcre
-                 && $tag == $field->getTag())
+                && preg_match("/$tag/", $field->getTag()))
+                || (!$pcre
+                && $tag == $field->getTag())
             ) {
                 $field->delete();
                 $cnt++;
@@ -505,11 +506,11 @@ class File_MARC_Record
      * attempts to adhere to the MARCXML standard documented at
      * http://www.loc.gov/standards/marcxml/
      *
-     * @param string $encoding  output encoding for the MARCXML record
-     * @param bool   $indent    pretty-print the MARCXML record
-     * @param bool   $single    wrap the <record> element in a <collection> element
+     * @param string $encoding output encoding for the MARCXML record
+     * @param bool   $indent   pretty-print the MARCXML record
+     * @param bool   $single   wrap the <record> element in a <collection> element
      *
-     * @return string           representation of MARC record in MARCXML format
+     * @return string          representation of MARC record in MARCXML format
      *
      * @todo Fix encoding input / output issues (PHP 6.0 required?)
      */
