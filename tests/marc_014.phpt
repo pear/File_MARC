@@ -1,5 +1,5 @@
 --TEST--
-marc_100: Add fields to a MARC record
+marc_014: Add fields to a MARC record
 --FILE--
 <?php
 $dir = dirname(__FILE__);
