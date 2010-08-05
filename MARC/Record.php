@@ -101,10 +101,13 @@ class File_MARC_Record
      *
      * @return true 
      */
-    function __construct($marc)
+    function __construct($marc = null)
     {
         $this->fields = new File_MARC_List();
         $this->leader = str_repeat(' ', 24);
+        if (!$marc) {
+            $marc = new File_MARC(null, File_MARC::SOURCE_STRING); // oh the hack
+        }
         $this->marc = $marc;
         $this->marcxml = $marc->getXMLWriter();
     }

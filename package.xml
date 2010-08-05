@@ -19,9 +19,9 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
   <email>dbs@php.net</email>
   <active>yes</active>
  </lead>
- <date>2010-07-31</date>
+ <date>2010-08-05</date>
  <version>
-  <release>0.5.1</release>
+  <release>0.5.2</release>
   <api>0.5.0</api>
  </version>
  <stability>
@@ -30,8 +30,9 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">GNU Lesser General Public License</license>
  <notes>
-0.5.1-beta
-  * Explicitly cast results to strings to avoid returning XML objects when File_MARCXML is in effect; problem doesn't show up in the PHP CLI, but does cause problems on the Web
+0.5.2-beta
+  * Enable File_MARC_Record to be invoked with a null constructor again, useful for building MARC records from scratch
+  * Add a test to check that the null constructor works to avoid future regressions
  </notes>
  <contents>
   <dir name="/" baseinstalldir="File">
@@ -80,6 +81,7 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
     <file name="marc_field_002.phpt" role="test" />
     <file name="marc_field_003.phpt" role="test" />
     <file name="marc_field_004.phpt" role="test" />
+    <file name="marc_record_001.phpt" role="test" />
     <file name="marc_subfield_001.phpt" role="test" />
     <file name="marc_subfield_002.phpt" role="test" />
     <file name="marc_xml_001.phpt" role="test" />
