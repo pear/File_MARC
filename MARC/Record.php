@@ -501,6 +501,70 @@ class File_MARC_Record
         return $formatted;
     }
     // }}}
+
+    // {{{ toJSON()
+    /**
+     * Return the MARC record in JSON format
+     *
+     * This method produces a JSON representation of a MARC record. The input
+     * encoding must be UTF8, otherwise the returned values will be corrupted.
+     *
+     * @return string          representation of MARC record in JSON format
+     *
+     * @todo Fix encoding input / output issues (PHP 6.0 required?)
+     */
+    function toJSON()
+    {
+        
+        $json = '{';
+
+        $json .= '"leader":' . json_encode($this->getLeader()) . ',';
+
+        /* Start fields */
+        $x = 0;
+        $json .= '"fields":[';
+
+        foreach ($this->fields as $field) {
+            if (!$field->isEmpty()) {
+                if ($x++ > 0) {
+                    $json .= ',';
+                }
+                switch(get_class($field)) {
+                case "File_MARC_Control_Field":
+                    $json .= '{"' . $field->getTag() . '":';
+                    $json .= json_encode(utf8_encode($field->getData()));
+                    $json .= '}';
+                    break;
+
+                case "File_MARC_Data_Field":
+                    $json .= '{"' . $field->getTag() . '":{';
+                    $json .= '"ind1":' . json_encode($field->getIndicator(1));
+                    $json .= ',"ind2":' . json_encode($field->getIndicator(1));
+
+                    $y = 0;
+                    $json .= ',"subfields":[';
+                    foreach ($field->getSubfields() as $subfield) {
+                        if ($y++ > 0) {
+                            $json .= ',';
+                        }
+                        $json .= '{"' . $subfield->getCode() . '":';
+                        $json .= json_encode(utf8_encode($subfield->getData()));
+                        $json .= '}';
+                        
+                    }
+                    $json .= ']}}';
+                    break;
+                }
+            }
+        }
+        /* End fields and record */
+        $json .= ']}';
+
+        return $json;
+    }
+
+    // }}}
+
     // {{{ toXML()
     /**
      * Return the MARC record in MARCXML format
