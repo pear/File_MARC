@@ -19,10 +19,10 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
   <email>dbs@php.net</email>
   <active>yes</active>
  </lead>
- <date>2010-08-05</date>
+ <date>2010-08-14</date>
  <version>
-  <release>0.5.2</release>
-  <api>0.5.0</api>
+  <release>0.6.0</release>
+  <api>0.6.0</api>
  </version>
  <stability>
   <release>beta</release>
@@ -30,9 +30,8 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">GNU Lesser General Public License</license>
  <notes>
-0.5.2-beta
-  * Enable File_MARC_Record to be invoked with a null constructor again, useful for building MARC records from scratch
-  * Add a test to check that the null constructor works to avoid future regressions
+0.6.0-beta
+  * Add two flavours of JSON output from File_MARC_Record: toJSON() and toJSONHash()
  </notes>
  <contents>
   <dir name="/" baseinstalldir="File">
@@ -77,6 +76,7 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
     <file name="marc_015.phpt" role="test" />
     <file name="marc_016.phpt" role="test" />
     <file name="marc_017.phpt" role="test" />
+    <file name="marc_018.phpt" role="test" />
     <file name="marc_16783.phpt" role="test" />
     <file name="marc_field_001.phpt" role="test" />
     <file name="marc_field_002.phpt" role="test" />
@@ -108,7 +108,7 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
  <dependencies>
   <required>
    <php>
-    <min>5.1</min>
+    <min>5.2</min>
    </php>
    <pearinstaller>
     <min>1.4.0</min>

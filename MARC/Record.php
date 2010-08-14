@@ -549,6 +549,60 @@ class File_MARC_Record
 
     // }}}
 
+    // {{{ toJSONHash()
+    /**
+     * Return the MARC record in Bill Dueber's MARC-HASH JSON format
+     *
+     * This method produces a JSON representation of a MARC record as defined
+     * at http://robotlibrarian.billdueber.com/new-interest-in-marc-hash-json/
+     * The input * encoding must be UTF8, otherwise the returned values will
+     * be corrupted.
+     *
+     * @return string          representation of MARC record in JSON format
+     *
+     * @todo Fix encoding input / output issues (PHP 6.0 required?)
+     */
+    function toJSONHash()
+    {
+        $json = new StdClass();
+        $json->type = "marc-hash";
+        $json->version = array(1, 0);
+        $json->leader = utf8_encode($this->getLeader());
+
+        /* Start fields */
+        $fields = array();
+        foreach ($this->fields as $field) {
+            if (!$field->isEmpty()) {
+                switch(get_class($field)) {
+                case "File_MARC_Control_Field":
+                    $fields[] = array(utf8_encode($field->getTag()), utf8_encode($field->getData()));
+                    break;
+
+                case "File_MARC_Data_Field":
+                    $subs = array();
+                    foreach ($field->getSubfields() as $sf) {
+                        $subs[] = array(utf8_encode($sf->getCode()), utf8_encode($sf->getData()));
+                    }
+                    $contents = array(
+                        utf8_encode($field->getTag()),
+                        utf8_encode($field->getIndicator(1)),
+                        utf8_encode($field->getIndicator(2)),
+                        $subs
+                    );
+                    $fields[] = $contents;
+                    break;
+                }
+            }
+        }
+        /* End fields and record */
+
+        $json->fields = $fields;
+        return json_encode($json);
+    }
+
+    // }}}
+
+
     // {{{ toXML()
     /**
      * Return the MARC record in MARCXML format
