@@ -515,52 +515,36 @@ class File_MARC_Record
      */
     function toJSON()
     {
-        
-        $json = '{';
-
-        $json .= '"leader":' . json_encode($this->getLeader()) . ',';
+        $json = new StdClass();
+        $json->leader = utf8_encode($this->getLeader());
 
         /* Start fields */
-        $x = 0;
-        $json .= '"fields":[';
-
+        $fields = array();
         foreach ($this->fields as $field) {
             if (!$field->isEmpty()) {
-                if ($x++ > 0) {
-                    $json .= ',';
-                }
                 switch(get_class($field)) {
                 case "File_MARC_Control_Field":
-                    $json .= '{"' . $field->getTag() . '":';
-                    $json .= json_encode(utf8_encode($field->getData()));
-                    $json .= '}';
+                    $fields[] = array(utf8_encode($field->getTag()) => utf8_encode($field->getData()));
                     break;
 
                 case "File_MARC_Data_Field":
-                    $json .= '{"' . $field->getTag() . '":{';
-                    $json .= '"ind1":' . json_encode($field->getIndicator(1));
-                    $json .= ',"ind2":' . json_encode($field->getIndicator(1));
-
-                    $y = 0;
-                    $json .= ',"subfields":[';
-                    foreach ($field->getSubfields() as $subfield) {
-                        if ($y++ > 0) {
-                            $json .= ',';
-                        }
-                        $json .= '{"' . $subfield->getCode() . '":';
-                        $json .= json_encode(utf8_encode($subfield->getData()));
-                        $json .= '}';
-                        
+                    $subs = array();
+                    foreach ($field->getSubfields() as $sf) {
+                        $subs[] = array(utf8_encode($sf->getCode()) => utf8_encode($sf->getData()));
                     }
-                    $json .= ']}}';
+                    $contents = new StdClass();
+                    $contents->ind1 = utf8_encode($field->getIndicator(1));
+                    $contents->ind2 = utf8_encode($field->getIndicator(2));
+                    $contents->subfields = $subs;
+                    $fields[] = array(utf8_encode($field->getTag()) => $contents);
                     break;
                 }
             }
         }
         /* End fields and record */
-        $json .= ']}';
 
-        return $json;
+        $json->fields = $fields;
+        return json_encode($json);
     }
 
     // }}}
