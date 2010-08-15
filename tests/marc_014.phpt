@@ -26,7 +26,7 @@ $ctrl_field = new File_MARC_Control_Field('001', '01234567890');
 $marc_record->prependField($ctrl_field);
 
 // let's see the results
-print $marc_record;
+print utf8_encode($marc_record);
 print "\n";
 
 ?>
