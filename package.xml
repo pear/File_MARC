@@ -19,9 +19,9 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
   <email>dbs@php.net</email>
   <active>yes</active>
  </lead>
- <date>2010-08-14</date>
+ <date>2010-08-15</date>
  <version>
-  <release>0.6.0</release>
+  <release>0.6.1</release>
   <api>0.6.0</api>
  </version>
  <stability>
@@ -30,24 +30,26 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">GNU Lesser General Public License</license>
  <notes>
-0.6.0-beta
-  * Add two flavours of JSON output from File_MARC_Record: toJSON() and toJSONHash()
+0.6.1-beta
+  * Correct layout per bug #17704
  </notes>
  <contents>
   <dir name="/" baseinstalldir="File">
    <file name="CHANGELOG" role="doc" />
-   <file name="MARC.php" role="php" />
-   <file name="MARCBASE.php" role="php" />
-   <file name="MARCXML.php" role="php" />
    <file name="LICENSE" role="doc" />
-   <dir name="MARC">
-    <file name="Control_Field.php" role="php" />
-    <file name="Data_Field.php" role="php" />
-    <file name="Exception.php" role="php" />
-    <file name="Field.php" role="php" />
-    <file name="List.php" role="php" />
-    <file name="Record.php" role="php" />
-    <file name="Subfield.php" role="php" />
+   <dir name="File" baseinstalldir="/">
+    <file name="MARC.php" role="php" />
+    <file name="MARCBASE.php" role="php" />
+    <file name="MARCXML.php" role="php" />
+    <dir name="MARC">
+     <file name="Control_Field.php" role="php" />
+     <file name="Data_Field.php" role="php" />
+     <file name="Exception.php" role="php" />
+     <file name="Field.php" role="php" />
+     <file name="List.php" role="php" />
+     <file name="Record.php" role="php" />
+     <file name="Subfield.php" role="php" />
+    </dir>
    </dir>
    <dir name="examples">
     <file name="example.mrc" role="doc" />
