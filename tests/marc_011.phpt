@@ -1,5 +1,7 @@
 --TEST--
 marc_011: iterate and pretty print a MARC record (SOURCE_STRING)
+--SKIPIF--
+<?php include('skipif.inc'); ?>
 --FILE--
 <?php
 $dir = dirname(__FILE__);

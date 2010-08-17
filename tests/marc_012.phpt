@@ -1,5 +1,7 @@
 --TEST--
 marc_012: test isControlField() and isDataField() convenience methods
+--SKIPIF--
+<?php include('skipif.inc'); ?>
 --FILE--
 <?php
 $dir = dirname(__FILE__);

@@ -1,5 +1,7 @@
 --TEST--
 marc_009: Parse a record where leader record length != real record length
+--SKIPIF--
+<?php include('skipif.inc'); ?>
 --FILE--
 <?php
 $dir = dirname(__FILE__);

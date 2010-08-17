@@ -1,5 +1,7 @@
 --TEST--
 marc_xml_16642: Fix bug 16642: ensure tag and subfield values are returned as strings
+--SKIPIF--
+<?php include('skipif.inc'); ?>
 --FILE--
 <?php
 $dir = dirname(__FILE__);

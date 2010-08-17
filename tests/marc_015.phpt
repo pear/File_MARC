@@ -1,5 +1,7 @@
 --TEST--
 marc_015: ensure that pandemonium does not occur if a record doesn't have a given field
+--SKIPIF--
+<?php include('skipif.inc'); ?>
 --FILE--
 <?php
 $dir = dirname(__FILE__);

@@ -1,5 +1,7 @@
 --TEST--
 marc_007: Use key=>value iteration for tags and codes
+--SKIPIF--
+<?php include('skipif.inc'); ?>
 --FILE--
 <?php
 $dir = dirname(__FILE__);

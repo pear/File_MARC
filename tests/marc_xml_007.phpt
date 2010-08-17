@@ -1,5 +1,7 @@
 --TEST--
 marc_xml_007: test getTag(), isControlField(), and isDataField() convenience methods on MARCXML
+--SKIPIF--
+<?php include('skipif.inc'); ?>
 --FILE--
 <?php
 $dir = dirname(__FILE__);

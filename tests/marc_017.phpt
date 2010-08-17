@@ -1,5 +1,7 @@
 --TEST--
 marc_017: iterate and print a MARC record to JSON format
+--SKIPIF--
+<?php include('skipif.inc'); ?>
 --FILE--
 <?php
 $dir = dirname(__FILE__);

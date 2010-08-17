@@ -1,5 +1,7 @@
 --TEST--
 marc_004: Delete fields and subfields
+--SKIPIF--
+<?php include('skipif.inc'); ?>
 --FILE--
 <?php
 $dir = dirname(__FILE__);

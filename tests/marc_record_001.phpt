@@ -1,5 +1,7 @@
 --TEST--
 marc_record_001: create a MARC record from scratch
+--SKIPIF--
+<?php include('skipif.inc'); ?>
 --FILE--
 <?php
 $dir = dirname(__FILE__);

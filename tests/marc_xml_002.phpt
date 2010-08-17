@@ -1,5 +1,7 @@
 --TEST--
 marc_xml_002: iterate and pretty print a MARC record (LOC standard)
+--SKIPIF--
+<?php include('skipif.inc'); ?>
 --FILE--
 <?php
 $dir = dirname(__FILE__);

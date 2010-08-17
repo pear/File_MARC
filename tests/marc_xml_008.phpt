@@ -1,5 +1,7 @@
 --TEST--
 marc_xml_008: generate a single collection of MARCXML records from a MARCXML record
+--SKIPIF--
+<?php include('skipif.inc'); ?>
 --FILE--
 <?php
 $dir = dirname(__FILE__);

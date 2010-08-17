@@ -1,5 +1,7 @@
 --TEST--
 marc_006: test read.php
+--SKIPIF--
+<?php include('skipif.inc'); ?>
 --FILE--
 <?php
 

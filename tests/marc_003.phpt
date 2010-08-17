@@ -1,5 +1,7 @@
 --TEST--
 marc_003: getFields() with various regular expressions
+--SKIPIF--
+<?php include('skipif.inc'); ?>
 --FILE--
 <?php
 $dir = dirname(__FILE__);

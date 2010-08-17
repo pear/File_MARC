@@ -1,5 +1,7 @@
 --TEST--
 marc_xml_003: Round-trip a MARCXML record to MARC21 (LOC standard)
+--SKIPIF--
+<?php include('skipif.inc'); ?>
 --FILE--
 <?php
 $dir = dirname(__FILE__);

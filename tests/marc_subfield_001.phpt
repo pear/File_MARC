@@ -1,5 +1,7 @@
 --TEST--
 marc_subfield_001: Exercise basic methods for File_MARC_Subfield class
+--SKIPIF--
+<?php include('skipif.inc'); ?>
 --FILE--
 <?php
 $dir = dirname(__FILE__);

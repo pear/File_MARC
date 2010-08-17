@@ -1,5 +1,7 @@
 --TEST--
 marc_xml_004: test conversion to XML of subfields that need to be escaped
+--SKIPIF--
+<?php include('skipif.inc'); ?>
 --FILE--
 <?php
 $dir = dirname(__FILE__);

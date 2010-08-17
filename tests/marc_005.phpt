@@ -1,5 +1,7 @@
 --TEST--
 marc_005: Ensure a duplicated record is a deep copy; test deleteFields()
+--SKIPIF--
+<?php include('skipif.inc'); ?>
 --FILE--
 <?php
 $dir = dirname(__FILE__);

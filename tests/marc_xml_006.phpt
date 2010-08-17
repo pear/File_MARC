@@ -1,5 +1,7 @@
 --TEST--
 marc_xml_006: test getFields() in XML
+--SKIPIF--
+<?php include('skipif.inc'); ?>
 --FILE--
 <?php
 

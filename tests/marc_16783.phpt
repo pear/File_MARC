@@ -1,5 +1,7 @@
 --TEST--
 marc_16783: iterate and pretty print a non-compliant MARC record (tag = '30-')
+--SKIPIF--
+<?php include('skipif.inc'); ?>
 --FILE--
 <?php
 $dir = dirname(__FILE__);

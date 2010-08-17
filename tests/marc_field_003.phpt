@@ -1,5 +1,7 @@
 --TEST--
 marc_field_003: Add subfields to an existing field
+--SKIPIF--
+<?php include('skipif.inc'); ?>
 --FILE--
 <?php
 $dir = dirname(__FILE__);

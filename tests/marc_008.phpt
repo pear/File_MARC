@@ -1,5 +1,7 @@
 --TEST--
 marc_008: Attempt to open a file that does not exist
+--SKIPIF--
+<?php include('skipif.inc'); ?>
 --FILE--
 <?php
 $dir = dirname(__FILE__);

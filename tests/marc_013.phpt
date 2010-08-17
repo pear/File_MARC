@@ -1,5 +1,7 @@
 --TEST--
 marc_013: test formatField() convenience method
+--SKIPIF--
+<?php include('skipif.inc'); ?>
 --FILE--
 <?php
 $dir = dirname(__FILE__);

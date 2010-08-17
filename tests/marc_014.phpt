@@ -1,5 +1,7 @@
 --TEST--
 marc_014: Add fields to a MARC record
+--SKIPIF--
+<?php include('skipif.inc'); ?>
 --FILE--
 <?php
 $dir = dirname(__FILE__);

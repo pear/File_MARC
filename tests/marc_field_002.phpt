@@ -1,5 +1,7 @@
 --TEST--
 marc_field_002: Create fields with invalid indicators
+--SKIPIF--
+<?php include('skipif.inc'); ?>
 --FILE--
 <?php
 $dir = dirname(__FILE__);

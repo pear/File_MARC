@@ -1,5 +1,7 @@
 --TEST--
 marc_field_004: Add subfields to an existing field (corner case)
+--SKIPIF--
+<?php include('skipif.inc'); ?>
 --FILE--
 <?php
 $dir = dirname(__FILE__);

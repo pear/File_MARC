@@ -1,5 +1,7 @@
 --TEST--
 marc_xml_005: Round-trip a MARCXML record with a root element of "record" to MARC21
+--SKIPIF--
+<?php include('skipif.inc'); ?>
 --FILE--
 <?php
 $dir = dirname(__FILE__);
