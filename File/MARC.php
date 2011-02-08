@@ -258,18 +258,20 @@ class File_MARC extends File_MARCBASE
     {
         $marc = new File_MARC_Record($this);
 
+        // fallback on the actual byte length
+        $record_length = strlen($text);
+
         $matches = array();
-        if (!preg_match("/^(\d{5})/", $text, $matches)) {
+        if (preg_match("/^(\d{5})/", $text, $matches)) {
+            // Store record length
+            $record_length = $matches[1];
+            if ($record_length != strlen($text)) {
+                $marc->addWarning(File_MARC_Exception::formatError(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_INCORRECT_LENGTH], array("record_length" => $record_length, "actual" => strlen($text))));
+                // Real beats declared byte length
+                $record_length = strlen($text);
+            }
+        } else {
             $marc->addWarning(File_MARC_Exception::formatError(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_NONNUMERIC_LENGTH], array("record_length" => substr($text, 0, 5))));
-        }
-
-        // Store record length
-        $record_length = $matches[1];
-
-        if ($record_length != strlen($text)) {
-            $marc->addWarning(File_MARC_Exception::formatError(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_INCORRECT_LENGTH], array("record_length" => $record_length, "actual" => strlen($text))));
-            // give up and set the record length to the actual byte length
-            $record_length = strlen($text);
         }
 
         if (substr($text, -1, 1) != File_MARC::END_OF_RECORD)
