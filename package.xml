@@ -97,6 +97,7 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
     <file name="marc_xml_008.phpt" role="test" />
     <file name="marc_xml_16642.phpt" role="test" />
     <file name="marc_xml_rsinger.phpt" role="test" />
+    <file name="skipif.inc" role="test" />
     <file name="music.mrc" role="test" />
     <file name="music.xml" role="test" />
     <file name="bigarchive.xml" role="test" />
