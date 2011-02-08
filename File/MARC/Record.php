@@ -104,7 +104,7 @@ class File_MARC_Record
     function __construct($marc = null)
     {
         $this->fields = new File_MARC_List();
-        $this->leader = str_repeat(' ', 24);
+        $this->setLeader(str_repeat(' ', 24));
         if (!$marc) {
             $marc = new File_MARC(null, File_MARC::SOURCE_STRING); // oh the hack
         }
@@ -320,10 +320,16 @@ class File_MARC_Record
         }
 
         // Set record length
-        $this->leader = substr_replace($this->leader, sprintf("%05d", $record_length), 0, 5);
-        $this->leader = substr_replace($this->leader, sprintf("%05d", $base_address), 12, 5);
-        $this->leader = substr_replace($this->leader, '22', 10, 2);
-        $this->leader = substr_replace($this->leader, '4500', 20, 4);
+        $this->setLeader(substr_replace($this->getLeader(), sprintf("%05d", $record_length), 0, 5));
+        $this->setLeader(substr_replace($this->getLeader(), sprintf("%05d", $base_address), File_MARC::DIRECTORY_ENTRY_LEN, 5));
+        $this->setLeader(substr_replace($this->getLeader(), '22', 10, 2));
+        $this->setLeader(substr_replace($this->getLeader(), '4500', 20, 4));
+
+        if (strlen($this->getLeader()) > File_MARC::LEADER_LEN) {
+            // Avoid incoming leaders that are mangled to be overly long
+            $this->setLeader(substr($this->getLeader(), 0, File_MARC::LEADER_LEN));
+            $this->addWarning("Input leader was too long; truncated to " . File_MARC::LEADER_LEN . " characters");
+        }
         return true;
     }
     // }}}
@@ -473,7 +479,7 @@ class File_MARC_Record
         /**
          * Glue together all parts
          */
-        return $this->leader.implode("", $directory).File_MARC::END_OF_FIELD.implode("", $fields).File_MARC::END_OF_RECORD;
+        return $this->getLeader().implode("", $directory).File_MARC::END_OF_FIELD.implode("", $fields).File_MARC::END_OF_RECORD;
     }
     // }}}
 
@@ -492,7 +498,7 @@ class File_MARC_Record
     function __toString()
     {
         // Begin output
-        $formatted = "LDR " . $this->leader . "\n";
+        $formatted = "LDR " . $this->getLeader() . "\n";
         foreach ($this->fields as $field) {
             if (!$field->isEmpty()) {
                 $formatted .= $field->__toString() . "\n";
