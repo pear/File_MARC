@@ -4,7 +4,7 @@
 $error_reporting = error_reporting();
 
 // Disable warnings for the include_once() test
-error_reporting(E_ALL && ~E_WARNING);
+error_reporting(E_ALL & ~E_WARNING);
 if (!include_once('Structures/LinkedList/Double.php')) {
     print("skip - Structures_LinkedList PEAR package is not installed.");
 }
