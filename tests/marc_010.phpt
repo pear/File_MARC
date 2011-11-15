@@ -1,5 +1,5 @@
 --TEST--
-marc_001: iterate and pretty print a MARC record
+marc_010: iterate and pretty print MARC records from a stream
 --SKIPIF--
 <?php include('skipif.inc'); ?>
 --FILE--
