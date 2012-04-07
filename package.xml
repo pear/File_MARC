@@ -19,10 +19,10 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
   <email>dbs@php.net</email>
   <active>yes</active>
  </lead>
- <date>2011-02-08</date>
+ <date>2012-04-07</date>
  <version>
-  <release>0.6.2</release>
-  <api>0.6.0</api>
+  <release>0.7.0</release>
+  <api>0.7.0</api>
  </version>
  <stability>
   <release>beta</release>
@@ -30,8 +30,8 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">GNU Lesser General Public License</license>
  <notes>
-0.6.2-beta
-  * Improve handling of bad leader data, including declared length and overly long leaders in MARCXML
+0.7.0-beta
+  * Add MARC lint support (thanks to Demian Katz - demian.katz@villanova.edu)
  </notes>
  <contents>
   <dir name="/" baseinstalldir="File">
@@ -46,9 +46,13 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
      <file name="Data_Field.php" role="php" />
      <file name="Exception.php" role="php" />
      <file name="Field.php" role="php" />
+     <file name="Lint.php" role="php" />
      <file name="List.php" role="php" />
      <file name="Record.php" role="php" />
      <file name="Subfield.php" role="php" />
+      <dir name="Lint">
+       <file name="CodeData.php" role="php" />
+      </dir>
     </dir>
    </dir>
    <dir name="examples">
@@ -60,6 +64,7 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
    <dir name="tests">
     <file name="bad_example.mrc" role="test" />
     <file name="bad_example.xml" role="test" />
+    <file name="camel.mrc" role="test" />
     <file name="example.mrc" role="test" />
     <file name="marc_001.phpt" role="test" />
     <file name="marc_002.phpt" role="test" />
@@ -84,6 +89,11 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
     <file name="marc_field_002.phpt" role="test" />
     <file name="marc_field_003.phpt" role="test" />
     <file name="marc_field_004.phpt" role="test" />
+    <file name="marc_lint_001.phpt" role="test" />
+    <file name="marc_lint_002.phpt" role="test" />
+    <file name="marc_lint_003.phpt" role="test" />
+    <file name="marc_lint_004.phpt" role="test" />
+    <file name="marc_lint_005.phpt" role="test" />
     <file name="marc_record_001.phpt" role="test" />
     <file name="marc_subfield_001.phpt" role="test" />
     <file name="marc_subfield_002.phpt" role="test" />
@@ -119,6 +129,10 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
    </pearinstaller>
    <package>
     <name>Structures_LinkedList</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>Validate_ISPN</name>
     <channel>pear.php.net</channel>
    </package>
   </required>
