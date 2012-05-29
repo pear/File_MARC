@@ -2,6 +2,7 @@
 marc_lint_001: Full test of Lint suite
 --SKIPIF--
 <?php include('skipif.inc'); ?>
+<?php include('skipif_noispn.inc'); ?>
 --FILE--
 <?php
 $dir = dirname(__FILE__);

@@ -2,6 +2,7 @@
 marc_lint_002: Tests check041() and check043() called separately
 --SKIPIF--
 <?php include('skipif.inc'); ?>
+<?php include('skipif_noispn.inc'); ?>
 --FILE--
 <?php
 $dir = dirname(__FILE__);

@@ -2,6 +2,7 @@
 marc_lint_003: Tests for field 880 and for subfield 6
 --SKIPIF--
 <?php include('skipif.inc'); ?>
+<?php include('skipif_noispn.inc'); ?>
 --FILE--
 <?php
 $dir = dirname(__FILE__);
