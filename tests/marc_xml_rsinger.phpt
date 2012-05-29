@@ -1,5 +1,5 @@
 --TEST--
-marc_xml_rsinger: iterate and pretty print a non-compliant MARC record (tag = '30-', missing indicator in 245)
+marc_xml_rsinger2: iterate and pretty print a non-compliant MARC record (uppercase subfield codes)
 --SKIPIF--
 <?php include('skipif.inc'); ?>
 --FILE--
