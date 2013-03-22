@@ -629,7 +629,8 @@ class File_MARC_Record
     {
         $this->marcxml->setIndent($indent);
         if ($single) {
-            $this->marc->toXMLHeader();
+            $this->marcxml->startElement("collection");
+            $this->marcxml->writeAttribute("xmlns", "http://www.loc.gov/MARC21/slim");
         }
         $this->marcxml->startElement("record");
 
@@ -680,10 +681,11 @@ class File_MARC_Record
 
         $this->marcxml->endElement(); // end record
         if ($single) {
-            return $this->marc->toXMLFooter();
+            $this->marcxml->endElement(); // end collection
+            $this->marcxml->endDocument();
         }
+        return $this->marcxml->outputMemory();
     }
-
     // }}}
 
 }

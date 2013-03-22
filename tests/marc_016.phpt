@@ -29,7 +29,7 @@ while ($record = $records->next()) {
     }
 
     // Generate the XML output for this record
-    $record->toXML('UTF-8', true, false);
+    print $record->toXML('UTF-8', true, false);
 }
 // Add the </collection> closing element and dump the XMLWriter contents
 print $records->toXMLFooter();
