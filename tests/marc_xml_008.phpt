@@ -36,7 +36,7 @@ print $records->toXMLFooter();
 --EXPECT--
 <?xml version="1.0" encoding="UTF-8"?>
 <collection xmlns="http://www.loc.gov/MARC21/slim">
- <record>
+ <record xmlns="http://www.loc.gov/MARC21/slim">
   <leader>01145ncm a2200277 i 4500</leader>
   <controlfield tag="001">000073594</controlfield>
   <controlfield tag="004">AAJ5802</controlfield>
@@ -116,7 +116,7 @@ print $records->toXMLFooter();
    <subfield code="5"></subfield>
   </datafield>
  </record>
- <record>
+ <record xmlns="http://www.loc.gov/MARC21/slim">
   <leader>01293cjm a2200289 a 4500</leader>
   <controlfield tag="001">001878039</controlfield>
   <controlfield tag="005">20050110174900.0</controlfield>
@@ -189,7 +189,7 @@ print $records->toXMLFooter();
    <subfield code="a">Paul Desmond and the Modern Jazz Quartet.</subfield>
   </datafield>
  </record>
- <record>
+ <record xmlns="http://www.loc.gov/MARC21/slim">
   <leader>01829cjm a2200385 a 4500</leader>
   <controlfield tag="001">001964482</controlfield>
   <controlfield tag="005">20060626132700.0</controlfield>
