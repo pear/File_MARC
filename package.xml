@@ -19,9 +19,9 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
   <email>dbs@php.net</email>
   <active>yes</active>
  </lead>
- <date>2013-09-03</date>
+ <date>2013-09-13</date>
  <version>
-  <release>0.7.2</release>
+  <release>0.7.3</release>
   <api>0.7.0</api>
  </version>
  <stability>
@@ -30,8 +30,8 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">GNU Lesser General Public License</license>
  <notes>
-0.7.2-beta
-  * Fix bug #19845 - Record::toXML() returns nothing
+0.7.3-beta
+  * Merge patch from Karen Coombs (librarywebchic@gmail.com) adding default namespace to record elements
  </notes>
  <contents>
   <dir name="/" baseinstalldir="File">
