@@ -31,8 +31,7 @@ foreach ($names as $name_field) {
 
     if (count($name) == 1) {
         print $name[0]->getData() . "\n";
-    }
-    else {
+    } else {
         print "Error -- \$a subfield appears more than once in this field!";
     }
 }

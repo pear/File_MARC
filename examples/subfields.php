@@ -25,7 +25,7 @@ $field->appendSubfield($subfield1);
 $sf = $field->getSubfields('z');
 // getSubfields() always returns an array; we just want the first subfield
 if (count($sf) > 0) {
-  $field->insertSubfield($subfield2, $sf[0]);
+    $field->insertSubfield($subfield2, $sf[0]);
 }
 
 // Insert a new subfield prior to the first subfield with code 'z'
@@ -33,7 +33,7 @@ if (count($sf) > 0) {
 $sf = $field->getSubfield('z');
 // getSubfield() simply returns the first matching subfield
 if ($sf) {
-  $field->insertSubfield($subfield3, $sf, true);
+    $field->insertSubfield($subfield3, $sf, true);
 }
 
 // let's see the results
