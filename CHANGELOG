@@ -1,3 +1,71 @@
+1.0.0
+* First stable release!
+
+0.8.0-beta
+* Drop Structures_LinkedList dependency in favour of SplDoublyLinkedList.
+  This bumps the minimum PHP version up to 5.2.0.
+
+0.7.3-beta
+* Merge patch from Karen Coombs (librarywebchic@gmail.com) adding default
+  namespace to record elements
+
+0.7.2-beta
+* Fix bug #19845 - Record::toXML() returns nothing
+
+0.7.1-beta
+* Make Validate_ISPN an optional dependency
+
+0.6.2-beta
+* Improve handling of bad leader data, including declared length and overly
+  long leaders in MARCXML
+
+0.6.1-beta
+* Correct layout per bug #17704
+
+0.6.0-beta
+* Add two flavours of JSON output from File_MARC_Record: toJSON() and
+  toJSONHash()
+
+0.5.2-beta
+* Enable File_MARC_Record to be invoked with a null constructor again, useful
+  for building MARC records from scratch
+* Add a test to check that the null constructor works to avoid future
+  regressions
+
+0.5.1-beta
+* Explicitly cast results to strings to avoid returning XML objects when
+  File_MARCXML is in effect; problem doesn't show up in the PHP CLI, but does
+  cause problems on the Web
+
+0.5.0-beta
+* Drop MARCFLAT as it is unmaintained and, to my knowledge, unused
+* Add the ability to generate a proper collection of MARCXML records
+* Factor out some of the common toXML()-related methods to a new base class
+* Add tests of the new toXML() functionality for both MARC and MARCXML sources
+
+0.4.4-beta
+* Enable MARCXML to handle bad tags, to match MARC
+* Handle corner case where only one indicator might have been provided
+
+0.4.3-beta
+* Fix bug #16783 - handle bad MARC tags via warnings instead of bubbling an
+  exception all the way up
+
+0.4.2-beta
+* Fix bug #16642 - MARCXML files return keys of an invalid type
+
+0.4.1-beta
+* Fix suggested by Dan Field (surfrdan @ gmail.com) for addWarnings() typo
+
+0.4.0-beta
+* Add formatField() convenience method to File_MARC_Field (courtesy Mark
+  Matienzo @ matienzo.org)
+* Move from split() to explode() to avoid PHP 5.3 deprecation warning
+  (courtesy bertrand.zuchuat @ rero.ch
+
+0.3.0-beta
+* Add isControlField() and isDataField() convenience methods to File_MARC_Field
+
 0.2.3-beta
 * Handle single-record MARC21XML files with "record" as the root element
 
