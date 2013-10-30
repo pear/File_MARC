@@ -1,3 +1,7 @@
+1.0.1
+* Fix bug in MARC binary serialization of subfields with value '0'.
+  Thanks to Mark Jordan (mjordan@sfu.ca) for the bug report.
+
 1.0.0
 * First stable release!
 
