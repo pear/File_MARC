@@ -27,6 +27,15 @@ $ctrl_field = new File_MARC_Control_Field('001', '01234567890');
 // prepend the control field
 $marc_record->prependField($ctrl_field);
 
+// reproduce test case reported by Mark Jordan
+$subfields_966_2[] = new File_MARC_Subfield('l', 'web');
+$subfields_966_2[] = new File_MARC_Subfield('r', '0');
+$subfields_966_2[] = new File_MARC_Subfield('s', 'b');
+$subfields_966_2[] = new File_MARC_Subfield('i', '49');
+$subfields_966_2[] = new File_MARC_Subfield('c', '1');
+$field_966_2 = new File_MARC_Data_Field('966', $subfields_966_2, null, null);
+$marc_record->appendField($field_966_2);
+
 // let's see the results
 print utf8_encode($marc_record);
 print "\n";
@@ -152,3 +161,8 @@ LDR 01850     2200517   4500
 005     20050204111518.0
 100 0  _anothing
        _zeverything
+966    _lweb
+       _r0
+       _sb
+       _i49
+       _c1
