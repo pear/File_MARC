@@ -1,5 +1,5 @@
 --TEST--
-marcxml_021: iterate and pretty print a MARC record
+marc_xml_010: iterate and pretty print a MARC record
 --SKIPIF--
 <?php include('skipif.inc'); ?>
 --FILE--
