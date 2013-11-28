@@ -180,6 +180,5 @@ Test from a constructed record
 100: Indicator 2 must be blank but it's "4"
 245: Indicator 1 must be 0 or 1 but it's "9"
 245: Subfield _a is not repeatable.
-250: Field is not repeatable.
 260: Subfield _r is not allowed.
 856: Indicator 2 must be blank, 0, 1, 2 or 8 but it's "3"

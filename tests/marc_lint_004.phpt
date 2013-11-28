@@ -82,8 +82,8 @@ foreach ($testData as $current) {
 245: Must have a subfield _a.
 245: First subfield must be _a, but it is _b
 245: Must end with . (period).
-245: MARC21 allows ? or ! as final punctuation but LCRI 1.0C, Nov. 2003, requires period.
-245: MARC21 allows ? or ! as final punctuation but LCRI 1.0C, Nov. 2003, requires period.
+245: MARC21 allows ? or ! as final punctuation but LCRI 1.0C, Nov. 2003 (LCPS 1.7.1 for RDA records), requires period.
+245: MARC21 allows ? or ! as final punctuation but LCRI 1.0C, Nov. 2003 (LCPS 1.7.1 for RDA records), requires period.
 245: Subfield _c must be preceded by /
 245: Subfield _c must be preceded by /
 245: Subfield _c initials should not have a space.
