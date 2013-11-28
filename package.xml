@@ -19,9 +19,9 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
   <email>dbs@php.net</email>
   <active>yes</active>
  </lead>
- <date>2013-10-30</date>
+ <date>2013-11-27</date>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -30,8 +30,8 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">GNU Lesser General Public License</license>
  <notes>
-1.0.1
-  * Fix bug in MARC binary serialization of subfields with a value of '0'
+1.0.2
+  * Update MARC_Lint rule set (thanks Demian Katz!)
  </notes>
  <contents>
   <dir name="/" baseinstalldir="File">
