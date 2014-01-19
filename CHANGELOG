@@ -1,3 +1,7 @@
+1.1.0
+  * Enable namespaces in MARCXML handling (thanks Carsten Klee!)
+  * Remove skip check for Structures/Linked_List
+
 1.0.2
 * Update MARC_Lint set of rules (thanks Demian Katz!) 
 

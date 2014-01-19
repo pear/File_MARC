@@ -19,9 +19,9 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
   <email>dbs@php.net</email>
   <active>yes</active>
  </lead>
- <date>2013-11-27</date>
+ <date>2014-01-19</date>
  <version>
-  <release>1.0.2</release>
+  <release>1.1.0</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -30,8 +30,8 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">GNU Lesser General Public License</license>
  <notes>
-1.0.2
-  * Update MARC_Lint rule set (thanks Demian Katz!)
+1.1.0
+  * Enable namespaces in MARCXML handling (thanks Carsten Klee!)
  </notes>
  <contents>
   <dir name="/" baseinstalldir="File">
@@ -109,7 +109,10 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
     <file name="marc_xml_008.phpt" role="test" />
     <file name="marc_xml_009.phpt" role="test" />
     <file name="marc_xml_16642.phpt" role="test" />
+    <file name="marc_xml_namespace.phpt" role="test" />
+    <file name="marc_xml_namespace_prefix.phpt" role="test" />
     <file name="marc_xml_rsinger.phpt" role="test" />
+    <file name="namespace.xml" role="test" />
     <file name="skipif.inc" role="test" />
     <file name="music.mrc" role="test" />
     <file name="music.xml" role="test" />
