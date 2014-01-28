@@ -22,7 +22,7 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
  <date>2014-01-19</date>
  <version>
   <release>1.1.0</release>
-  <api>1.0.0</api>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -32,6 +32,7 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
  <notes>
 1.1.0
   * Enable namespaces in MARCXML handling (thanks Carsten Klee!)
+  * Remove skip check for Structures/Linked_List
  </notes>
  <contents>
   <dir name="/" baseinstalldir="File">
