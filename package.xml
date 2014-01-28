@@ -19,9 +19,9 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
   <email>dbs@php.net</email>
   <active>yes</active>
  </lead>
- <date>2014-01-19</date>
+ <date>2014-01-28</date>
  <version>
-  <release>1.1.0</release>
+  <release>1.1.1</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -30,9 +30,9 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">GNU Lesser General Public License</license>
  <notes>
-1.1.0
-  * Enable namespaces in MARCXML handling (thanks Carsten Klee!)
-  * Remove skip check for Structures/Linked_List
+1.1.1
+  * Add MARC-in-JSON serialization fix for subfield 0 json_encode() limitation
+    (thanks to Bill Dueber for reporting the bug)
  </notes>
  <contents>
   <dir name="/" baseinstalldir="File">
@@ -87,6 +87,7 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
     <file name="marc_018.phpt" role="test" />
     <file name="marc_019.phpt" role="test" />
     <file name="marc_020.phpt" role="test" />
+    <file name="marc_021.phpt" role="test" />
     <file name="marc_16783.phpt" role="test" />
     <file name="marc_field_001.phpt" role="test" />
     <file name="marc_field_002.phpt" role="test" />

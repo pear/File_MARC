@@ -1,3 +1,7 @@
+1.1.1
+  * Add MARC-in-JSON serialization fix for subfield 0 json_encode() limitation
+    (thanks to Bill Dueber for reporting the bug)
+
 1.1.0
   * Enable namespaces in MARCXML handling (thanks Carsten Klee!)
   * Remove skip check for Structures/Linked_List
