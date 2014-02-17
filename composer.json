@@ -29,6 +29,6 @@
         "phpunit/phpunit": "*"
     },
     "suggest": {
-        "pear/validate_ispn": "Optional dependency"
+        "pear/validate_ispn": "Install optionally via your project's composer.json"
     }
 }
