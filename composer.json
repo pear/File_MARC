@@ -1,0 +1,31 @@
+{
+    "authors": [
+        {
+            "email": "dbs@php.net",
+            "name": "Dan Scott",
+            "role": "Lead"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "File_MARC": "./"
+        }
+    },
+    "description": "More info available on: http://pear.php.net/package/File_MARC",
+    "include-path": [
+        "./"
+    ],
+    "license": "GNU Lesser General Public License",
+    "name": "pear/file_marc",
+    "support": {
+        "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=File_MARC",
+        "source": "https://github.com/pear/File_MARC"
+    },
+    "type": "library",
+    "require": {
+        "pear/pear_exception": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    }
+}
