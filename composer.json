@@ -8,14 +8,14 @@
     ],
     "autoload": {
         "psr-0": {
-            "File_MARC": "./"
+            "File": "./"
         }
     },
     "description": "More info available on: http://pear.php.net/package/File_MARC",
     "include-path": [
         "./"
     ],
-    "license": "GNU Lesser General Public License",
+    "license": "LGPL-2.1",
     "name": "pear/file_marc",
     "support": {
         "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=File_MARC",
@@ -27,5 +27,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "*"
+    },
+    "suggest": {
+        "pear/validate_ispn": "Optional dependency"
     }
 }
