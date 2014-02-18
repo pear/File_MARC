@@ -3,7 +3,8 @@
         {
             "email": "dbs@php.net",
             "name": "Dan Scott",
-            "role": "Lead"
+            "role": "Lead",
+            "homepage": "https://coffeecode.net"
         }
     ],
     "autoload": {
@@ -11,7 +12,7 @@
             "File": "./"
         }
     },
-    "description": "More info available on: http://pear.php.net/package/File_MARC",
+    "description": "Supports the MAchine Readable Cataloging (MARC) file format documented at http://loc.gov/marc/",
     "include-path": [
         "./"
     ],
