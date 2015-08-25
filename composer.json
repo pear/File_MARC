@@ -1,17 +1,4 @@
 {
-    "repositories": [
-       {
-            "type": "package",
-            "package": {
-                "name": "pear/Pear_Exception",
-                "version": "dev-master",
-                "dist": {
-                    "url": "https://github.com/pear/PEAR_Exception/archive/master.zip",
-                    "type": "zip"
-                }
-            }
-        }
-    ],
     "authors": [
         {
             "email": "dbs@php.net",
