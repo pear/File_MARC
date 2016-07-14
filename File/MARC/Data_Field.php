@@ -480,6 +480,27 @@ class File_MARC_Data_Field extends File_MARC_Field
         return (string)$this->ind1.$this->ind2.implode("", $subfields).File_MARC::END_OF_FIELD;
     }
     // }}}
+    
+    // {{{ getContents()
+    /**
+     * Return fields data content as joined string
+     *
+     * Return all the fields data content as a joined string 
+     *
+     * @param  string $joinChar A string used to join the data conntent.
+     * Default is an empty string
+     * 
+     * @return string Joined string
+     */
+    function getContents($joinChar = '')
+    {
+        $contents = array();
+        foreach($this->subfields as $subfield) {
+            $contents[] = $subfield->getData();
+        }
+        return implode($joinChar, $contents);
+    }
+    // }}}
 }
 // }}}
 
