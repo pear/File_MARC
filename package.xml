@@ -19,10 +19,10 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
   <email>dbs@php.net</email>
   <active>yes</active>
  </lead>
- <date>2015-09-01</date>
+ <date>2016-08-31</date>
  <version>
-  <release>1.1.2</release>
-  <api>1.1.0</api>
+  <release>1.1.3</release>
+  <api>1.1.3</api>
  </version>
  <stability>
   <release>stable</release>
@@ -30,8 +30,8 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">GNU Lesser General Public License</license>
  <notes>
-1.1.2
-  * Fetch pear_exception from Packagist [danmichaelo]
+1.1.3
+  * Add a getContents() convenience method, contributed by Carsten Klee
  </notes>
  <contents>
   <dir name="/" baseinstalldir="File">
@@ -92,6 +92,7 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
     <file name="marc_field_002.phpt" role="test" />
     <file name="marc_field_003.phpt" role="test" />
     <file name="marc_field_004.phpt" role="test" />
+    <file name="marc_field_005.phpt" role="test" />
     <file name="marc_lint_001.phpt" role="test" />
     <file name="marc_lint_002.phpt" role="test" />
     <file name="marc_lint_003.phpt" role="test" />
