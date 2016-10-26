@@ -382,7 +382,7 @@ class File_MARC_Data_Field extends File_MARC_Field
      *
      * @return File_MARC_List|array returns a linked list of all subfields
      * if $code is null, an array of {@link File_MARC_Subfield} objects if
-     * one or more subfields match, or false if no codes match $code
+     * one or more subfields match, or an empty array if no codes match $code
      */
     function getSubfields($code = null)
     {
