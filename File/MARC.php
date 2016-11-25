@@ -147,13 +147,14 @@ class File_MARC extends File_MARCBASE
      * ?>
      * </code>
      *
-     * @param string $source Name of the file, or a raw MARC string
-     * @param int    $type   Source of the input, either SOURCE_FILE or SOURCE_STRING
+     * @param string $source        Name of the file, or a raw MARC string
+     * @param int    $type          Source of the input, either SOURCE_FILE or SOURCE_STRING
+     * @param string $record_class  Record class, defaults to File_MARC_Record
      */
-    function __construct($source, $type = self::SOURCE_FILE)
+    function __construct($source, $type = self::SOURCE_FILE, $record_class = null)
     {
 
-        parent::__construct($source, $type);
+        parent::__construct($source, $type, $record_class);
 
         switch ($type) {
 
@@ -255,7 +256,7 @@ class File_MARC extends File_MARCBASE
      */
     private function _decode($text)
     {
-        $marc = new File_MARC_Record($this);
+        $marc = new $this->record_class($this);
 
         // fallback on the actual byte length
         $record_length = strlen($text);
