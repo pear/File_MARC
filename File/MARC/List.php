@@ -119,75 +119,21 @@ class File_MARC_List extends SplDoublyLinkedList
     {
         $pos = 0;
         $exist_pos = $existing_node->getPosition();
-        $temp_list = unserialize(serialize($this));
         $this->rewind();
-        $temp_list->rewind();
 
         // Now add the node according to the requested mode
         switch ($before) {
 
         case true:
-            $new_node->setPosition($exist_pos);
-
-            if ($exist_pos == 0) {
-                $this->unshift($new_node);
-                while ($n = $temp_list->next()) {
-                    $pos++;
-                    $this->next()->setPosition($pos);
-                }
-            } else {
-                $prev_node = $temp_list->offsetGet($existing_node->getPosition());
-                $num_nodes = $this->count();
-                $this->rewind();
-                // Copy up to the existing position, add in node, copy rest
-                try {
-                    while ($n = $temp_list->shift()) {
-                        $this->next();
-                        $pos++;
-                        if ($pos < $exist_pos) {
-                            // no-op
-                        } elseif ($pos == $exist_pos) {
-                            $this->offsetSet($pos, $new_node);
-                        } elseif ($pos == $num_nodes) {
-                            $n->setPosition($pos);
-                            $this->push($n);
-                        } elseif ($pos > $exist_pos) {
-                            $n->setPosition($pos);
-                            $this->offsetSet($pos, $n);
-                        }
-                    }
-                }
-                catch (Exception $e) {
-                    // no-op - shift() throws an exception, sigh
-                }
-            }
+            $this->add($exist_pos, $new_node);
             break;
 
         // after
         case false:
-            $prev_node = $temp_list->offsetGet($existing_node->getPosition());
-            $num_nodes = $this->count();
-            $this->rewind();
-            // Copy up to the existing position inclusively, add node, copy rest
-            try {
-                while ($n = $temp_list->shift()) {
-                    $this->next();
-                    $pos++;
-                    if ($pos <= $exist_pos) {
-                        // no-op
-                    } elseif ($pos == $exist_pos + 1) {
-                        $this->offsetSet($pos, $new_node);
-                    } elseif ($pos == $num_nodes) {
-                        $n->setPosition($pos);
-                        $this->push($n);
-                    } elseif ($pos > $exist_pos + 1) {
-                        $n->setPosition($pos);
-                        $this->offsetSet($pos, $n);
-                    }
-                }
-            }
-            catch (Exception $e) {
-                // no-op - shift() throws an exception, sigh
+            if ($this->offsetExists($exist_pos + 1)) {
+                $this->add($exist_pos + 1, $new_node);
+            } else {
+                $this->push($new_node);
             }
             break;
         }

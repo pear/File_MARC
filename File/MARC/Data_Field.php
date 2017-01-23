@@ -197,15 +197,7 @@ class File_MARC_Data_Field extends File_MARC_Field
      */
     function prependSubfield(File_MARC_Subfield $new_subfield)
     {
-        $pos = 0;
-        $new_subfield->setPosition($pos);
-        $this->subfields->shift($new_subfield);
-        $node = null;
-        $this->subfields->rewind();
-        while ($node = $this->subfields->next()) {
-            $pos++;
-            $node->setPosition($pos);
-        }
+        $this->subfields->unshift($new_subfield);
         return $new_subfield;
     }
     // }}}
@@ -225,22 +217,7 @@ class File_MARC_Data_Field extends File_MARC_Field
      */
     function insertSubfield(File_MARC_Subfield $new_field, File_MARC_Subfield $existing_field, $before = false)
     {
-        switch ($before) {
-        /* Insert before the specified subfield in the record */
-        case true:
-            $this->subfields->insertNode($new_field, $existing_field, true);
-            break;
-
-        /* Insert after the specified subfield in the record */
-        case false:
-            $this->subfields->insertNode($new_field, $existing_field);
-            break;
-
-        default: 
-            $errorMessage = File_MARC_Exception::formatError(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_INSERTSUBFIELD_MODE], array("mode" => $mode));
-            throw new File_MARC_Exception($errorMessage, File_MARC_Exception::ERROR_INSERTSUBFIELD_MODE);
-            return false;
-        }
+        $this->subfields->insertNode($new_field, $existing_field, $before);
         return $new_field;
     }
     // }}}
