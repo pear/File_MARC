@@ -502,13 +502,11 @@ class File_MARC_Record
      * encoding must be UTF8, otherwise the returned values will be corrupted.
      *
      * @return string          representation of MARC record in JSON format
-     *
-     * @todo Fix encoding input / output issues (PHP 6.0 required?)
      */
     function toJSON()
     {
         $json = new StdClass();
-        $json->leader = utf8_encode($this->getLeader());
+        $json->leader = $this->getLeader();
 
         /* Start fields */
         $fields = array();
@@ -516,19 +514,19 @@ class File_MARC_Record
             if (!$field->isEmpty()) {
                 switch(get_class($field)) {
                 case "File_MARC_Control_Field":
-                    $fields[] = array(utf8_encode($field->getTag()) => utf8_encode($field->getData()));
+                    $fields[] = array($field->getTag() => $field->getData());
                     break;
 
                 case "File_MARC_Data_Field":
                     $subs = array();
                     foreach ($field->getSubfields() as $sf) {
-                        $subs[] = array(utf8_encode($sf->getCode()) => utf8_encode($sf->getData()));
+                        $subs[] = array($sf->getCode() => $sf->getData());
                     }
                     $contents = new StdClass();
-                    $contents->ind1 = utf8_encode($field->getIndicator(1));
-                    $contents->ind2 = utf8_encode($field->getIndicator(2));
+                    $contents->ind1 = $field->getIndicator(1);
+                    $contents->ind2 = $field->getIndicator(2);
                     $contents->subfields = $subs;
-                    $fields[] = array(utf8_encode($field->getTag()) => $contents);
+                    $fields[] = array($field->getTag() => $contents);
                     break;
                 }
             }
