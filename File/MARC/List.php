@@ -187,15 +187,21 @@ class File_MARC_List extends SplDoublyLinkedList
         $pos = 0;
 
         // Omit target node and adjust pos of remainder
+        $done = false;
         try {
             while ($n = $this->current()) {
-                if ($pos == $target_pos) {
+                if ($pos == $target_pos && !$done) {
+                    $done = true;
+                    $this->next();
                     $this->offsetUnset($pos);
-                } elseif ($pos > $target_pos) {
+                } elseif ($pos >= $target_pos) {
                     $n->setPosition($pos);
+                    $pos++;
+                    $this->next();
+                } else {
+                    $pos++;
+                    $this->next();
                 }
-                $pos++;
-                $this->next();
             }
         }
         catch (Exception $e) {
