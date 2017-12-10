@@ -33,5 +33,7 @@
     },
     "suggest": {
         "pear/validate_ispn": "Install optionally via your project's composer.json"
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
