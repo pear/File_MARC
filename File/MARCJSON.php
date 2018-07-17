@@ -115,8 +115,8 @@ class File_MARCJSON extends File_MARCBASE
      * ?>
      * </code>
      *
-     * @param string $source        A raw MARC-in-JSON string
-     * @param string $record_class  Record class, defaults to File_MARC_Record
+     * @param string $source       A raw MARC-in-JSON string
+     * @param string $record_class Record class, defaults to File_MARC_Record
      */
     function __construct($source, $record_class = null)
     {
@@ -161,7 +161,7 @@ class File_MARCJSON extends File_MARCBASE
     {
         if ($this->text) {
             $marc = $this->_decode($this->text);
-            $this->text = NULL;
+            $this->text = null;
             return $marc;
         } else {
             return false;
