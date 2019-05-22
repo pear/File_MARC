@@ -38,6 +38,8 @@
  * @example   marc_yaz.php Pretty print a MARC record retrieved through the PECL yaz extension
  */
 
+require_once 'File/MARC/Record.php';
+
 // {{{ class File_MARCBASE
 /**
  * The main File_MARCBASE class provides common methods for File_MARC and
@@ -58,6 +60,13 @@ class File_MARCBASE
      * @var XMLWriter
      */
     protected $xmlwriter;
+
+    /**
+     * Record class
+     *
+     * @var string
+     */
+    protected $record_class;
     // }}}
 
     // {{{ Constructor: function __construct()
@@ -77,14 +86,17 @@ class File_MARCBASE
      * ?>
      * </code>
      *
-     * @param string $source Name of the file, or a raw MARC string
-     * @param int    $type   Source of the input, either SOURCE_FILE or SOURCE_STRING
+     * @param string $source        Name of the file, or a raw MARC string
+     * @param int    $type          Source of the input, either SOURCE_FILE or SOURCE_STRING
+     * @param string $record_class  Record class, defaults to File_MARC_Record
      */
-    function __construct($source, $type)
+    function __construct($source, $type, $record_class)
     {
         $this->xmlwriter = new XMLWriter();
         $this->xmlwriter->openMemory();
         $this->xmlwriter->startDocument('1.0', 'UTF-8');
+
+        $this->record_class = $record_class ?: File_MARC_Record::class;
     }
     // }}}
 

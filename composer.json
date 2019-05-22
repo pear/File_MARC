@@ -27,7 +27,8 @@
         "pear/pear_exception": "1.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "*"
+        "phpunit/phpunit": "*",
+        "squizlabs/PHP_CodeSniffer": "*"
     },
     "suggest": {
         "pear/validate_ispn": "Install optionally via your project's composer.json"
