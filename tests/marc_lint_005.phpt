@@ -14,7 +14,7 @@ class File_MARC_Lint_Test_Harness extends File_MARC_Lint
 {
     public function check020($field)
     {
-        return parent::check020($field);
+        return @parent::check020($field);
     }
 
     // override warn method to echo instead of store in object:

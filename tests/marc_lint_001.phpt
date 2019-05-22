@@ -13,7 +13,7 @@ $marc_lint = new File_MARC_Lint();
 print "Test records in camel.mrc\n";
 $marc_file = new File_MARC($dir . '/' . 'camel.mrc');
 while ($marc_record = $marc_file->next()) {
-  $warnings = $marc_lint->checkRecord($marc_record);
+  $warnings = @$marc_lint->checkRecord($marc_record);
   foreach ($warnings as $warning) {
     print $warning . "\n";
   }
