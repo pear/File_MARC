@@ -133,7 +133,7 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
  <dependencies>
   <required>
    <php>
-    <min>5.5</min>
+    <min>5.6</min>
    </php>
    <pearinstaller>
     <min>1.4.0</min>
