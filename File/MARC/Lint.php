@@ -763,6 +763,13 @@ class File_MARC_Lint
         $titleField = $field->getSubfield('a');
         $title = $titleField ? $titleField->getData() : '';
 
+        // warn about out-of-range skip indicators (note: this feature is an
+        // addition to the PHP code; it is not ported directly from MARC::Lint).
+        if ($ind > strlen($title)) {
+            $this->warn($tagNo . ": Non-filing indicator is out of range");
+            return;
+        }
+
         $char1_notalphanum = 0;
         // check for apostrophe, quote, bracket,  or parenthesis, before first word
         // remove if found and add to non-word counter
