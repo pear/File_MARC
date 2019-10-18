@@ -8,7 +8,7 @@
  * This module is adapted from the MARC::Lint CPAN module for Perl, maintained by
  * Bryan Baldus <eijabb@cpan.org> and available at http://search.cpan.org/~eijabb/
  *
- * Current MARC::Lint version used as basis for this module: 1.47
+ * Current MARC::Lint version used as basis for this module: 1.52
  *
  * PHP version 5
  *
@@ -30,7 +30,7 @@
  * @package   File_MARC
  * @author    Demian Katz <demian.katz@villanova.edu>
  * @author    Dan Scott <dscott@laurentian.ca>
- * @copyright 2003-2013 Oy Realnode Ab, Dan Scott
+ * @copyright 2003-2019 Oy Realnode Ab, Dan Scott
  * @license   http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
  * @version   CVS: $Id: Record.php 308146 2011-02-08 20:36:20Z dbs $
  * @link      http://pear.php.net/package/File_MARC
@@ -729,7 +729,9 @@ class File_MARC_Lint
             'L-',
             'La Salle',
             'Las Vegas',
+            'Lo cual',
             'Lo mein',
+            'Lo que',
             'Los Alamos',
             'Los Angeles',
         );
@@ -767,6 +769,13 @@ class File_MARC_Lint
         // get subfield 'a' of the title field
         $titleField = $field->getSubfield('a');
         $title = $titleField ? $titleField->getData() : '';
+
+        // warn about out-of-range skip indicators (note: this feature is an
+        // addition to the PHP code; it is not ported directly from MARC::Lint).
+        if ($ind > strlen($title)) {
+            $this->warn($tagNo . ": Non-filing indicator is out of range");
+            return;
+        }
 
         $char1_notalphanum = 0;
         // check for apostrophe, quote, bracket,  or parenthesis, before first word
@@ -878,7 +887,7 @@ class File_MARC_Lint
 
         // We may or may not have additional details:
         for ($i = 1; $i < count($rules); $i++) {
-            list($key, $value, $lineDesc) = explode(' ', $rules[$i]);
+            list($key, $value, $lineDesc) = explode(' ', $rules[$i] . ' ');
             if (substr($key, 0, 3) == 'ind') {
                 // Expand ranges:
                 $value = str_replace('0-9', '0123456789', $value);
@@ -1014,6 +1023,7 @@ f       R       Party to document
 ind1    blank   Undefined
 ind2    blank   Undefined
 a       R       National bibliography number
+q       R       Qualifying information
 z       R       Canceled/Invalid national bibliography number
 2       NR      Source
 6       NR      Linkage
@@ -1051,6 +1061,7 @@ ind1    blank   Undefined
 ind2    blank   Undefined
 a       NR      International Standard Book Number
 c       NR      Terms of availability
+q       R       Qualifying information
 z       R       Canceled/invalid ISBN
 6       NR      Linkage
 8       R       Field link and sequence number
@@ -1073,6 +1084,7 @@ ind2    b01     Difference indicator
 a       NR      Standard number or code
 c       NR      Terms of availability
 d       NR      Additional codes following the standard number or code
+q       R       Qualifying information
 z       R       Canceled/invalid standard number or code
 2       NR      Source of number or code
 6       NR      Linkage
@@ -1101,14 +1113,15 @@ e       NR      Unparsed fingerprint
 ind1    blank   Undefined
 ind2    blank   Undefined
 a       NR      Standard technical report number
+q       R       Qualifying information
 z       R       Canceled/invalid number
 6       NR      Linkage
 8       R       Field link and sequence number
 
-028     R       PUBLISHER NUMBER
-ind1    012345  Type of publisher number
+028     R       PUBLISHER NUMBER OR DISTRIBUTOR NUMBER
+ind1    0123456   Type of publisher number
 ind2    0123    Note/added entry controller
-a       NR      Publisher number
+a       NR      Publisher or distributor number
 b       NR      Source
 q       R       Qualifying information
 6       NR      Linkage
@@ -1212,7 +1225,7 @@ b       NR      Source (agency assigning number)
 8       R       Field link and sequence number
 
 037     R       SOURCE OF ACQUISITION
-ind1    blank   Undefined
+ind1    b23     Source of acquisition sequence
 ind2    blank   Undefined
 a       NR      Stock number
 b       NR      Source of stock number/acquisition
@@ -1220,6 +1233,8 @@ c       R       Terms of availability
 f       R       Form of issue
 g       R       Additional format characteristics
 n       R       Note
+3       NR      Materials specified
+5       R       Institution to which field applies
 6       NR      Linkage
 8       R       Field link and sequence number
 
@@ -1298,9 +1313,9 @@ c       R       Formatted pre-9999 B.C. time period
 ind1    blank   Undefined
 ind2    blank   Undefined
 a       NR      Type of date code
-b       NR      Date 1 (B.C. date)
+b       NR      Date 1 (B.C.E. date)
 c       NR      Date 1 (C.E. date)
-d       NR      Date 2 (B.C. date)
+d       NR      Date 2 (B.C.E. date)
 e       NR      Date 2 (C.E. date)
 j       NR      Date resource modified
 k       NR      Beginning or single date created
@@ -1333,6 +1348,7 @@ ind1    b01     Existence in LC collection
 ind2    04      Source of call number
 a       R       Classification number
 b       NR      Item number
+0       R       Authority record control number or standard number
 3       NR      Materials specified
 6       NR      Linkage
 8       R       Field link and sequence number
@@ -1351,6 +1367,7 @@ ind2    blank   Undefined
 a       NR      Geographic classification area code
 b       R       Geographic classification subarea code
 d       R       Populated place name
+0       R       Authority record control number or standard number
 2       NR      Code source
 6       NR      Linkage
 8       R       Field link and sequence number
@@ -1360,6 +1377,7 @@ ind1    b01     Existence in LAC collection
 ind2    0123456789   Type, completeness, source of class/call number
 a       NR      Classification number
 b       NR      Item number
+0       R       Authority record control number or standard number
 2       NR      Source of call/class number
 8       R       Field link and sequence number
 
@@ -1368,6 +1386,7 @@ ind1    b01     Existence in NLM collection
 ind2    04      Source of call number
 a       R       Classification number
 b       NR      Item number
+0       R       Authority record control number or standard number
 8       R       Field link and sequence number
 
 061     R       NATIONAL LIBRARY OF MEDICINE COPY STATEMENT
@@ -1386,10 +1405,11 @@ b       NR      Primary G1 character set
 c       R       Alternate G0 or G1 character set
 
 070     R       NATIONAL AGRICULTURAL LIBRARY CALL NUMBER
-ind1    01      Existence in NAL collection
+ind1    b01     Existence in NAL collection
 ind2    blank   Undefined
 a       R       Classification number
 b       NR      Item number
+0       R       Authority record control number or standard number
 8       R       Field link and sequence number
 
 071     R       NATIONAL AGRICULTURAL LIBRARY COPY STATEMENT
@@ -1422,6 +1442,7 @@ ind2    blank   Undefined
 a       NR      Universal Decimal Classification number
 b       NR      Item number
 x       R       Common auxiliary subdivision
+0       R       Authority record control number or standard number
 2       NR      Edition identifier
 6       NR      Linkage
 8       R       Field link and sequence number
@@ -1456,6 +1477,7 @@ ind2    blank   Undefined
 a       R       Classification number
 b       NR      Item number
 q       NR      Assigning agency
+0       R       Authority record control number or standard number
 2       NR      Source of number
 6       NR      Linkage
 8       R       Field link and sequence number
@@ -1475,6 +1497,7 @@ v       R       Number in internal subarrangement or add table where instruction
 w       R       Table identification-Internal subarrangement or add table
 y       R       Table sequence number for internal subarrangement or add table
 z       R       Table identification
+0       R       Authority record control number or standard number
 6       NR      Linkage
 8       R       Field link and sequence number
 
@@ -1483,6 +1506,7 @@ ind1    b01     Number source
 ind2    blank   Undefined
 a       NR      Classification number
 z       R       Canceled/invalid classification number
+0       R       Authority record control number or standard number
 2       NR      Number source
 6       NR      Linkage
 8       R       Field link and sequence number
@@ -1504,7 +1528,7 @@ c       R       Titles and other words associated with a name
 d       NR      Dates associated with a name
 e       R       Relator term
 f       NR      Date of a work
-g       NR      Miscellaneous information
+g       R       Miscellaneous information
 j       R       Attribution qualifier
 k       R       Form subheading
 l       NR      Language of a work
@@ -1514,7 +1538,7 @@ q       NR      Fuller form of name
 t       NR      Title of a work
 u       NR      Affiliation
 0       R       Authority record control number
-4       R       Relator code
+4       R       Relationship
 6       NR      Linkage
 8       R       Field link and sequence number
 
@@ -1523,11 +1547,11 @@ ind1    012     Type of corporate name entry element
 ind2    blank   Undefined
 a       NR      Corporate name or jurisdiction name as entry element
 b       R       Subordinate unit
-c       NR      Location of meeting
+c       R       Location of meeting
 d       R       Date of meeting or treaty signing
 e       R       Relator term
 f       NR      Date of a work
-g       NR      Miscellaneous information
+g       R       Miscellaneous information
 k       R       Form subheading
 l       NR      Language of a work
 n       R       Number of part/section/meeting
@@ -1535,7 +1559,7 @@ p       R       Name of part/section of a work
 t       NR      Title of a work
 u       NR      Affiliation
 0       R       Authority record control number
-4       R       Relator code
+4       R       Relationship
 6       NR      Linkage
 8       R       Field link and sequence number
 
@@ -1543,11 +1567,11 @@ u       NR      Affiliation
 ind1    012     Type of meeting name entry element
 ind2    blank   Undefined
 a       NR      Meeting name or jurisdiction name as entry element
-c       NR      Location of meeting
+c       R       Location of meeting
 d       NR      Date of meeting
 e       R       Subordinate unit
 f       NR      Date of a work
-g       NR      Miscellaneous information
+g       R       Miscellaneous information
 j       R       Relator term
 k       R       Form subheading
 l       NR      Language of a work
@@ -1557,7 +1581,7 @@ q       NR      Name of meeting following jurisdiction name entry element
 t       NR      Title of a work
 u       NR      Affiliation
 0       R       Authority record control number
-4       R       Relator code
+4       R       Relationship
 6       NR      Linkage
 8       R       Field link and sequence number
 
@@ -1567,7 +1591,7 @@ ind2    blank   Undefined
 a       NR      Uniform title
 d       R       Date of treaty signing
 f       NR      Date of a work
-g       NR      Miscellaneous information
+g       R       Miscellaneous information
 h       NR      Medium
 k       R       Form subheading
 l       NR      Language of a work
@@ -1605,7 +1629,7 @@ ind2    0-9    Nonfiling characters
 a       NR      Uniform title
 d       R       Date of treaty signing
 f       NR      Date of a work
-g       NR      Miscellaneous information
+g       R       Miscellaneous information
 h       NR      Medium
 k       R       Form subheading
 l       NR      Language of a work
@@ -1638,7 +1662,7 @@ ind2    0-9    Nonfiling characters
 a       NR      Uniform title
 d       R       Date of treaty signing
 f       NR      Date of a work
-g       NR      Miscellaneous information
+g       R       Miscellaneous information
 h       NR      Medium
 k       R       Form subheading
 l       NR      Language of a work
@@ -1673,7 +1697,7 @@ ind2    b012345678    Type of title
 a       NR      Title proper/short title
 b       NR      Remainder of title
 f       NR      Date or sequential designation
-g       NR      Miscellaneous information
+g       R       Miscellaneous information
 h       NR      Medium
 i       NR      Display text
 n       R       Number of part/section of a work
@@ -1688,7 +1712,7 @@ ind2    01      Note controller
 a       NR      Title
 b       NR      Remainder of title
 f       NR      Date or sequential designation
-g       NR      Miscellaneous information
+g       R       Miscellaneous information
 h       NR      Medium
 n       R       Number of part/section of a work
 p       R       Name of part/section of a work
@@ -1736,6 +1760,7 @@ a       NR      Computer file characteristics
 ind1    blank   Undefined
 ind2    blank   Undefined
 a       R       Country of producing entity
+0       R       Authority record control number or standard number
 2       NR      Source
 6       NR      Linkage
 8       R       Field link and sequence number
@@ -1822,7 +1847,7 @@ p       R       Contact person
 q       R       Title of contact person
 r       R       Hours
 z       R       Public note
-4       R       Relator code
+4       R       Relationship
 6       NR      Linkage
 8       R       Field link and sequence number
 
@@ -1875,6 +1900,7 @@ ind1    blank   Undefined
 ind2    blank   Undefined
 a       R       Content type term
 b       R       Content type code
+0       R       Authority record control number or standard number
 2       NR      Source
 3       NR      Materials specified
 6       NR      Linkage
@@ -1885,6 +1911,7 @@ ind1    blank   Undefined
 ind2    blank   Undefined
 a       R       Media type term
 b       R       Media type code
+0       R       Authority record control number or standard number
 2       NR      Source
 3       NR      Materials specified
 6       NR      Linkage
@@ -1895,6 +1922,7 @@ ind1    blank   Undefined
 ind2    blank   Undefined
 a       R       Carrier type term
 b       R       Carrier type code
+0       R       Authority record control number or standard number
 2       NR      Source
 3       NR      Materials specified
 6       NR      Linkage
@@ -1909,6 +1937,7 @@ c       R       Materials applied to surface
 d       R       Information recording technique
 e       R       Support
 f       R       Production rate/ratio
+g       R       Color content
 h       R       Location within medium
 i       R       Technical specifications of medium
 j       R       Generation
@@ -2013,9 +2042,20 @@ b       R       Encoding format
 c       R       File size
 d       R       Resolution
 e       R       Regional encoding
-f       R       Transmission speed
+f       R       Encoded bitrate
 0       R       Authority record control number or standard number
 2       NR      Source
+3       NR      Materials specified
+6       NR      Linkage
+8       R       Field link and sequence number
+
+348     R       FORMAT OF NOTATED MUSIC
+ind1    blank   Undefined
+ind2    blank   Undefined
+a       R       Format of notated music term
+b       R       Format of notated music code
+0       R       Authority record control number or standard number
+2       NR      Source of term
 3       NR      Materials specified
 6       NR      Linkage
 8       R       Field link and sequence number
@@ -2137,10 +2177,29 @@ m       NR      Identification of agency
 6       NR      Linkage
 8       R       Field link and sequence number
 
+370     R       ASSOCIATED PLACE
+ind1    blank   Undefined
+ind2    blank   Undefined
+c       R       Associated country
+f       R       Other associated place
+g       R       Place of origin of work or expression
+i       R       Relationship information
+s       NR      Start period
+t       NR      End period
+u       R       Uniform Resource Identifier
+v       R       Source of information
+0       R       Authority record control number or standard number
+2       NR      Source of term
+3       NR      Materials specified
+4       R       Relationship
+6       NR      Linkage
+8       R       Field link and sequence number
+
 377     R       ASSOCIATED LANGUAGE
 ind1    blank   Undefined
 ind2    b7      Undefined
 a       R       Language code
+0       R       Authority record control number or standard number
 l       R       Language term
 2       NR      Source
 6       NR      Linkage
@@ -2172,12 +2231,16 @@ ind2    b01     Undefined
 a       R       Medium of performance
 b       R       Soloist
 d       R       Doubling instrument
+e       R       Number of ensembles of the same type
 n       R       Number of performers of the same medium
 p       R       Alternative medium of performance
-s       R       Total number of performers
+r       NR      Total number of individuals performing alongside ensembles
+s       NR      Total number of performers
+t       NR      Total number of ensembles
 v       R       Note
 0       R       Record control number
 2       NR      Source of term
+3       NR      Materials specified
 6       NR      Linkage
 8       R       Field link and sequence number
 
@@ -2213,18 +2276,30 @@ n       NR      Demographic group code
 6       NR      Linkage
 8       R       Field link and sequence number
 
-386 - CREATOR/CONTRIBUTOR CHARACTERISTICS (R)
+386     R       CREATOR/CONTRIBUTOR CHARACTERISTICS
 ind1    blank   Undefined
 ind2    blank   Undefined
 a       R       Creator/contributor term
 b       R       Creator/contributor code
+i       R       Relationship information
 m       NR      Demographic group term
 n       NR      Demographic group code
 0       R       Authority record control number or standard number
 2       NR      Source
 3       NR      Materials specified
+4       R       Relationship
 6       NR      Linkage
 8       R       Field link and sequence number
+
+388     R       TIME PERIOD OF CREATION
+ind1    b12     Type of time period
+ind2    blank   Undefined
+a       R       Time period of creation term (R)
+0       R       Authority record control number or standard number (R)
+2       NR      Source of term (NR)
+3       NR      Materials specified (NR)
+6       NR      Linkage (NR)
+8       R       Field link and sequence number (R)
 
 400     R       SERIES STATEMENT/ADDED ENTRY--PERSONAL NAME
 ind1    013     Type of personal name entry element
@@ -2808,6 +2883,9 @@ e       R       Filing scheme or code
 ind1    b8      Display constant controller
 ind2    blank   Undefined
 a       NR      Methodology note
+b       R       Controlled term
+0       R       Authority record control number or standard number
+2       NR      Source of term
 6       NR      Linkage
 8       R       Field link and sequence number
 
@@ -2880,7 +2958,7 @@ a       NR      Awards note
 8       R       Field link and sequence number
 
 588     R       SOURCE OF DESCRIPTION NOTE
-ind1    blank   Undefined
+ind1    b01     Display constant controller
 ind2    blank   Undefined
 a       NR      Source of description note
 5       NR      Institution to which field applies
@@ -2896,7 +2974,7 @@ c       R       Titles and other words associated with a name
 d       NR      Dates associated with a name
 e       R       Relator term
 f       NR      Date of a work
-g       NR      Miscellaneous information
+g       R       Miscellaneous information
 h       NR      Medium
 j       R       Attribution qualifier
 k       R       Form subheading
@@ -2917,7 +2995,7 @@ z       R       Geographic subdivision
 0       R       Authority record control number
 2       NR      Source of heading or term
 3       NR      Materials specified
-4       R       Relator code
+4       R       Relationship
 6       NR      Linkage
 8       R       Field link and sequence number
 
@@ -2926,11 +3004,11 @@ ind1    012     Type of corporate name entry element
 ind2    01234567    Thesaurus
 a       NR      Corporate name or jurisdiction name as entry element
 b       R       Subordinate unit
-c       NR      Location of meeting
+c       R       Location of meeting
 d       R       Date of meeting or treaty signing
 e       R       Relator term
 f       NR      Date of a work
-g       NR      Miscellaneous information
+g       R       Miscellaneous information
 h       NR      Medium
 k       R       Form subheading
 l       NR      Language of a work
@@ -2949,7 +3027,7 @@ z       R       Geographic subdivision
 0       R       Authority record control number
 2       NR      Source of heading or term
 3       NR      Materials specified
-4       R       Relator code
+4       R       Relationship
 6       NR      Linkage
 8       R       Field link and sequence number
 
@@ -2957,11 +3035,11 @@ z       R       Geographic subdivision
 ind1    012     Type of meeting name entry element
 ind2    01234567    Thesaurus
 a       NR      Meeting name or jurisdiction name as entry element
-c       NR      Location of meeting
+c       R       Location of meeting
 d       NR      Date of meeting
 e       R       Subordinate unit
 f       NR      Date of a work
-g       NR      Miscellaneous information
+g       R       Miscellaneous information
 h       NR      Medium
 j       R       Relator term
 k       R       Form subheading
@@ -2979,7 +3057,7 @@ z       R       Geographic subdivision
 0       R       Authority record control number
 2       NR      Source of heading or term
 3       NR      Materials specified
-4       R       Relator code
+4       R       Relationship
 6       NR      Linkage
 8       R       Field link and sequence number
 
@@ -2990,7 +3068,7 @@ a       NR      Uniform title
 d       R       Date of treaty signing
 e       R       Relator term
 f       NR      Date of a work
-g       NR      Miscellaneous information
+g       R       Miscellaneous information
 h       NR      Medium
 k       R       Form subheading
 l       NR      Language of a work
@@ -3008,12 +3086,29 @@ z       R       Geographic subdivision
 0       R       Authority record control number
 2       NR      Source of heading or term
 3       NR      Materials specified
-4       R       Relator code
+4       R       Relationship
+6       NR      Linkage
+8       R       Field link and sequence number
+
+647     R       SUBJECT ADDED ENTRY--NAMED EVENT
+ind1    blank   Undefined
+ind2    01234567    Thesaurus
+a       NR      Named event
+c       R       Location of named event
+d       NR      Date of named event
+g       R       Miscellaneous information
+v       R       Form subdivision
+x       R       General subdivision
+y       R       Chronological subdivision
+z       R       Geographic subdivision
+0       R       Authority record control number or standard number
+2       NR      Source of heading or term
+3       NR      Materials specified
 6       NR      Linkage
 8       R       Field link and sequence number
 
 648     R       SUBJECT ADDED ENTRY--CHRONOLOGICAL TERM
-ind1    b01     Type of date or time period
+ind1    blank   Undefined
 ind2    01234567    Thesaurus
 a       NR      Chronological term
 v       R       Form subdivision
@@ -3041,7 +3136,7 @@ z       R       Geographic subdivision
 0       R       Authority record control number
 2       NR      Source of heading or term
 3       NR      Materials specified
-4       R       Relator code
+4       R       Relationship
 6       NR      Linkage
 8       R       Field link and sequence number
 
@@ -3057,7 +3152,7 @@ z       R       Geographic subdivision
 0       R       Authority record control number
 2       NR      Source of heading or term
 3       NR      Materials specified
-4       R       Relator code
+4       R       Relationship
 6       NR      Linkage
 8       R       Field link and sequence number
 
@@ -3081,7 +3176,7 @@ z       R       Geographic subdivision
 0       R       Authority record control number
 2       NR      Source of heading or term
 3       NR      Materials specified
-4       R       Relator code
+4       R       Relationship
 6       NR      Linkage
 8       R       Field link and sequence number
 
@@ -3155,7 +3250,7 @@ g       R       Other nonjurisdictional geographic region and feature
 h       R       Extraterrestrial area
 0       R       Authority record control number
 2       NR      Source of heading or term
-4       R       Relator code
+4       R       Relationship
 6       NR      Linkage
 8       R       Field link and sequence number
 
@@ -3168,7 +3263,7 @@ c       R       Titles and other words associated with a name
 d       NR      Dates associated with a name
 e       R       Relator term
 f       NR      Date of a work
-g       NR      Miscellaneous information
+g       R       Miscellaneous information
 h       NR      Medium
 i       R       Relationship information
 j       R       Attribution qualifier
@@ -3186,7 +3281,7 @@ u       NR      Affiliation
 x       NR      International Standard Serial Number
 0       R       Authority record control number
 3       NR      Materials specified
-4       R       Relator code
+4       R       Relationship
 5       NR      Institution to which field applies
 6       NR      Linkage
 8       R       Field link and sequence number
@@ -3196,11 +3291,11 @@ ind1    012     Type of corporate name entry element
 ind2    b2      Type of added entry
 a       NR      Corporate name or jurisdiction name as entry element
 b       R       Subordinate unit
-c       NR      Location of meeting
+c       R       Location of meeting
 d       R       Date of meeting or treaty signing
 e       R       Relator term
 f       NR      Date of a work
-g       NR      Miscellaneous information
+g       R       Miscellaneous information
 h       NR      Medium
 i       R       Relationship information
 k       R       Form subheading
@@ -3216,7 +3311,7 @@ u       NR      Affiliation
 x       NR      International Standard Serial Number
 0       R       Authority record control number
 3       NR      Materials specified
-4       R       Relator code
+4       R       Relationship
 5       NR      Institution to which field applies
 6       NR      Linkage
 8       R       Field link and sequence number
@@ -3225,11 +3320,11 @@ x       NR      International Standard Serial Number
 ind1    012     Type of meeting name entry element
 ind2    b2      Type of added entry
 a       NR      Meeting name or jurisdiction name as entry element
-c       NR      Location of meeting
+c       R       Location of meeting
 d       NR      Date of meeting
 e       R       Subordinate unit
 f       NR      Date of a work
-g       NR      Miscellaneous information
+g       R       Miscellaneous information
 h       NR      Medium
 i       R       Relationship information
 j       R       Relator term
@@ -3244,7 +3339,7 @@ u       NR      Affiliation
 x       NR      International Standard Serial Number
 0       R       Authority record control number
 3       NR      Materials specified
-4       R       Relator code
+4       R       Relationship
 5       NR      Institution to which field applies
 6       NR      Linkage
 8       R       Field link and sequence number
@@ -3254,7 +3349,7 @@ ind1    b12     Type of name
 ind2    blank   Undefined
 a       NR      Name
 e       R       Relator term
-4       R       Relator code
+4       R       Relationship
 6       NR      Linkage
 8       R       Field link and sequence number
 
@@ -3264,7 +3359,7 @@ ind2    b2      Type of added entry
 a       NR      Uniform title
 d       R       Date of treaty signing
 f       NR      Date of a work
-g       NR      Miscellaneous information
+g       R       Miscellaneous information
 h       NR      Medium
 i       R       Relationship information
 k       R       Form subheading
@@ -3302,7 +3397,7 @@ e       R       Relator term
 0       R       Authority record control number
 2       NR      Source of heading or term
 3       NR      Materials specified
-4       R       Relator code
+4       R       Relationship
 6       NR      Linkage
 8       R       Field link and sequence number
 
@@ -3313,11 +3408,13 @@ a       NR      Country or larger entity
 b       NR      First-order political jurisdiction
 c       NR      Intermediate political jurisdiction
 d       NR      City
+e       R       Relator term
 f       R       City subsection
 g       R       Other nonjurisdictional geographic region and feature
 h       R       Extraterrestrial area
 0       R       Authority record control number
 2       NR      Source of heading or term
+4       R       Relationship
 6       NR      Linkage
 8       R       Field link and sequence number
 
@@ -3327,6 +3424,8 @@ ind2    blank   Undefined
 a       NR      Make and model of machine
 b       NR      Programming language
 c       NR      Operating system
+0       R       Authority record control number or standard number
+2       NR      Source of term
 6       NR      Linkage
 8       R       Field link and sequence number
 
@@ -3361,7 +3460,7 @@ t       NR      Title
 w       R       Record control number
 x       NR      International Standard Serial Number
 y       NR      CODEN designation
-4       R       Relationship code
+4       R       Relationship
 6       NR      Linkage
 7       NR      Control subfield
 8       R       Field link and sequence number
@@ -3384,7 +3483,7 @@ t       NR      Title
 w       R       Record control number
 x       NR      International Standard Serial Number
 y       NR      CODEN designation
-4       R       Relationship code
+4       R       Relationship
 6       NR      Linkage
 7       NR      Control subfield
 8       R       Field link and sequence number
@@ -3411,7 +3510,7 @@ w       R       Record control number
 x       NR      International Standard Serial Number
 y       NR      CODEN designation
 z       R       International Standard Book Number
-4       R       Relationship code
+4       R       Relationship
 6       NR      Linkage
 7       NR      Control subfield
 8       R       Field link and sequence number
@@ -3438,7 +3537,7 @@ w       R       Record control number
 x       NR      International Standard Serial Number
 y       NR      CODEN designation
 z       R       International Standard Book Number
-4       R       Relationship code
+4       R       Relationship
 6       NR      Linkage
 7       NR      Control subfield
 8       R       Field link and sequence number
@@ -3465,7 +3564,7 @@ w       R       Record control number
 x       NR      International Standard Serial Number
 y       NR      CODEN designation
 z       R       International Standard Book Number
-4       R       Relationship code
+4       R       Relationship
 6       NR      Linkage
 7       NR      Control subfield
 8       R       Field link and sequence number
@@ -3492,7 +3591,7 @@ w       R       Record control number
 x       NR      International Standard Serial Number
 y       NR      CODEN designation
 z       R       International Stan dard Book Number
-4       R       Relationship code
+4       R       Relationship
 6       NR      Linkage
 7       NR      Control subfield
 8       R       Field link and sequence number
@@ -3521,7 +3620,7 @@ x       NR      International Standard Serial Number
 y       NR      CODEN designation
 z       R       International Standard Book Number
 3       NR      Materials specified
-4       R       Relationship code
+4       R       Relationship
 6       NR      Linkage
 7       NR      Control subfield
 8       R       Field link and sequence number
@@ -3548,7 +3647,7 @@ w       R       Record control number
 x       NR      International Standard Serial Number
 y       NR      CODEN designation
 z       R       International Standard Book Number
-4       R       Relationship code
+4       R       Relationship
 6       NR      Linkage
 7       NR      Control subfield
 8       R       Field link and sequence number
@@ -3577,7 +3676,7 @@ w       R       Record control number
 x       NR      International Standard Serial Number
 y       NR      CODEN designation
 z       R       International Standard Book Number
-4       R       Relationship code
+4       R       Relationship
 6       NR      Linkage
 7       NR      Control subfield
 8       R       Field link and sequence number
@@ -3604,7 +3703,7 @@ w       R       Record control number
 x       NR      International Standard Serial Number
 y       NR      CODEN designation
 z       R       International Standard Book Number
-4       R       Relationship code
+4       R       Relationship
 6       NR      Linkage
 7       NR      Control subfield
 8       R       Field link and sequence number
@@ -3628,7 +3727,7 @@ t       NR      Title
 w       R       Record control number
 x       NR      International Standard Serial Number
 y       NR      CODEN designation
-4       R       Relationship code
+4       R       Relationship
 6       NR      Linkage
 7       NR      Control subfield
 8       R       Field link and sequence number
@@ -3655,7 +3754,7 @@ w       R       Record control number
 x       NR      International Standard Serial Number
 y       NR      CODEN designation
 z       R       International Standard Book Number
-4       R       Relationship code
+4       R       Relationship
 6       NR      Linkage
 7       NR      Control subfield
 8       R       Field link and sequence number
@@ -3682,7 +3781,7 @@ w       R       Record control number
 x       NR      International Standard Serial Number
 y       NR      CODEN designation
 z       R       International Standard Book Number
-4       R       Relationship code
+4       R       Relationship
 6       NR      Linkage
 7       NR      Control subfield
 8       R       Field link and sequence number
@@ -3712,7 +3811,7 @@ w       R       Record control number
 x       NR      International Standard Serial Number
 y       NR      CODEN designation
 z       R       International Standard Book Number
-4       R       Relationship code
+4       R       Relationship
 6       NR      Linkage
 7       NR      Control subfield
 8       R       Field link and sequence number
@@ -3739,7 +3838,7 @@ w       R       Record control number
 x       NR      International Standard Serial Number
 y       NR      CODEN designation
 z       R       International Standard Book Number
-4       R       Relationship code
+4       R       Relationship
 6       NR      Linkage
 7       NR      Control subfield
 8       R       Field link and sequence number
@@ -3753,7 +3852,7 @@ c       R       Titles and other words associated with a name
 d       NR      Dates associated with a name
 e       R       Relator term
 f       NR      Date of a work
-g       NR      Miscellaneous information
+g       R       Miscellaneous information
 h       NR      Medium
 j       R       Attribution qualifier
 k       R       Form subheading
@@ -3772,9 +3871,10 @@ w       R       Bibliographic record control number
 x       NR      International Standard Serial Number
 0       R       Authority record control number
 3       NR      Materials specified
-4       R       Relator code
+4       R       Relationship
 5       R       Institution to which field applies
 6       NR      Linkage
+7       NR      Control subfield
 8       R       Field link and sequence number
 
 810     R       SERIES ADDED ENTRY--CORPORATE NAME
@@ -3782,11 +3882,11 @@ ind1    012     Type of corporate name entry element
 ind2    blank   Undefined
 a       NR      Corporate name or jurisdiction name as entry element
 b       R       Subordinate unit
-c       NR      Location of meeting
+c       R       Location of meeting
 d       R       Date of meeting or treaty signing
 e       R       Relator term
 f       NR      Date of a work
-g       NR      Miscellaneous information
+g       R       Miscellaneous information
 h       NR      Medium
 k       R       Form subheading
 l       NR      Language of a work
@@ -3803,20 +3903,21 @@ w       R       Bibliographic record control number
 x       NR      International Standard Serial Number
 0       R       Authority record control number
 3       NR      Materials specified
-4       R       Relator code
+4       R       Relationship
 5       R       Institution to which field applies
 6       NR      Linkage
+7       NR      Control subfield
 8       R       Field link and sequence number
 
 811     R       SERIES ADDED ENTRY--MEETING NAME
 ind1    012     Type of meeting name entry element
 ind2    blank   Undefined
 a       NR      Meeting name or jurisdiction name as entry element
-c       NR      Location of meeting
+c       R       Location of meeting
 d       NR      Date of meeting
 e       R       Subordinate unit
 f       NR      Date of a work
-g       NR      Miscellaneous information
+g       R       Miscellaneous information
 h       NR      Medium
 j       R       Relator term
 k       R       Form subheading
@@ -3832,9 +3933,10 @@ w       R       Bibliographic record control number
 x       NR      International Standard Serial Number
 0       R       Authority record control number
 3       NR      Materials specified
-4       R       Relator code
+4       R       Relationship
 5       R       Institution to which field applies
 6       NR      Linkage
+7       NR      Control subfield
 8       R       Field link and sequence number
 
 830     R       SERIES ADDED ENTRY--UNIFORM TITLE
@@ -3843,7 +3945,7 @@ ind2    0-9     Nonfiling characters
 a       NR      Uniform title
 d       R       Date of treaty signing
 f       NR      Date of a work
-g       NR      Miscellaneous information
+g       R       Miscellaneous information
 h       NR      Medium
 k       R       Form subheading
 l       NR      Language of a work
@@ -3861,6 +3963,7 @@ x       NR      International Standard Serial Number
 3       NR      Materials specified
 5       R       Institution to which field applies
 6       NR      Linkage
+7       NR      Control subfield
 8       R       Field link and sequence number
 
 841     NR      HOLDINGS CODED DATA VALUES
@@ -3990,6 +4093,29 @@ u       NR      Uniform Resource Identifier
 w       R       Bibliographic record control number
 0       R       Authority record control number or standard number
 8       R       Field link and sequence number
+
+884     R       DESCRIPTION CONVERSION INFORMATION
+ind1    blank   Undefined
+ind2    blank   Undefined
+a       NR      Conversion process
+g       NR      Conversion date
+k       NR      Identifier of source metadata
+q       NR      Conversion agency
+u       R       Uniform Resource Identifier
+
+885     R       MATCHING INFORMATION
+ind1    blank   Undefined
+ind2    blank   Undefined
+a       NR      Matching information
+b       NR      Status of matching and its checking
+c       NR      Confidence value
+d       NR      Generation date
+w       R       Record control number
+x       R       Nonpublic note
+z       R       Public note
+0       R       Authority record control number or standard number
+2       NR      Source
+5       R       Institution to which field applies
 
 886     R       FOREIGN MARC INFORMATION FIELD
 ind1    012     Type of field
