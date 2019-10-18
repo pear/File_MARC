@@ -5,9 +5,7 @@ marc_xml_012: load from SimpleXMLElement object
 --FILE--
 <?php
 $dir = dirname(__FILE__);
-require 'File/MARC.php';
-require 'File/MARCXML.php';
-
+require __DIR__ . '/bootstrap.php';
 
 $xml_obj = simplexml_load_file($dir . '/namespace.xml', "SimpleXMLElement", 0, "http://www.loc.gov/MARC21/slim", false);
 

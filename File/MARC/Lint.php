@@ -66,6 +66,12 @@ class File_MARC_Lint
     protected $data;
 
     /**
+     * A Validate_ISPN object for validating ISBN numbers
+     * @var Validate_ISPN
+     */
+    protected $validateIspn;
+
+    /**
      * Warnings generated during analysis
      * @var array
      */
@@ -85,6 +91,7 @@ class File_MARC_Lint
     {
         $this->parseRules();
         $this->data = new File_MARC_Lint_CodeData();
+        $this->validateIspn = new Validate_ISPN();
     }
     // }}}
 
@@ -343,11 +350,11 @@ class File_MARC_Lint
                     );
                 } else {
                     if (strlen($isbn) == 10) {
-                        if (!Validate_ISPN::isbn10($isbn)) {
+                        if (!$this->validateIspn->isbn10($isbn)) {
                             $this->warn("020: Subfield a has bad checksum, $data.");
                         }
                     } else if (strlen($isbn) == 13) {
-                        if (!Validate_ISPN::isbn13($isbn)) {
+                        if (!$this->validateIspn->isbn13($isbn)) {
                             $this->warn(
                                 "020: Subfield a has bad checksum (13 digit), $data."
                             );
@@ -363,7 +370,7 @@ class File_MARC_Lint
                     // ## Turned on for now--Comment to unimplement  ####
                     // ##################################################
                     if ((strlen($isbn) == 10)
-                        && (Validate_ISPN::isbn10($isbn) == 1)
+                        && ($this->validateIspn->isbn10($isbn) == 1)
                     ) {
                         $this->warn("020:  Subfield z is numerically valid.");
                     }
