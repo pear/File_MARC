@@ -30,7 +30,7 @@
     },
     "require-dev": {
         "phpunit/phpunit": "*",
-        "squizlabs/PHP_CodeSniffer": "*"
+        "squizlabs/php_codesniffer": "*"
     },
     "suggest": {
         "pear/validate_ispn": "Install optionally via your project's composer.json"
