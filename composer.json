@@ -17,7 +17,9 @@
         ]
     },
     "description": "Supports the MAchine Readable Cataloging (MARC) file format documented at http://loc.gov/marc/",
-    "include-path": [],
+    "include-path": [
+        "./"
+    ],
     "license": "LGPL-2.1",
     "name": "pear/file_marc",
     "support": {
