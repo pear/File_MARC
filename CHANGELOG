@@ -1,3 +1,6 @@
+1.4.1
+  * Reintroduce include_path to composer.json
+
 1.4.0
   * Update File_MARC_Lint to match MARC::Lint 1.52 (thanks Demian Katz)
   * Warn about out-of-range skip indicators (thanks Demian Katz)

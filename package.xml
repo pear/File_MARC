@@ -19,9 +19,9 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
   <email>dbs@php.net</email>
   <active>yes</active>
  </lead>
- <date>2019-11-12</date>
+ <date>2019-11-13</date>
  <version>
-  <release>1.4.0</release>
+  <release>1.4.1</release>
   <api>1.4.0</api>
  </version>
  <stability>
@@ -30,13 +30,8 @@ This package is based on the PHP MARC package, originally called "php-marc", tha
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">GNU Lesser General Public License</license>
  <notes>
-1.4.0
-  * Update File_MARC_Lint to match MARC::Lint 1.52 (thanks Demian Katz)
-  * Warn about out-of-range skip indicators (thanks Demian Katz)
-  * Support initialization from SimpleXMLELement object (thanks Dan Michael O. Heggø)
-  * Fix Travis-CI support (thanks Daniel O'Connor)
-  * Tweak composer.json to support Composer 2.0
-  * Silence PEAR style errors and warnings in File/MARCBASE.php
+1.4.1
+  * Reintroduce include_path to composer.json
  </notes>
  <contents>
   <dir name="/" baseinstalldir="File">
