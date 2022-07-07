@@ -91,9 +91,9 @@ class File_MARC_List extends SplDoublyLinkedList
      * This method enables you to use a foreach iterator to retrieve
      * the tag or code as the key for the iterator.
      *
-     * @return string returns the tag or code
+     * @return int returns the tag or code
      */
-    function key()
+    function key(): int
     {
         if ($this->current() instanceof File_MARC_Field) {
             return $this->current()->getTag();
