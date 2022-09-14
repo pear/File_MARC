@@ -304,6 +304,13 @@ class File_MARC extends File_MARCBASE
             list(, $len) = unpack("A3/A4", substr($dir, $n*File_MARC::DIRECTORY_ENTRY_LEN, File_MARC::DIRECTORY_ENTRY_LEN));
             list(, $offset) = unpack("A3/A4/A5", substr($dir, $n*File_MARC::DIRECTORY_ENTRY_LEN, File_MARC::DIRECTORY_ENTRY_LEN));
 
+            if (!is_numeric($len)) {
+                $len = 0;
+            }
+            if (!is_numeric($offset)) {
+                $offset = 0;
+            }
+
             // Check directory validity
             if (!preg_match("/^[0-9A-Za-z]{3}$/", $tag)) {
                 $marc->addWarning(File_MARC_Exception::formatError(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_INVALID_DIRECTORY_TAG], array("tag" => $tag)));
