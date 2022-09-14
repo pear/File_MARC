@@ -300,9 +300,17 @@ class File_MARC extends File_MARCBASE
         $nfields = strlen($dir) / File_MARC::DIRECTORY_ENTRY_LEN;
         for ($n=0; $n<$nfields; $n++) {
             // As pack returns to key 1, leave place 0 in list empty
-            list(, $tag) = unpack("A3", substr($dir, $n*File_MARC::DIRECTORY_ENTRY_LEN, File_MARC::DIRECTORY_ENTRY_LEN));
-            list(, $len) = unpack("A3/A4", substr($dir, $n*File_MARC::DIRECTORY_ENTRY_LEN, File_MARC::DIRECTORY_ENTRY_LEN));
-            list(, $offset) = unpack("A3/A4/A5", substr($dir, $n*File_MARC::DIRECTORY_ENTRY_LEN, File_MARC::DIRECTORY_ENTRY_LEN));
+            $binaryString = substr($dir, $n*File_MARC::DIRECTORY_ENTRY_LEN, File_MARC::DIRECTORY_ENTRY_LEN);
+
+            $tag = null;
+            $len = null;
+            $offset = null;
+
+            if (strlen($binaryString) >= File_MARC::DIRECTORY_ENTRY_LEN) {
+                list(, $tag) = unpack("A3", $binaryString);
+                list(, $len) = unpack("A3/A4", $binaryString);
+                list(, $offset) = unpack("A3/A4/A5", $binaryString);
+            }
 
             if (!is_numeric($len)) {
                 $len = 0;
