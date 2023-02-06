@@ -133,7 +133,7 @@ class File_MARC_Field extends File_MARC_List
      *
      * @return bool Returns true if the field is empty, otherwise false
      */
-    function isEmpty()
+    function isEmpty(): bool
     {
         if ($this->getTag()) {
             return false;
