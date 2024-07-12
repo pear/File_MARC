@@ -50,12 +50,13 @@ echo $list->count() . " nodes\n";
 // Check key method
 echo "---\n";
 $list->rewind();
-echo 'Key (field): ' . $list->key() . "\n";
+echo 'Key (field): ' . str_pad((string)$list->key(),3,'0',STR_PAD_LEFT) . "\n";
 
 $subfield = new File_MARC_Subfield( 'a', 'test' );
 $list->prependNode( $subfield );
 $list->rewind();
-echo 'Key (subfield): ' . $list->key(). "\n";
+// when we call key() method directly we must to use chr to get the int index as char
+echo 'Key (subfield): ' . chr($list->key()). "\n";
 ?>
 --EXPECT--
 0: 002     00002

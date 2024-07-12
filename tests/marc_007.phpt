@@ -10,13 +10,14 @@ $marc_file = new File_MARC($dir . '/' . 'example.mrc');
 
 if ($marc_record = $marc_file->next()) {
     foreach ($marc_record->getFields() as $tag=>$value) {
-        print "$tag: ";
+        //print "$tag: ";
+         print $value->gettag().': '; 
 	    if ($value instanceof File_MARC_Control_Field) {
                 print $value->getData();
             }
 	    else {
                 foreach ($value->getSubfields() as $code=>$subdata) {
-                    print "_$code";
+                      print "_".$subdata->getcode();
                 }
             }
         print "\n";
