@@ -237,7 +237,8 @@ class File_MARC_Subfield
     function isEmpty()
     {
         // There is data
-        if (strlen($this->data)) {
+        if ($this->data===null) return true; 
+        if ( strlen($this->data)) {
             return false;
         }
 

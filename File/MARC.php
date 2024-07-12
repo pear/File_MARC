@@ -167,9 +167,13 @@ class File_MARC extends File_MARCBASE
             }
             break;
 
-        case self::SOURCE_STRING:
+        case self::SOURCE_STRING :
             $this->type = self::SOURCE_STRING;
+            if ($source===null)
+            $this->source=[]; 
+            else 
             $this->source = explode(File_MARC::END_OF_RECORD, $source);
+        
             break;
 
         default:
@@ -196,7 +200,9 @@ class File_MARC extends File_MARCBASE
             $record = preg_replace('/^[\\x0a\\x0d\\x00]+/', "", $record);
 
         } elseif ($this->type == self::SOURCE_STRING) {
+            
             $record = array_shift($this->source);
+            
         }
 
         // Exit if we are at the end of the file
@@ -318,9 +324,9 @@ class File_MARC extends File_MARCBASE
             if (!is_numeric($offset)) {
                 $offset = 0;
             }
-
+            if ($tag===null) $tag=''; 
             // Check directory validity
-            if (!preg_match("/^[0-9A-Za-z]{3}$/", $tag)) {
+            if (  !preg_match("/^[0-9A-Za-z]{3}$/", $tag)) {
                 $marc->addWarning(File_MARC_Exception::formatError(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_INVALID_DIRECTORY_TAG], array("tag" => $tag)));
             }
             if (!preg_match("/^\d{4}$/", $len)) {

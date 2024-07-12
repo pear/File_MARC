@@ -98,7 +98,9 @@ class File_MARC_List extends SplDoublyLinkedList
         if ($this->current() instanceof File_MARC_Field) {
             return $this->current()->getTag();
         } elseif ($this->current() instanceof File_MARC_Subfield) {
-            return $this->current()->getCode();
+            if (!is_int( $this->current()->getCode())) return  ord($this->current()->getcode());
+            else
+            return  $this->current()->getCode();
         }
         return false;
     }
