@@ -98,6 +98,13 @@ class File_MARCJSON extends File_MARCBASE
      */
     protected $counter;
 
+    /**
+     * Decoded JSON object for the record
+     *
+     * @var object|null
+     */
+    protected $text;
+
     // }}}
 
 

@@ -100,6 +100,7 @@ class File_MARC_Control_Field extends File_MARC_Field
     function delete()
     {
         $this->__destruct();
+        return true;
     }
     // }}}
 

@@ -98,7 +98,7 @@ class File_MARC_Data_Field extends File_MARC_Field
      * @param string $ind1      first indicator
      * @param string $ind2      second indicator
      */
-    function __construct($tag, array $subfields = null, $ind1 = null, $ind2 = null)
+    function __construct($tag, ?array $subfields = null, $ind1 = null, $ind2 = null)
     {
         $this->subfields = new File_MARC_List();
 
@@ -136,6 +136,7 @@ class File_MARC_Data_Field extends File_MARC_Field
     function delete()
     {
         $this->__destruct();
+        return true;
     }
     // }}}
 
@@ -181,6 +182,7 @@ class File_MARC_Data_Field extends File_MARC_Field
     {
         /* Append as the last subfield in the field */
         $this->subfields->appendNode($new_subfield);
+        return $new_subfield;
     }
     // }}}
 
@@ -286,7 +288,7 @@ class File_MARC_Data_Field extends File_MARC_Field
         } elseif ($ind == 2) {
             return (string)$this->ind2;
         } else {
-             $errorMessage = File_MARC_Exception::formatError(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_INVALID_INDICATOR_REQUEST], array("indicator" => $indicator));
+             $errorMessage = File_MARC_Exception::formatError(File_MARC_Exception::$messages[File_MARC_Exception::ERROR_INVALID_INDICATOR_REQUEST], array("indicator" => $ind));
              throw new File_MARC_Exception($errorMessage, File_MARC_Exception::ERROR_INVALID_INDICATOR_REQUEST);
         }
         return false;

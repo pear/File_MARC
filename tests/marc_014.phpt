@@ -37,7 +37,7 @@ $field_966_2 = new File_MARC_Data_Field('966', $subfields_966_2, null, null);
 $marc_record->appendField($field_966_2);
 
 // let's see the results
-print utf8_encode($marc_record);
+print mb_convert_encoding((string)$marc_record, 'UTF-8', 'ISO-8859-1');
 print "\n";
 
 ?>
