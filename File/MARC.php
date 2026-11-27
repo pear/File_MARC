@@ -169,7 +169,7 @@ class File_MARC extends File_MARCBASE
 
         case self::SOURCE_STRING:
             $this->type = self::SOURCE_STRING;
-            $this->source = explode(File_MARC::END_OF_RECORD, $source);
+            $this->source = explode(File_MARC::END_OF_RECORD, $source ?? '');
             break;
 
         default:
@@ -193,7 +193,9 @@ class File_MARC extends File_MARCBASE
             $record = stream_get_line($this->source, File_MARC::MAX_RECORD_LENGTH, File_MARC::END_OF_RECORD);
 
             // Remove illegal stuff that sometimes occurs between records
-            $record = preg_replace('/^[\\x0a\\x0d\\x00]+/', "", $record);
+            if ($record !== false) {
+                $record = preg_replace('/^[\\x0a\\x0d\\x00]+/', "", $record);
+            }
 
         } elseif ($this->type == self::SOURCE_STRING) {
             $record = array_shift($this->source);
@@ -302,7 +304,7 @@ class File_MARC extends File_MARCBASE
             // As pack returns to key 1, leave place 0 in list empty
             $binaryString = substr($dir, $n*File_MARC::DIRECTORY_ENTRY_LEN, File_MARC::DIRECTORY_ENTRY_LEN);
 
-            $tag = null;
+            $tag = '';
             $len = null;
             $offset = null;
 

@@ -16,5 +16,5 @@ catch (File_MARC_Exception $fme) {
 
 ?>
 --EXPECTF--
-Warning: fopen(super_bogus_file): failed to open stream: No such file or directory in %sMARC.php on line %d
+Warning: fopen(super_bogus_file): %s to open stream: No such file or directory in %sMARC.php on line %d
 Invalid input file "super_bogus_file"

@@ -416,6 +416,7 @@ class File_MARC_Record
     public function addWarning($warning)
     {
         $this->warnings[] = $warning;
+        return true;
     }
     // }}}
 
@@ -505,10 +506,26 @@ class File_MARC_Record
      *
      * @todo Fix encoding input / output issues (PHP 6.0 required?)
      */
+    /**
+     * Convert ISO-8859-1 string to UTF-8 without deprecated utf8_encode().
+     *
+     * @param string|null $str Input string
+     *
+     * @return string UTF-8 encoded string
+     */
+    private function _utf8Encode($str)
+    {
+        $str = (string)$str;
+        if (function_exists('mb_convert_encoding')) {
+            return mb_convert_encoding($str, 'UTF-8', 'ISO-8859-1');
+        }
+        return iconv('ISO-8859-1', 'UTF-8', $str);
+    }
+
     function toJSON()
     {
         $json = new StdClass();
-        $json->leader = utf8_encode($this->getLeader());
+        $json->leader = $this->_utf8Encode($this->getLeader());
 
         /* Start fields */
         $fields = array();
@@ -516,19 +533,19 @@ class File_MARC_Record
             if (!$field->isEmpty()) {
                 switch(get_class($field)) {
                 case "File_MARC_Control_Field":
-                    $fields[] = array(utf8_encode($field->getTag()) => utf8_encode($field->getData()));
+                    $fields[] = array($this->_utf8Encode($field->getTag()) => $this->_utf8Encode($field->getData()));
                     break;
 
                 case "File_MARC_Data_Field":
                     $subs = array();
                     foreach ($field->getSubfields() as $sf) {
-                        $subs[] = array(utf8_encode($sf->getCode()) => utf8_encode($sf->getData()));
+                        $subs[] = array($this->_utf8Encode($sf->getCode()) => $this->_utf8Encode($sf->getData()));
                     }
                     $contents = new StdClass();
-                    $contents->ind1 = utf8_encode($field->getIndicator(1));
-                    $contents->ind2 = utf8_encode($field->getIndicator(2));
+                    $contents->ind1 = $this->_utf8Encode($field->getIndicator(1));
+                    $contents->ind2 = $this->_utf8Encode($field->getIndicator(2));
                     $contents->subfields = $subs;
-                    $fields[] = array(utf8_encode($field->getTag()) => $contents);
+                    $fields[] = array($this->_utf8Encode($field->getTag()) => $contents);
                     break;
                 }
             }
@@ -561,7 +578,7 @@ class File_MARC_Record
         $json = new StdClass();
         $json->type = "marc-hash";
         $json->version = array(1, 0);
-        $json->leader = utf8_encode($this->getLeader());
+        $json->leader = $this->_utf8Encode($this->getLeader());
 
         /* Start fields */
         $fields = array();
@@ -569,18 +586,18 @@ class File_MARC_Record
             if (!$field->isEmpty()) {
                 switch(get_class($field)) {
                 case "File_MARC_Control_Field":
-                    $fields[] = array(utf8_encode($field->getTag()), utf8_encode($field->getData()));
+                    $fields[] = array($this->_utf8Encode($field->getTag()), $this->_utf8Encode($field->getData()));
                     break;
 
                 case "File_MARC_Data_Field":
                     $subs = array();
                     foreach ($field->getSubfields() as $sf) {
-                        $subs[] = array(utf8_encode($sf->getCode()), utf8_encode($sf->getData()));
+                        $subs[] = array($this->_utf8Encode($sf->getCode()), $this->_utf8Encode($sf->getData()));
                     }
                     $contents = array(
-                        utf8_encode($field->getTag()),
-                        utf8_encode($field->getIndicator(1)),
-                        utf8_encode($field->getIndicator(2)),
+                        $this->_utf8Encode($field->getTag()),
+                        $this->_utf8Encode($field->getIndicator(1)),
+                        $this->_utf8Encode($field->getIndicator(2)),
                         $subs
                     );
                     $fields[] = $contents;

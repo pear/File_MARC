@@ -113,6 +113,7 @@ class File_MARC_Subfield
     function delete()
     {
         $this->__destruct();
+        return true;
     }
     // }}}
 
@@ -237,7 +238,7 @@ class File_MARC_Subfield
     function isEmpty()
     {
         // There is data
-        if (strlen($this->data)) {
+        if (strlen((string)$this->data)) {
             return false;
         }
 
